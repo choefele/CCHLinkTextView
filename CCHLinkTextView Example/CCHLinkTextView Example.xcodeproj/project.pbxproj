@@ -1,0 +1,494 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		623AC49518C11BAD000962A0 /* CCHLinkTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 623AC49418C11BAD000962A0 /* CCHLinkTextView.m */; };
+		62F55CC118C1180200A7E1CC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F55CC018C1180200A7E1CC /* Foundation.framework */; };
+		62F55CC318C1180200A7E1CC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F55CC218C1180200A7E1CC /* CoreGraphics.framework */; };
+		62F55CC518C1180200A7E1CC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F55CC418C1180200A7E1CC /* UIKit.framework */; };
+		62F55CCB18C1180200A7E1CC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 62F55CC918C1180200A7E1CC /* InfoPlist.strings */; };
+		62F55CCD18C1180200A7E1CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F55CCC18C1180200A7E1CC /* main.m */; };
+		62F55CD118C1180200A7E1CC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F55CD018C1180200A7E1CC /* AppDelegate.m */; };
+		62F55CD418C1180200A7E1CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62F55CD218C1180200A7E1CC /* Main.storyboard */; };
+		62F55CD718C1180200A7E1CC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F55CD618C1180200A7E1CC /* ViewController.m */; };
+		62F55CD918C1180200A7E1CC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 62F55CD818C1180200A7E1CC /* Images.xcassets */; };
+		62F55CE018C1180200A7E1CC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F55CDF18C1180200A7E1CC /* XCTest.framework */; };
+		62F55CE118C1180200A7E1CC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F55CC018C1180200A7E1CC /* Foundation.framework */; };
+		62F55CE218C1180200A7E1CC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F55CC418C1180200A7E1CC /* UIKit.framework */; };
+		62F55CEA18C1180200A7E1CC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 62F55CE818C1180200A7E1CC /* InfoPlist.strings */; };
+		62F55CEC18C1180200A7E1CC /* CCHLinkTextView_ExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F55CEB18C1180200A7E1CC /* CCHLinkTextView_ExampleTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		62F55CE318C1180200A7E1CC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 62F55CB518C1180200A7E1CC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 62F55CBC18C1180200A7E1CC;
+			remoteInfo = "CCHLinkTextView Example";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		623AC49318C11BAD000962A0 /* CCHLinkTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCHLinkTextView.h; sourceTree = "<group>"; };
+		623AC49418C11BAD000962A0 /* CCHLinkTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCHLinkTextView.m; sourceTree = "<group>"; };
+		623AC49618C11EAA000962A0 /* CCHLinkTextViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCHLinkTextViewDelegate.h; sourceTree = "<group>"; };
+		62F55CBD18C1180200A7E1CC /* CCHLinkTextView Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CCHLinkTextView Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		62F55CC018C1180200A7E1CC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		62F55CC218C1180200A7E1CC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		62F55CC418C1180200A7E1CC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		62F55CC818C1180200A7E1CC /* CCHLinkTextView Example-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CCHLinkTextView Example-Info.plist"; sourceTree = "<group>"; };
+		62F55CCA18C1180200A7E1CC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		62F55CCC18C1180200A7E1CC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		62F55CCE18C1180200A7E1CC /* CCHLinkTextView Example-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CCHLinkTextView Example-Prefix.pch"; sourceTree = "<group>"; };
+		62F55CCF18C1180200A7E1CC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		62F55CD018C1180200A7E1CC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		62F55CD318C1180200A7E1CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		62F55CD518C1180200A7E1CC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		62F55CD618C1180200A7E1CC /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		62F55CD818C1180200A7E1CC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		62F55CDE18C1180200A7E1CC /* CCHLinkTextView ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CCHLinkTextView ExampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		62F55CDF18C1180200A7E1CC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		62F55CE718C1180200A7E1CC /* CCHLinkTextView ExampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CCHLinkTextView ExampleTests-Info.plist"; sourceTree = "<group>"; };
+		62F55CE918C1180200A7E1CC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		62F55CEB18C1180200A7E1CC /* CCHLinkTextView_ExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CCHLinkTextView_ExampleTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		62F55CBA18C1180200A7E1CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62F55CC318C1180200A7E1CC /* CoreGraphics.framework in Frameworks */,
+				62F55CC518C1180200A7E1CC /* UIKit.framework in Frameworks */,
+				62F55CC118C1180200A7E1CC /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		62F55CDB18C1180200A7E1CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62F55CE018C1180200A7E1CC /* XCTest.framework in Frameworks */,
+				62F55CE218C1180200A7E1CC /* UIKit.framework in Frameworks */,
+				62F55CE118C1180200A7E1CC /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		623AC49218C11B99000962A0 /* CCHLinkTextView */ = {
+			isa = PBXGroup;
+			children = (
+				623AC49318C11BAD000962A0 /* CCHLinkTextView.h */,
+				623AC49418C11BAD000962A0 /* CCHLinkTextView.m */,
+				623AC49618C11EAA000962A0 /* CCHLinkTextViewDelegate.h */,
+			);
+			name = CCHLinkTextView;
+			path = ../CCHLinkTextView;
+			sourceTree = "<group>";
+		};
+		62F55CB418C1180200A7E1CC = {
+			isa = PBXGroup;
+			children = (
+				623AC49218C11B99000962A0 /* CCHLinkTextView */,
+				62F55CC618C1180200A7E1CC /* CCHLinkTextView Example */,
+				62F55CE518C1180200A7E1CC /* CCHLinkTextView ExampleTests */,
+				62F55CBF18C1180200A7E1CC /* Frameworks */,
+				62F55CBE18C1180200A7E1CC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		62F55CBE18C1180200A7E1CC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				62F55CBD18C1180200A7E1CC /* CCHLinkTextView Example.app */,
+				62F55CDE18C1180200A7E1CC /* CCHLinkTextView ExampleTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		62F55CBF18C1180200A7E1CC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				62F55CC018C1180200A7E1CC /* Foundation.framework */,
+				62F55CC218C1180200A7E1CC /* CoreGraphics.framework */,
+				62F55CC418C1180200A7E1CC /* UIKit.framework */,
+				62F55CDF18C1180200A7E1CC /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		62F55CC618C1180200A7E1CC /* CCHLinkTextView Example */ = {
+			isa = PBXGroup;
+			children = (
+				62F55CCF18C1180200A7E1CC /* AppDelegate.h */,
+				62F55CD018C1180200A7E1CC /* AppDelegate.m */,
+				62F55CD218C1180200A7E1CC /* Main.storyboard */,
+				62F55CD518C1180200A7E1CC /* ViewController.h */,
+				62F55CD618C1180200A7E1CC /* ViewController.m */,
+				62F55CD818C1180200A7E1CC /* Images.xcassets */,
+				62F55CC718C1180200A7E1CC /* Supporting Files */,
+			);
+			path = "CCHLinkTextView Example";
+			sourceTree = "<group>";
+		};
+		62F55CC718C1180200A7E1CC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				62F55CC818C1180200A7E1CC /* CCHLinkTextView Example-Info.plist */,
+				62F55CC918C1180200A7E1CC /* InfoPlist.strings */,
+				62F55CCC18C1180200A7E1CC /* main.m */,
+				62F55CCE18C1180200A7E1CC /* CCHLinkTextView Example-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		62F55CE518C1180200A7E1CC /* CCHLinkTextView ExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				62F55CEB18C1180200A7E1CC /* CCHLinkTextView_ExampleTests.m */,
+				62F55CE618C1180200A7E1CC /* Supporting Files */,
+			);
+			path = "CCHLinkTextView ExampleTests";
+			sourceTree = "<group>";
+		};
+		62F55CE618C1180200A7E1CC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				62F55CE718C1180200A7E1CC /* CCHLinkTextView ExampleTests-Info.plist */,
+				62F55CE818C1180200A7E1CC /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		62F55CBC18C1180200A7E1CC /* CCHLinkTextView Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 62F55CEF18C1180200A7E1CC /* Build configuration list for PBXNativeTarget "CCHLinkTextView Example" */;
+			buildPhases = (
+				62F55CB918C1180200A7E1CC /* Sources */,
+				62F55CBA18C1180200A7E1CC /* Frameworks */,
+				62F55CBB18C1180200A7E1CC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CCHLinkTextView Example";
+			productName = "CCHLinkTextView Example";
+			productReference = 62F55CBD18C1180200A7E1CC /* CCHLinkTextView Example.app */;
+			productType = "com.apple.product-type.application";
+		};
+		62F55CDD18C1180200A7E1CC /* CCHLinkTextView ExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 62F55CF218C1180200A7E1CC /* Build configuration list for PBXNativeTarget "CCHLinkTextView ExampleTests" */;
+			buildPhases = (
+				62F55CDA18C1180200A7E1CC /* Sources */,
+				62F55CDB18C1180200A7E1CC /* Frameworks */,
+				62F55CDC18C1180200A7E1CC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				62F55CE418C1180200A7E1CC /* PBXTargetDependency */,
+			);
+			name = "CCHLinkTextView ExampleTests";
+			productName = "CCHLinkTextView ExampleTests";
+			productReference = 62F55CDE18C1180200A7E1CC /* CCHLinkTextView ExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		62F55CB518C1180200A7E1CC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Claus Höfele";
+				TargetAttributes = {
+					62F55CDD18C1180200A7E1CC = {
+						TestTargetID = 62F55CBC18C1180200A7E1CC;
+					};
+				};
+			};
+			buildConfigurationList = 62F55CB818C1180200A7E1CC /* Build configuration list for PBXProject "CCHLinkTextView Example" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 62F55CB418C1180200A7E1CC;
+			productRefGroup = 62F55CBE18C1180200A7E1CC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				62F55CBC18C1180200A7E1CC /* CCHLinkTextView Example */,
+				62F55CDD18C1180200A7E1CC /* CCHLinkTextView ExampleTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		62F55CBB18C1180200A7E1CC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62F55CD918C1180200A7E1CC /* Images.xcassets in Resources */,
+				62F55CCB18C1180200A7E1CC /* InfoPlist.strings in Resources */,
+				62F55CD418C1180200A7E1CC /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		62F55CDC18C1180200A7E1CC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62F55CEA18C1180200A7E1CC /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		62F55CB918C1180200A7E1CC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				623AC49518C11BAD000962A0 /* CCHLinkTextView.m in Sources */,
+				62F55CD718C1180200A7E1CC /* ViewController.m in Sources */,
+				62F55CD118C1180200A7E1CC /* AppDelegate.m in Sources */,
+				62F55CCD18C1180200A7E1CC /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		62F55CDA18C1180200A7E1CC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				62F55CEC18C1180200A7E1CC /* CCHLinkTextView_ExampleTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		62F55CE418C1180200A7E1CC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 62F55CBC18C1180200A7E1CC /* CCHLinkTextView Example */;
+			targetProxy = 62F55CE318C1180200A7E1CC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		62F55CC918C1180200A7E1CC /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				62F55CCA18C1180200A7E1CC /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		62F55CD218C1180200A7E1CC /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				62F55CD318C1180200A7E1CC /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		62F55CE818C1180200A7E1CC /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				62F55CE918C1180200A7E1CC /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		62F55CED18C1180200A7E1CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		62F55CEE18C1180200A7E1CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		62F55CF018C1180200A7E1CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CCHLinkTextView Example/CCHLinkTextView Example-Prefix.pch";
+				INFOPLIST_FILE = "CCHLinkTextView Example/CCHLinkTextView Example-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		62F55CF118C1180200A7E1CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CCHLinkTextView Example/CCHLinkTextView Example-Prefix.pch";
+				INFOPLIST_FILE = "CCHLinkTextView Example/CCHLinkTextView Example-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		62F55CF318C1180200A7E1CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CCHLinkTextView Example.app/CCHLinkTextView Example";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CCHLinkTextView Example/CCHLinkTextView Example-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "CCHLinkTextView ExampleTests/CCHLinkTextView ExampleTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		62F55CF418C1180200A7E1CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/CCHLinkTextView Example.app/CCHLinkTextView Example";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "CCHLinkTextView Example/CCHLinkTextView Example-Prefix.pch";
+				INFOPLIST_FILE = "CCHLinkTextView ExampleTests/CCHLinkTextView ExampleTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		62F55CB818C1180200A7E1CC /* Build configuration list for PBXProject "CCHLinkTextView Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				62F55CED18C1180200A7E1CC /* Debug */,
+				62F55CEE18C1180200A7E1CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		62F55CEF18C1180200A7E1CC /* Build configuration list for PBXNativeTarget "CCHLinkTextView Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				62F55CF018C1180200A7E1CC /* Debug */,
+				62F55CF118C1180200A7E1CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		62F55CF218C1180200A7E1CC /* Build configuration list for PBXNativeTarget "CCHLinkTextView ExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				62F55CF318C1180200A7E1CC /* Debug */,
+				62F55CF418C1180200A7E1CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 62F55CB518C1180200A7E1CC /* Project object */;
+}
