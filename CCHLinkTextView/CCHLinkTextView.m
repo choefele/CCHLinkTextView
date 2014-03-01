@@ -12,6 +12,14 @@
 
 #import "CCHLinkTextViewDelegate.h"
 
+// NSLinkAttributeName, linkTextAttributes + UITextViewDelegate - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
+// setAutomaticLinkDetectionEnabled
+// TTTAttributedLabel / OH...
+// TweetLabel
+// http://flyosity.com/mac-os-x/clickable-tweet-links-hashtags-usernames-in-a-custom-nstextview.php
+// http://shapeof.com/archives/2010/12/customizing_links_in_an_nstextview.html
+// http://stackoverflow.com/questions/15628133/uitapgesturerecognizer-make-it-work-on-touch-down-not-touch-up
+
 @interface CCHLinkTextView ()
 
 @property (nonatomic, strong) NSMutableArray *linkRanges;
@@ -38,7 +46,6 @@
 {
     self.linkRanges = [NSMutableArray array];
     
-    // http://stackoverflow.com/questions/15628133/uitapgesturerecognizer-make-it-work-on-touch-down-not-touch-up
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(textTapped:)];
     [self addGestureRecognizer:tapGestureRecognizer];
 }
