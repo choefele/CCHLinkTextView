@@ -7,11 +7,11 @@ CCHLinkTextView
 
 ## Alternatives
 
-If you try to use iOS 7's built-in link detection via `NSLinkAttributeName`, you will find that `textView:shouldInteractWithURL:inRange:` is only called when the users holds the tap for a short amount of time, which is not acceptable for highly interactive apps. Also, `CCHLinkTextView` can be easily embedded into `UITableView`s, provides handlers for short and long taps, and can use a different styling for each link.
+When using iOS 7's built-in link detection via `NSLinkAttributeName`, you will find that `textView:shouldInteractWithURL:inRange:` is only called when the users holds the tap for at least a short amount of time, which is not acceptable for highly interactive apps. Also, `CCHLinkTextView` can be easily embedded into `UITableView`s, provides handlers for short and long taps, and can use a different styling for each link.
 
-Compared to `OHAttributedLabel` and `TTTAttributeLabel`, `CCHLinkTextView` is written for iOS 7 using TextKit functionality. This simplifies the implementation and avoids custom drawing use CoreText. 
+Compared to `OHAttributedLabel` and `TTTAttributeLabel`, `CCHLinkTextView` is written for iOS 7 using TextKit functionality. This makes for a more efficient implementation avoiding custom drawing code using CoreText. 
 
-In contrast to `STTweetLabel`, `CCHLinkTextView` is a subclass of `UITextView` because `UILabel` has limited TextKit support and adding this functionality can be quite hacky.
+In contrast to `STTweetLabel`, `CCHLinkTextView` is a subclass of `UITextView` because `UILabel` has limited TextKit support and adding this functionality can be quite hacky. `CCHLinkTextView` supports all of `UITextView`'s features and can also be used from within storyboards.
 
 ## Installation
 
