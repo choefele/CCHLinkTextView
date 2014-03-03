@@ -58,11 +58,17 @@
         location.y -= self.textContainerInset.top;
         
         NSUInteger characterIndex = [self.layoutManager characterIndexForPoint:location inTextContainer:self.textContainer fractionOfDistanceBetweenInsertionPoints:NULL];
+        BOOL linkTapped = NO;
         for (NSValue *value in self.linkRanges) {
             NSRange range = value.rangeValue;
             if (NSLocationInRange(characterIndex, range)) {
+                linkTapped = YES;
                 [self linkTappedAtCharacterIndex:characterIndex range:range];
             }
+        }
+        
+        if (!linkTapped) {
+            [self textViewTapped];
         }
     }
 }
@@ -74,6 +80,13 @@
 
     if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didTapLinkAtCharacterIndex:)]) {
         [self.linkDelegate linkTextView:self didTapLinkAtCharacterIndex:characterIndex];
+    }
+}
+
+- (void)textViewTapped
+{
+    if ([self.linkDelegate respondsToSelector:@selector(linkTextViewDidTap:)]) {
+        [self.linkDelegate linkTextViewDidTap:self];
     }
 }
 

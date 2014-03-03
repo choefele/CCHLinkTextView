@@ -15,18 +15,18 @@
                         <sections>
                             <tableViewSection id="SDS-29-0zJ">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="220" id="k0Y-Uy-Ha8">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="220" id="k0Y-Uy-Ha8">
                                         <rect key="frame" x="0.0" y="64" width="320" height="220"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="k0Y-Uy-Ha8" id="k3z-LV-UTX">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="219"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="219"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VxQ-Cq-ZfU" customClass="CCHLinkTextView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="219"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="287" height="219"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
@@ -38,6 +38,9 @@
                                                 <constraint firstItem="VxQ-Cq-ZfU" firstAttribute="leading" secondItem="k3z-LV-UTX" secondAttribute="leading" id="d3H-Bp-3up"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="z45-0b-hpB" kind="push" identifier="tableViewToDetail" id="KZT-gY-pp4"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="hqF-Qu-rCj">
                                         <rect key="frame" x="0.0" y="284" width="320" height="100"/>
@@ -71,6 +74,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="haG-hL-qYN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="676" y="2"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="7u6-lV-Pwd">
+            <objects>
+                <viewController id="z45-0b-hpB" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="owX-Rn-HZW"/>
+                        <viewControllerLayoutGuide type="bottom" id="YCz-4o-6kg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Yk1-Os-d14">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="81N-5S-s0u"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ude-NI-WMT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1137" y="2"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Za4-sR-KIQ">

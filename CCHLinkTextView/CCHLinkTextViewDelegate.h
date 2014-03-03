@@ -12,5 +12,6 @@
 
 @optional
 - (void)linkTextView:(CCHLinkTextView *)linkTextView didTapLinkAtCharacterIndex:(NSUInteger)characterIndex;
+- (void)linkTextViewDidTap:(CCHLinkTextView *)linkTextView;
 
 @end
