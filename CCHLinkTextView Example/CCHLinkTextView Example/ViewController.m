@@ -11,9 +11,10 @@
 #import "CCHLinkTextView.h"
 #import "CCHLinkTextViewDelegate.h"
 
-@interface ViewController () <CCHLinkTextViewDelegate>
+@interface ViewController () <CCHLinkTextViewDelegate, UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet CCHLinkTextView *storyboardTextView;
+@property (weak, nonatomic) IBOutlet UILabel *storyboardLabel;
 
 @end
 
@@ -25,9 +26,24 @@
     
     self.storyboardTextView.editable = NO;
     
-    [self.storyboardTextView addLinkForRange:NSMakeRange(0, 10)];
-    [self.storyboardTextView addLinkForRange:NSMakeRange(100, 5)];
-    self.storyboardTextView.linkDelegate = self;
+//    [self.storyboardTextView addLinkForRange:NSMakeRange(0, 10)];
+//    [self.storyboardTextView addLinkForRange:NSMakeRange(100, 5)];
+//    self.storyboardTextView.linkDelegate = self;
+    
+    NSMutableAttributedString *attributedText = [self.storyboardTextView.attributedText mutableCopy];
+    [attributedText addAttribute:NSLinkAttributeName value:@"http://google.de" range:NSMakeRange(0, 10)];
+    [attributedText addAttribute:NSLinkAttributeName value:@"Link" range:NSMakeRange(100, 5)];
+    self.storyboardTextView.attributedText = [[NSAttributedString alloc] initWithAttributedString:attributedText];
+    self.storyboardTextView.delegate = self;
+    
+    NSDictionary *attributes = @{NSBackgroundColorAttributeName : UIColor.greenColor, NSForegroundColorAttributeName : UIColor.redColor};
+    self.storyboardTextView.linkTextAttributes = attributes;
+}
+
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
+{
+    NSLog(@"%@", URL);
+    return NO;
 }
 
 - (void)linkTextView:(CCHLinkTextView *)linkTextView didTapLinkAtCharacterIndex:(NSUInteger)characterIndex
