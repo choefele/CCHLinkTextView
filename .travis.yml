@@ -1,6 +1,3 @@
 language: objective-c
-before_install:
-  - brew update
-  - brew install xctool
 script: 
   - xctool -project 'CCHLinkTextView Example/CCHLinkTextView Example.xcodeproj' -scheme 'CCHLinkTextView Example' -sdk iphonesimulator7.0 -configuration Debug -destination 'platform=iOS Simulator,OS=7.0,name=iPhone Retina (4-inch)' test
