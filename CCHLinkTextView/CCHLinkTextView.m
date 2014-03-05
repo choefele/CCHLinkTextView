@@ -23,6 +23,7 @@
 @interface CCHLinkTextView ()
 
 @property (nonatomic, strong) NSMutableArray *linkRanges;
+@property (nonatomic, strong) NSDate *touchesBeganDate;
 
 @end
 
@@ -46,13 +47,21 @@
 {
     self.linkRanges = [NSMutableArray array];
     
-    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(textTapped:)];
-    [self addGestureRecognizer:tapGestureRecognizer];
+    UILongPressGestureRecognizer *gestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(textTapped:)];
+    gestureRecognizer.minimumPressDuration = 0;
+    [self addGestureRecognizer:gestureRecognizer];
 }
 
-- (void)textTapped:(UITapGestureRecognizer *)recognizer
+- (void)textTapped:(UILongPressGestureRecognizer *)recognizer
 {
-    if (recognizer.state == UIGestureRecognizerStateEnded) {
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        self.touchesBeganDate = [NSDate date];
+    } else if (recognizer.state == UIGestureRecognizerStateEnded) {
+        NSTimeInterval timeInterval = [[NSDate date] timeIntervalSinceDate:self.touchesBeganDate];
+        NSLog(@"%f", timeInterval);
+    }
+    
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
         CGPoint location = [recognizer locationInView:self];
         location.x -= self.textContainerInset.left;
         location.y -= self.textContainerInset.top;
