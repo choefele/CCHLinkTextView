@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		623AC49518C11BAD000962A0 /* CCHLinkTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 623AC49418C11BAD000962A0 /* CCHLinkTextView.m */; };
+		626F837918C75FBC004FEABB /* CCHLinkTextViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 626F837818C75FBC004FEABB /* CCHLinkTextViewTests.m */; };
 		62F55CC118C1180200A7E1CC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F55CC018C1180200A7E1CC /* Foundation.framework */; };
 		62F55CC318C1180200A7E1CC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F55CC218C1180200A7E1CC /* CoreGraphics.framework */; };
 		62F55CC518C1180200A7E1CC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F55CC418C1180200A7E1CC /* UIKit.framework */; };
@@ -21,7 +22,6 @@
 		62F55CE118C1180200A7E1CC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F55CC018C1180200A7E1CC /* Foundation.framework */; };
 		62F55CE218C1180200A7E1CC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F55CC418C1180200A7E1CC /* UIKit.framework */; };
 		62F55CEA18C1180200A7E1CC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 62F55CE818C1180200A7E1CC /* InfoPlist.strings */; };
-		62F55CEC18C1180200A7E1CC /* CCHLinkTextView_ExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F55CEB18C1180200A7E1CC /* CCHLinkTextView_ExampleTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +38,7 @@
 		623AC49318C11BAD000962A0 /* CCHLinkTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCHLinkTextView.h; sourceTree = "<group>"; };
 		623AC49418C11BAD000962A0 /* CCHLinkTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCHLinkTextView.m; sourceTree = "<group>"; };
 		623AC49618C11EAA000962A0 /* CCHLinkTextViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCHLinkTextViewDelegate.h; sourceTree = "<group>"; };
+		626F837818C75FBC004FEABB /* CCHLinkTextViewTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCHLinkTextViewTests.m; sourceTree = "<group>"; };
 		62F55CBD18C1180200A7E1CC /* CCHLinkTextView Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CCHLinkTextView Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		62F55CC018C1180200A7E1CC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		62F55CC218C1180200A7E1CC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -56,7 +57,6 @@
 		62F55CDF18C1180200A7E1CC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		62F55CE718C1180200A7E1CC /* CCHLinkTextView ExampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CCHLinkTextView ExampleTests-Info.plist"; sourceTree = "<group>"; };
 		62F55CE918C1180200A7E1CC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		62F55CEB18C1180200A7E1CC /* CCHLinkTextView_ExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CCHLinkTextView_ExampleTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,7 +153,7 @@
 		62F55CE518C1180200A7E1CC /* CCHLinkTextView ExampleTests */ = {
 			isa = PBXGroup;
 			children = (
-				62F55CEB18C1180200A7E1CC /* CCHLinkTextView_ExampleTests.m */,
+				626F837818C75FBC004FEABB /* CCHLinkTextViewTests.m */,
 				62F55CE618C1180200A7E1CC /* Supporting Files */,
 			);
 			path = "CCHLinkTextView ExampleTests";
@@ -276,7 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62F55CEC18C1180200A7E1CC /* CCHLinkTextView_ExampleTests.m in Sources */,
+				626F837918C75FBC004FEABB /* CCHLinkTextViewTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,5 +15,6 @@
 @property (nonatomic, weak) id<CCHLinkTextViewDelegate> linkDelegate;
 
 - (void)addLinkForRange:(NSRange)range;
+- (BOOL)enumerateLinkRangesIncludingCharacterIndex:(NSUInteger)characterIndex usingBlock:(void (^)(NSRange range))block;
 
 @end

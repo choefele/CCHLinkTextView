@@ -58,32 +58,24 @@
         location.y -= self.textContainerInset.top;
         
         NSUInteger characterIndex = [self.layoutManager characterIndexForPoint:location inTextContainer:self.textContainer fractionOfDistanceBetweenInsertionPoints:NULL];
-        BOOL linkTapped = NO;
-        for (NSValue *value in self.linkRanges) {
-            NSRange range = value.rangeValue;
-            if (NSLocationInRange(characterIndex, range)) {
-                linkTapped = YES;
-                [self linkTappedAtCharacterIndex:characterIndex range:range];
-            }
-        }
+        BOOL linkTapped = [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
+            [self didTapLinkAtCharacterIndex:characterIndex range:range];
+        }];
         
         if (!linkTapped) {
-            [self textViewTapped];
+            [self linkTextViewDidTap];
         }
     }
 }
 
-- (void)linkTappedAtCharacterIndex:(NSUInteger)characterIndex range:(NSRange)range
+- (void)didTapLinkAtCharacterIndex:(NSUInteger)characterIndex range:(NSRange)range
 {
-//    NSDictionary *attributes = @{NSBackgroundColorAttributeName : UIColor.redColor};
-//    [self updateWithAttributes:attributes range:range];
-
     if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didTapLinkAtCharacterIndex:)]) {
         [self.linkDelegate linkTextView:self didTapLinkAtCharacterIndex:characterIndex];
     }
 }
 
-- (void)textViewTapped
+- (void)linkTextViewDidTap
 {
     if ([self.linkDelegate respondsToSelector:@selector(linkTextViewDidTap:)]) {
         [self.linkDelegate linkTextViewDidTap:self];
@@ -95,10 +87,29 @@
     [self.linkRanges addObject:[NSValue valueWithRange:range]];
 
     NSDictionary *attributes = @{NSBackgroundColorAttributeName : UIColor.greenColor};
-    [self updateWithAttributes:attributes range:range];
+    [self addAttributes:attributes range:range];
 }
 
-- (void)updateWithAttributes:(NSDictionary *)attributes range:(NSRange)range
+- (BOOL)enumerateLinkRangesIncludingCharacterIndex:(NSUInteger)characterIndex usingBlock:(void (^)(NSRange range))block
+{
+    if (!block) {
+        return NO;
+    }
+    
+    BOOL linkTapped = NO;
+    
+    for (NSValue *value in self.linkRanges) {
+        NSRange range = value.rangeValue;
+        if (NSLocationInRange(characterIndex, range)) {
+            linkTapped = YES;
+            block(range);
+        }
+    }
+    
+    return linkTapped;
+}
+
+- (void)addAttributes:(NSDictionary *)attributes range:(NSRange)range
 {
     NSMutableAttributedString *attributedText = [self.attributedText mutableCopy];
     [attributedText addAttributes:attributes range:range];
