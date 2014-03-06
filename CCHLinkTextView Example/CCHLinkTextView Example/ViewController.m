@@ -28,7 +28,7 @@
     // Data detectors
     
     self.storyboardTextView.editable = NO;
-    self.storyboardTextView.selectable = NO;
+//    self.storyboardTextView.selectable = NO;
     
     [self.storyboardTextView addLinkForRange:NSMakeRange(0, 10)];
     [self.storyboardTextView addLinkForRange:NSMakeRange(100, 5)];

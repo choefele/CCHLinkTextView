@@ -16,7 +16,7 @@
 // Use subclass of UITextViewDelegate
 // Replace linkRanges with NSLinkAttribute attributes
 
-@interface CCHLinkTextView ()
+@interface CCHLinkTextView () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *linkRanges;
 @property (nonatomic, strong) CCHLinkGestureRecognizer *linkGestureRecognizer;
@@ -44,11 +44,17 @@
     self.linkRanges = [NSMutableArray array];
     
     self.linkGestureRecognizer = [[CCHLinkGestureRecognizer alloc] initWithTarget:self action:@selector(textTapped:)];
+    self.linkGestureRecognizer.delegate = self;
 //    self.linkGestureRecognizer.longPressEnabled = NO;
     [self addGestureRecognizer:self.linkGestureRecognizer];
     
 //    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(textTapped:)];
 //    [self addGestureRecognizer:tapGestureRecognizer];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
 }
 
 - (void)textTapped:(CCHLinkGestureRecognizer *)recognizer
