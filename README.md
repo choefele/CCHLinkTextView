@@ -1,13 +1,15 @@
 CCHLinkTextView
 ===============
 
-`CCHLinkTextView` makes it easy to embed customizable links inside a `UITextView` and add custom handlers for short and long taps. It looks and behaves similar to table cells used in popular Twitter apps such as Twitteriffic or Tweetbot.
+[![Build Status](https://travis-ci.org/choefele/CCHLinkTextView.png)](https://travis-ci.org/choefele/CCHLinkTextView)
+
+`CCHLinkTextView` makes it easy to embed links with custom styles inside a `UITextView` and receive events for short and long taps. It looks and behaves similar to table cells used in popular Twitter apps such as Twitteriffic or Tweetbot.
 
 ![Animated GIF landscape]()
 
 ## Alternatives
 
-When using iOS 7's built-in link detection via `NSLinkAttributeName`, you will find that `textView:shouldInteractWithURL:inRange:` is only called when the users long-presses the link for a short amount of time, which is not acceptable for highly interactive apps. `CCHLinkTextView` can be easily embedded into `UITableView`s because you can use taps not handled by links to select a table cell. In addition, it provides handlers for short and long taps and can use different text styles for each link.
+When using iOS 7's built-in link detection via `NSLinkAttributeName`, you will find that `textView:shouldInteractWithURL:inRange:` is only called when the user presses the link for a certain amount of time. This delay is frustrating for users because they expect an app to react instantly on taps. In contrast to `UITextView`, `CCHLinkTextView` works great in `UITableView`s, even with `userInteractionEnabled` set to `YES`, because you can receive touches not handled by links to select a table cell. In addition, it provides handlers for short and long taps and can use different text styles for each link.
 
 Compared to `OHAttributedLabel` and `TTTAttributeLabel`, `CCHLinkTextView` is written for iOS 7 using TextKit functionality. This makes for a more efficient implementation avoiding custom drawing code using CoreText. 
 
