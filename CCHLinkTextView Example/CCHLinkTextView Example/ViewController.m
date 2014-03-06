@@ -23,6 +23,10 @@
 {
     [super viewDidLoad];
     
+    // selecteable = YES + copy & paste
+    // NSLinkAttribute -> textViewDelegate
+    // Data detectors
+    
     self.storyboardTextView.editable = NO;
     self.storyboardTextView.selectable = NO;
     

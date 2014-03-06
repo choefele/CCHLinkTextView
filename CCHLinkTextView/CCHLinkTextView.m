@@ -11,18 +11,15 @@
 #import "CCHLinkTextView.h"
 
 #import "CCHLinkTextViewDelegate.h"
+#import "CCHLinkGestureRecognizer.h"
 
-// NSLinkAttributeName, linkTextAttributes + UITextViewDelegate - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
-// setAutomaticLinkDetectionEnabled
-// TTTAttributedLabel / OH...
-// TweetLabel
-// http://flyosity.com/mac-os-x/clickable-tweet-links-hashtags-usernames-in-a-custom-nstextview.php
-// http://shapeof.com/archives/2010/12/customizing_links_in_an_nstextview.html
-// http://stackoverflow.com/questions/15628133/uitapgesturerecognizer-make-it-work-on-touch-down-not-touch-up
+// Use subclass of UITextViewDelegate
+// Replace linkRanges with NSLinkAttribute attributes
 
 @interface CCHLinkTextView ()
 
 @property (nonatomic, strong) NSMutableArray *linkRanges;
+@property (nonatomic, strong) CCHLinkGestureRecognizer *linkGestureRecognizer;
 
 @end
 
@@ -46,25 +43,33 @@
 {
     self.linkRanges = [NSMutableArray array];
     
-    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(textTapped:)];
-    [self addGestureRecognizer:tapGestureRecognizer];
+    self.linkGestureRecognizer = [[CCHLinkGestureRecognizer alloc] initWithTarget:self action:@selector(textTapped:)];
+//    self.linkGestureRecognizer.longPressEnabled = NO;
+    [self addGestureRecognizer:self.linkGestureRecognizer];
+    
+//    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(textTapped:)];
+//    [self addGestureRecognizer:tapGestureRecognizer];
 }
 
-- (void)textTapped:(UITapGestureRecognizer *)recognizer
+- (void)textTapped:(CCHLinkGestureRecognizer *)recognizer
 {
-    if (recognizer.state == UIGestureRecognizerStateEnded) {
-        CGPoint location = [recognizer locationInView:self];
-        location.x -= self.textContainerInset.left;
-        location.y -= self.textContainerInset.top;
-        
-        NSUInteger characterIndex = [self.layoutManager characterIndexForPoint:location inTextContainer:self.textContainer fractionOfDistanceBetweenInsertionPoints:NULL];
-        BOOL linkTapped = [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
-            [self didTapLinkAtCharacterIndex:characterIndex range:range];
-        }];
-        
-        if (!linkTapped) {
-            [self linkTextViewDidTap];
-        }
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        NSLog(@"touch down");
+    } else if (recognizer.state == UIGestureRecognizerStateEnded) {
+//        NSLog(@"touch up");
+        NSLog(@"touch up %@", recognizer.isLongPress ? @"Y" : @"N");
+//        CGPoint location = [recognizer locationInView:self];
+//        location.x -= self.textContainerInset.left;
+//        location.y -= self.textContainerInset.top;
+//        
+//        NSUInteger characterIndex = [self.layoutManager characterIndexForPoint:location inTextContainer:self.textContainer fractionOfDistanceBetweenInsertionPoints:NULL];
+//        BOOL linkTapped = [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
+//            [self didTapLinkAtCharacterIndex:characterIndex range:range];
+//        }];
+//        
+//        if (!linkTapped) {
+//            [self linkTextViewDidTap];
+//        }
     }
 }
 

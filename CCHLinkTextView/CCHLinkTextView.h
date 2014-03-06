@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @protocol CCHLinkTextViewDelegate;
+@class CCHLinkGestureRecognizer;
 
 @interface CCHLinkTextView : UITextView
 
 @property (nonatomic, weak) id<CCHLinkTextViewDelegate> linkDelegate;
+@property (nonatomic, strong, readonly) CCHLinkGestureRecognizer *linkGestureRecognizer;
 
 - (void)addLinkForRange:(NSRange)range;
 - (BOOL)enumerateLinkRangesIncludingCharacterIndex:(NSUInteger)characterIndex usingBlock:(void (^)(NSRange range))block;
