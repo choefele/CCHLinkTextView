@@ -26,6 +26,8 @@
     // selecteable = YES + copy & paste
     // NSLinkAttribute -> textViewDelegate
     // Data detectors
+    // Extend tap area
+    // Tune font size example
     
     self.storyboardTextView.editable = NO;
     self.storyboardTextView.selectable = NO;

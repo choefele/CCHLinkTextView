@@ -43,6 +43,7 @@
 
     UILongPressGestureRecognizer *touchUpDownGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(touchUpDown:)];
     touchUpDownGestureRecognizer.minimumPressDuration = 0;
+    touchUpDownGestureRecognizer.allowableMovement = 100;
     touchUpDownGestureRecognizer.delegate = self;
     [self addGestureRecognizer:touchUpDownGestureRecognizer];
 
@@ -61,6 +62,52 @@
     return YES;
 }
 
+- (void)addLinkForRange:(NSRange)range
+{
+    [self.linkRanges addObject:[NSValue valueWithRange:range]];
+    
+    NSDictionary *attributes = @{NSForegroundColorAttributeName : UIColor.greenColor};
+    [self addAttributes:self.linkTextAttributes range:range];
+}
+
+- (BOOL)enumerateLinkRangesIncludingCharacterIndex:(NSUInteger)characterIndex usingBlock:(void (^)(NSRange range))block
+{
+    if (!block) {
+        return NO;
+    }
+    
+    BOOL linkTapped = NO;
+    
+    for (NSValue *value in self.linkRanges) {
+        NSRange range = value.rangeValue;
+        if (NSLocationInRange(characterIndex, range)) {
+            linkTapped = YES;
+            block(range);
+        }
+    }
+    
+    return linkTapped;
+}
+
+- (NSUInteger)characterIndexForGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+{
+    CGPoint location = [gestureRecognizer locationInView:self];
+    location.x -= self.textContainerInset.left;
+    location.y -= self.textContainerInset.top;
+    
+    NSUInteger characterIndex = [self.layoutManager characterIndexForPoint:location inTextContainer:self.textContainer fractionOfDistanceBetweenInsertionPoints:NULL];
+    return characterIndex;
+}
+
+- (void)addAttributes:(NSDictionary *)attributes range:(NSRange)range
+{
+    NSMutableAttributedString *attributedText = [self.attributedText mutableCopy];
+    [attributedText addAttributes:attributes range:range];
+    self.attributedText = attributedText;
+}
+
+#pragma mark Touch up/down
+
 - (void)touchUpDown:(UIGestureRecognizer *)recognizer
 {
     if (recognizer.state == UIGestureRecognizerStateBegan) {
@@ -69,16 +116,28 @@
     } else if (recognizer.state == UIGestureRecognizerStateEnded) {
         NSUInteger characterIndex = [self characterIndexForGestureRecognizer:recognizer];
         [self didTouchUpAtCharacterIndex:characterIndex];
+    } else {
+        NSLog(@"state = %tu", recognizer.state);
     }
 }
 
 - (void)didTouchDownAtCharacterIndex:(NSUInteger)characterIndex
 {
+    [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
+        NSDictionary *attributes = @{NSBackgroundColorAttributeName : UIColor.greenColor};
+        [self addAttributes:attributes range:range];
+    }];
 }
 
 - (void)didTouchUpAtCharacterIndex:(NSUInteger)characterIndex
 {
+    [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
+        NSDictionary *attributes = @{NSBackgroundColorAttributeName : UIColor.clearColor};
+        [self addAttributes:attributes range:range];
+    }];
 }
+
+#pragma mark Long press
 
 - (void)longPress:(UIGestureRecognizer *)recognizer
 {
@@ -108,6 +167,8 @@
     }
 }
 
+#pragma mark Tap
+
 - (void)tap:(UIGestureRecognizer *)recognizer
 {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
@@ -134,67 +195,6 @@
     if ([self.linkDelegate respondsToSelector:@selector(linkTextViewDidTap:)]) {
         [self.linkDelegate linkTextViewDidTap:self];
     }
-}
-
-- (void)textTapped:(UIGestureRecognizer *)recognizer
-{
-    if (recognizer.state == UIGestureRecognizerStateBegan) {
-        NSLog(@"touch down");
-    } else if (recognizer.state == UIGestureRecognizerStateEnded) {
-        NSLog(@"touch up");
-        NSUInteger characterIndex = [self characterIndexForGestureRecognizer:recognizer];
-        BOOL linkFound = [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
-            [self didTapLinkAtCharacterIndex:characterIndex range:range];
-        }];
-        
-        if (!linkFound) {
-            [self linkTextViewDidTap];
-        }
-    }
-}
-
-- (NSUInteger)characterIndexForGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
-{
-    CGPoint location = [gestureRecognizer locationInView:self];
-    location.x -= self.textContainerInset.left;
-    location.y -= self.textContainerInset.top;
-    
-    NSUInteger characterIndex = [self.layoutManager characterIndexForPoint:location inTextContainer:self.textContainer fractionOfDistanceBetweenInsertionPoints:NULL];
-    return characterIndex;
-}
-
-- (void)addLinkForRange:(NSRange)range
-{
-    [self.linkRanges addObject:[NSValue valueWithRange:range]];
-
-    NSDictionary *attributes = @{NSBackgroundColorAttributeName : UIColor.greenColor};
-    [self addAttributes:attributes range:range];
-}
-
-- (BOOL)enumerateLinkRangesIncludingCharacterIndex:(NSUInteger)characterIndex usingBlock:(void (^)(NSRange range))block
-{
-    if (!block) {
-        return NO;
-    }
-    
-    BOOL linkTapped = NO;
-    
-    for (NSValue *value in self.linkRanges) {
-        NSRange range = value.rangeValue;
-        if (NSLocationInRange(characterIndex, range)) {
-            linkTapped = YES;
-            block(range);
-        }
-    }
-    
-    return linkTapped;
-}
-
-- (void)addAttributes:(NSDictionary *)attributes range:(NSRange)range
-{
-    NSMutableAttributedString *attributedText = [self.attributedText mutableCopy];
-    [attributedText addAttributes:attributes range:range];
-    self.attributedText = attributedText;
 }
 
 @end

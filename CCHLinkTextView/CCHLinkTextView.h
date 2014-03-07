@@ -13,6 +13,7 @@
 @interface CCHLinkTextView : UITextView
 
 @property (nonatomic, weak) id<CCHLinkTextViewDelegate> linkDelegate;
+@property (nonatomic, copy) NSDictionary *linkTextTouchDownAttributes;
 
 - (void)addLinkForRange:(NSRange)range;
 - (BOOL)enumerateLinkRangesIncludingCharacterIndex:(NSUInteger)characterIndex usingBlock:(void (^)(NSRange range))block;
