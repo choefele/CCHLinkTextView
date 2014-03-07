@@ -18,6 +18,7 @@
 @interface CCHLinkTextView () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *linkRanges;
+@property (nonatomic, assign) NSUInteger touchDownCharacterIndex;
 
 @end
 
@@ -40,6 +41,7 @@
 - (void)setUp
 {
     self.linkRanges = [NSMutableArray array];
+    self.touchDownCharacterIndex = -1;
 
     UILongPressGestureRecognizer *touchUpDownGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(touchUpDown:)];
     touchUpDownGestureRecognizer.minimumPressDuration = 0;
@@ -66,7 +68,7 @@
 {
     [self.linkRanges addObject:[NSValue valueWithRange:range]];
     
-    NSDictionary *attributes = @{NSForegroundColorAttributeName : UIColor.greenColor};
+//    NSDictionary *attributes = @{NSForegroundColorAttributeName : UIColor.greenColor};
     [self addAttributes:self.linkTextAttributes range:range];
 }
 
@@ -111,18 +113,20 @@
 - (void)touchUpDown:(UIGestureRecognizer *)recognizer
 {
     if (recognizer.state == UIGestureRecognizerStateBegan) {
-        NSUInteger characterIndex = [self characterIndexForGestureRecognizer:recognizer];
-        [self didTouchDownAtCharacterIndex:characterIndex];
+        NSAssert(self.touchDownCharacterIndex == -1, @"Invalid character index");
+        self.touchDownCharacterIndex = [self characterIndexForGestureRecognizer:recognizer];
+        [self didTouchDownAtCharacterIndex:self.touchDownCharacterIndex];
     } else if (recognizer.state == UIGestureRecognizerStateEnded) {
-        NSUInteger characterIndex = [self characterIndexForGestureRecognizer:recognizer];
-        [self didTouchUpAtCharacterIndex:characterIndex];
-    } else {
-        NSLog(@"state = %tu", recognizer.state);
+        NSAssert(self.touchDownCharacterIndex != -1, @"Invalid character index");
+        [self didTouchUpAtCharacterIndex:self.touchDownCharacterIndex];
+        self.touchDownCharacterIndex = -1;
     }
 }
 
 - (void)didTouchDownAtCharacterIndex:(NSUInteger)characterIndex
 {
+    NSLog(@"touch down %tu", characterIndex);
+    
     [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
         NSDictionary *attributes = @{NSBackgroundColorAttributeName : UIColor.greenColor};
         [self addAttributes:attributes range:range];
@@ -131,6 +135,8 @@
 
 - (void)didTouchUpAtCharacterIndex:(NSUInteger)characterIndex
 {
+    NSLog(@"touch up %tu", characterIndex);
+    
     [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
         NSDictionary *attributes = @{NSBackgroundColorAttributeName : UIColor.clearColor};
         [self addAttributes:attributes range:range];
@@ -155,6 +161,8 @@
 
 - (void)didLongPressLinkAtCharacterIndex:(NSUInteger)characterIndex range:(NSRange)range
 {
+    NSLog(@"long press %tu", characterIndex);
+    
     if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didLongPressLinkAtCharacterIndex:)]) {
         [self.linkDelegate linkTextView:self didLongPressLinkAtCharacterIndex:characterIndex];
     }
@@ -185,6 +193,8 @@
 
 - (void)didTapLinkAtCharacterIndex:(NSUInteger)characterIndex range:(NSRange)range
 {
+    NSLog(@"tap %tu", characterIndex);
+
     if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didTapLinkAtCharacterIndex:)]) {
         [self.linkDelegate linkTextView:self didTapLinkAtCharacterIndex:characterIndex];
     }
