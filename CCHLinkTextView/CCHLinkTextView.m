@@ -11,7 +11,6 @@
 #import "CCHLinkTextView.h"
 
 #import "CCHLinkTextViewDelegate.h"
-#import "CCHLinkGestureRecognizer.h"
 
 // Use subclass of UITextViewDelegate
 // Replace linkRanges with NSLinkAttribute attributes
@@ -19,7 +18,6 @@
 @interface CCHLinkTextView () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *linkRanges;
-@property (nonatomic, strong) CCHLinkGestureRecognizer *linkGestureRecognizer;
 
 @end
 
@@ -42,14 +40,20 @@
 - (void)setUp
 {
     self.linkRanges = [NSMutableArray array];
+
+    UILongPressGestureRecognizer *touchUpDownGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(touchUpDown:)];
+    touchUpDownGestureRecognizer.minimumPressDuration = 0;
+    touchUpDownGestureRecognizer.delegate = self;
+    [self addGestureRecognizer:touchUpDownGestureRecognizer];
+
+    UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+    longPressGestureRecognizer.delegate = self;
+    [self addGestureRecognizer:longPressGestureRecognizer];
     
-    self.linkGestureRecognizer = [[CCHLinkGestureRecognizer alloc] initWithTarget:self action:@selector(textTapped:)];
-    self.linkGestureRecognizer.delegate = self;
-//    self.linkGestureRecognizer.longPressEnabled = NO;
-    [self addGestureRecognizer:self.linkGestureRecognizer];
-    
-//    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(textTapped:)];
-//    [self addGestureRecognizer:tapGestureRecognizer];
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
+    tapGestureRecognizer.delegate = self;
+    [tapGestureRecognizer requireGestureRecognizerToFail:longPressGestureRecognizer];
+    [self addGestureRecognizer:tapGestureRecognizer];
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
@@ -57,25 +61,64 @@
     return YES;
 }
 
-- (void)textTapped:(CCHLinkGestureRecognizer *)recognizer
+- (void)touchUpDown:(UIGestureRecognizer *)recognizer
 {
     if (recognizer.state == UIGestureRecognizerStateBegan) {
-        NSLog(@"touch down");
+        NSUInteger characterIndex = [self characterIndexForGestureRecognizer:recognizer];
+        [self didTouchDownAtCharacterIndex:characterIndex];
     } else if (recognizer.state == UIGestureRecognizerStateEnded) {
-//        NSLog(@"touch up");
-        NSLog(@"touch up %@", recognizer.isLongPress ? @"Y" : @"N");
-//        CGPoint location = [recognizer locationInView:self];
-//        location.x -= self.textContainerInset.left;
-//        location.y -= self.textContainerInset.top;
-//        
-//        NSUInteger characterIndex = [self.layoutManager characterIndexForPoint:location inTextContainer:self.textContainer fractionOfDistanceBetweenInsertionPoints:NULL];
-//        BOOL linkTapped = [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
-//            [self didTapLinkAtCharacterIndex:characterIndex range:range];
-//        }];
-//        
-//        if (!linkTapped) {
-//            [self linkTextViewDidTap];
-//        }
+        NSUInteger characterIndex = [self characterIndexForGestureRecognizer:recognizer];
+        [self didTouchUpAtCharacterIndex:characterIndex];
+    }
+}
+
+- (void)didTouchDownAtCharacterIndex:(NSUInteger)characterIndex
+{
+}
+
+- (void)didTouchUpAtCharacterIndex:(NSUInteger)characterIndex
+{
+}
+
+- (void)longPress:(UIGestureRecognizer *)recognizer
+{
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        NSUInteger characterIndex = [self characterIndexForGestureRecognizer:recognizer];
+        BOOL linkFound = [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
+            [self didLongPressLinkAtCharacterIndex:characterIndex range:range];
+        }];
+        
+        if (!linkFound) {
+            [self linkTextViewDidLongPress];
+        }
+    }
+}
+
+- (void)didLongPressLinkAtCharacterIndex:(NSUInteger)characterIndex range:(NSRange)range
+{
+    if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didLongPressLinkAtCharacterIndex:)]) {
+        [self.linkDelegate linkTextView:self didLongPressLinkAtCharacterIndex:characterIndex];
+    }
+}
+
+- (void)linkTextViewDidLongPress
+{
+    if ([self.linkDelegate respondsToSelector:@selector(linkTextViewDidLongPress:)]) {
+        [self.linkDelegate linkTextViewDidLongPress:self];
+    }
+}
+
+- (void)tap:(UIGestureRecognizer *)recognizer
+{
+    if (recognizer.state == UIGestureRecognizerStateEnded) {
+        NSUInteger characterIndex = [self characterIndexForGestureRecognizer:recognizer];
+        BOOL linkFound = [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
+            [self didTapLinkAtCharacterIndex:characterIndex range:range];
+        }];
+        
+        if (!linkFound) {
+            [self linkTextViewDidTap];
+        }
     }
 }
 
@@ -91,6 +134,33 @@
     if ([self.linkDelegate respondsToSelector:@selector(linkTextViewDidTap:)]) {
         [self.linkDelegate linkTextViewDidTap:self];
     }
+}
+
+- (void)textTapped:(UIGestureRecognizer *)recognizer
+{
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
+        NSLog(@"touch down");
+    } else if (recognizer.state == UIGestureRecognizerStateEnded) {
+        NSLog(@"touch up");
+        NSUInteger characterIndex = [self characterIndexForGestureRecognizer:recognizer];
+        BOOL linkFound = [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
+            [self didTapLinkAtCharacterIndex:characterIndex range:range];
+        }];
+        
+        if (!linkFound) {
+            [self linkTextViewDidTap];
+        }
+    }
+}
+
+- (NSUInteger)characterIndexForGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+{
+    CGPoint location = [gestureRecognizer locationInView:self];
+    location.x -= self.textContainerInset.left;
+    location.y -= self.textContainerInset.top;
+    
+    NSUInteger characterIndex = [self.layoutManager characterIndexForPoint:location inTextContainer:self.textContainer fractionOfDistanceBetweenInsertionPoints:NULL];
+    return characterIndex;
 }
 
 - (void)addLinkForRange:(NSRange)range

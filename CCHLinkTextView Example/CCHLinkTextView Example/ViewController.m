@@ -28,7 +28,7 @@
     // Data detectors
     
     self.storyboardTextView.editable = NO;
-//    self.storyboardTextView.selectable = NO;
+    self.storyboardTextView.selectable = NO;
     
     [self.storyboardTextView addLinkForRange:NSMakeRange(0, 10)];
     [self.storyboardTextView addLinkForRange:NSMakeRange(100, 5)];
@@ -52,14 +52,25 @@
     return NO;
 }
 
-- (void)linkTextViewDidTap:(CCHLinkTextView *)linkTextView
-{
-    [self performSegueWithIdentifier:@"tableViewToDetail" sender:self];
-}
-
 - (void)linkTextView:(CCHLinkTextView *)linkTextView didTapLinkAtCharacterIndex:(NSUInteger)characterIndex
 {
     NSLog(@"Link tapped");
+}
+
+- (void)linkTextViewDidTap:(CCHLinkTextView *)linkTextView
+{
+    NSLog(@"Tap");
+    [self performSegueWithIdentifier:@"tableViewToDetail" sender:self];
+}
+
+- (void)linkTextView:(CCHLinkTextView *)linkTextView didLongPressLinkAtCharacterIndex:(NSUInteger)characterIndex
+{
+    NSLog(@"Link long pressed");
+}
+
+- (void)linkTextViewDidLongPress:(CCHLinkTextView *)linkTextView
+{
+    NSLog(@"Long press");
 }
 
 @end
