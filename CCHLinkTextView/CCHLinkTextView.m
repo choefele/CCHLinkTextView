@@ -17,6 +17,7 @@
 
 @property (nonatomic, strong) NSMutableArray *linkRanges;
 @property (nonatomic, assign) NSUInteger touchDownCharacterIndex;
+@property (nonatomic, strong) CCHLinkGestureRecognizer *linkGestureRecognizer;
 
 @end
 
@@ -41,9 +42,9 @@
     self.linkRanges = [NSMutableArray array];
     self.touchDownCharacterIndex = -1;
     
-    CCHLinkGestureRecognizer *linkGestureRecognizer = [[CCHLinkGestureRecognizer alloc] initWithTarget:self action:@selector(linkAction:)];
-    linkGestureRecognizer.delegate = self;
-    [self addGestureRecognizer:linkGestureRecognizer];
+    self.linkGestureRecognizer = [[CCHLinkGestureRecognizer alloc] initWithTarget:self action:@selector(linkAction:)];
+    self.linkGestureRecognizer.delegate = self;
+    [self addGestureRecognizer:self.linkGestureRecognizer];
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
@@ -93,6 +94,26 @@
     NSMutableAttributedString *attributedText = [self.attributedText mutableCopy];
     [attributedText addAttributes:attributes range:range];
     self.attributedText = attributedText;
+}
+
+- (void)setMinimumPressDuration:(CFTimeInterval)minimumPressDuration
+{
+    self.linkGestureRecognizer.minimumPressDuration = minimumPressDuration;
+}
+
+- (CFTimeInterval)minimumPressDuration
+{
+    return self.linkGestureRecognizer.minimumPressDuration;
+}
+
+- (void)setAllowableMovement:(CGFloat)allowableMovement
+{
+    self.linkGestureRecognizer.allowableMovement = allowableMovement;
+}
+
+- (CGFloat)allowableMovement
+{
+    return self.linkGestureRecognizer.allowableMovement;
 }
 
 #pragma mark Gesture recognition
