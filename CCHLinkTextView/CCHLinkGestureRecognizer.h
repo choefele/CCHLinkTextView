@@ -18,11 +18,15 @@ typedef enum {
 /** 
  A discreet gesture recognizer that sends action messages for touch down 
  (UIGestureRecognizerStateBegan), touch up for a tap (UIGestureRecognizerStateRecognized,
- isLongPress == NO), and touch up for a long press (UIGestureRecognizerStateRecognized, isLongPress == NO).
+ CCHLinkGestureRecognizerResultTap), touch up for a long press (UIGestureRecognizerStateRecognized,
+ CCHLinkGestureRecognizerResultLongPress), and touch up when gesture has failed (UIGestureRecognizerStateRecognized,
+ CCHLinkGestureRecognizerResultFailed).
  */
 @interface CCHLinkGestureRecognizer : UIGestureRecognizer
 
 @property (nonatomic, assign) CFTimeInterval minimumPressDuration;
+@property (nonatomic, assign) CGFloat allowableMovement;
+
 @property (nonatomic, assign) CCHLinkGestureRecognizerResult result;
 
 @end

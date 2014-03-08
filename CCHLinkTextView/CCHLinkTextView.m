@@ -43,8 +43,9 @@
 {
     self.linkRanges = [NSMutableArray array];
     self.touchDownCharacterIndex = -1;
-
+    
     CCHLinkGestureRecognizer *linkGestureRecognizer = [[CCHLinkGestureRecognizer alloc] initWithTarget:self action:@selector(linkAction:)];
+    linkGestureRecognizer.delegate = self;
     [self addGestureRecognizer:linkGestureRecognizer];
 }
 

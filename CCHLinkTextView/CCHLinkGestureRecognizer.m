@@ -10,8 +10,6 @@
 
 #import <UIKit/UIGestureRecognizerSubclass.h>
 
-#define MAX_SQUARED_DISTANCE (10 * 10)
-
 @interface CCHLinkGestureRecognizer ()
 
 @property (nonatomic, assign) CGPoint initialPoint;
@@ -43,7 +41,12 @@
 
 - (void)setUp
 {
+    // Same defaults as UILongPressGestureRecognizer
     self.minimumPressDuration = 0.5;
+    self.allowableMovement = 10;
+    
+    self.result = CCHLinkGestureRecognizerResultUnknown;
+    self.initialPoint = CGPointZero;
 }
 
 - (void)reset
@@ -107,7 +110,7 @@
     CGFloat yDistance = (self.initialPoint.y - point.y);
     CGFloat squaredDistance = (xDistance * xDistance) + (yDistance * yDistance);
     
-    BOOL isClose = (squaredDistance <= MAX_SQUARED_DISTANCE);
+    BOOL isClose = (squaredDistance <= (self.allowableMovement * self.allowableMovement));
     return isClose;
 }
 
