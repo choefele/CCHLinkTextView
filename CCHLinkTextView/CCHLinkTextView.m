@@ -13,9 +13,6 @@
 #import "CCHLinkTextViewDelegate.h"
 #import "CCHLinkGestureRecognizer.h"
 
-// Use subclass of UITextViewDelegate
-// Replace linkRanges with NSLinkAttribute attributes
-
 @interface CCHLinkTextView () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *linkRanges;
