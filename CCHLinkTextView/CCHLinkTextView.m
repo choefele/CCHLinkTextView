@@ -11,6 +11,7 @@
 #import "CCHLinkTextView.h"
 
 #import "CCHLinkTextViewDelegate.h"
+#import "CCHLinkGestureRecognizer.h"
 
 // Use subclass of UITextViewDelegate
 // Replace linkRanges with NSLinkAttribute attributes
@@ -43,20 +44,8 @@
     self.linkRanges = [NSMutableArray array];
     self.touchDownCharacterIndex = -1;
 
-    UILongPressGestureRecognizer *touchUpDownGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(touchUpDown:)];
-    touchUpDownGestureRecognizer.minimumPressDuration = 0;
-    touchUpDownGestureRecognizer.allowableMovement = 100;
-    touchUpDownGestureRecognizer.delegate = self;
-    [self addGestureRecognizer:touchUpDownGestureRecognizer];
-
-    UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
-    longPressGestureRecognizer.delegate = self;
-    [self addGestureRecognizer:longPressGestureRecognizer];
-    
-    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
-    tapGestureRecognizer.delegate = self;
-    [tapGestureRecognizer requireGestureRecognizerToFail:longPressGestureRecognizer];
-    [self addGestureRecognizer:tapGestureRecognizer];
+    CCHLinkGestureRecognizer *linkGestureRecognizer = [[CCHLinkGestureRecognizer alloc] initWithTarget:self action:@selector(linkAction:)];
+    [self addGestureRecognizer:linkGestureRecognizer];
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
@@ -108,9 +97,9 @@
     self.attributedText = attributedText;
 }
 
-#pragma mark Touch up/down
+#pragma mark Gesture recognition
 
-- (void)touchUpDown:(UIGestureRecognizer *)recognizer
+- (void)linkAction:(CCHLinkGestureRecognizer *)recognizer
 {
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         NSAssert(self.touchDownCharacterIndex == -1, @"Invalid character index");
@@ -118,10 +107,32 @@
         [self didTouchDownAtCharacterIndex:self.touchDownCharacterIndex];
     } else if (recognizer.state == UIGestureRecognizerStateEnded) {
         NSAssert(self.touchDownCharacterIndex != -1, @"Invalid character index");
-        [self didTouchUpAtCharacterIndex:self.touchDownCharacterIndex];
+        NSUInteger characterIndex = self.touchDownCharacterIndex;
+        
+        if (recognizer.result == CCHLinkGestureRecognizerResultTap) {
+            BOOL linkFound = [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
+                [self didTapLinkAtCharacterIndex:characterIndex range:range];
+            }];
+            
+            if (!linkFound) {
+                [self linkTextViewDidTap];
+            }
+        } else if (recognizer.result == CCHLinkGestureRecognizerResultLongPress) {
+            BOOL linkFound = [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
+                [self didLongPressLinkAtCharacterIndex:characterIndex range:range];
+            }];
+            
+            if (!linkFound) {
+                [self linkTextViewDidLongPress];
+            }
+        }
+        
+        [self didCancelTouchDownAtCharacterIndex:characterIndex];
         self.touchDownCharacterIndex = -1;
     }
 }
+
+#pragma mark Gesture handling
 
 - (void)didTouchDownAtCharacterIndex:(NSUInteger)characterIndex
 {
@@ -133,30 +144,14 @@
     }];
 }
 
-- (void)didTouchUpAtCharacterIndex:(NSUInteger)characterIndex
+- (void)didCancelTouchDownAtCharacterIndex:(NSUInteger)characterIndex
 {
-    NSLog(@"touch up %tu", characterIndex);
+    NSLog(@"touch down canceled %tu", characterIndex);
     
     [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
         NSDictionary *attributes = @{NSBackgroundColorAttributeName : UIColor.clearColor};
         [self addAttributes:attributes range:range];
     }];
-}
-
-#pragma mark Long press
-
-- (void)longPress:(UIGestureRecognizer *)recognizer
-{
-    if (recognizer.state == UIGestureRecognizerStateBegan) {
-        NSUInteger characterIndex = [self characterIndexForGestureRecognizer:recognizer];
-        BOOL linkFound = [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
-            [self didLongPressLinkAtCharacterIndex:characterIndex range:range];
-        }];
-        
-        if (!linkFound) {
-            [self linkTextViewDidLongPress];
-        }
-    }
 }
 
 - (void)didLongPressLinkAtCharacterIndex:(NSUInteger)characterIndex range:(NSRange)range
@@ -172,22 +167,6 @@
 {
     if ([self.linkDelegate respondsToSelector:@selector(linkTextViewDidLongPress:)]) {
         [self.linkDelegate linkTextViewDidLongPress:self];
-    }
-}
-
-#pragma mark Tap
-
-- (void)tap:(UIGestureRecognizer *)recognizer
-{
-    if (recognizer.state == UIGestureRecognizerStateEnded) {
-        NSUInteger characterIndex = [self characterIndexForGestureRecognizer:recognizer];
-        BOOL linkFound = [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
-            [self didTapLinkAtCharacterIndex:characterIndex range:range];
-        }];
-        
-        if (!linkFound) {
-            [self linkTextViewDidTap];
-        }
     }
 }
 
