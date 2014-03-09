@@ -3,7 +3,7 @@ CCHLinkTextView
 
 [![Build Status](https://travis-ci.org/choefele/CCHLinkTextView.png)](https://travis-ci.org/choefele/CCHLinkTextView)
 
-`CCHLinkTextView` makes it easy to embed links with custom styles inside a `UITextView` and receive events for short and long taps. It looks and behaves similar to table cells used in popular Twitter apps such as Twitteriffic or Tweetbot.
+`CCHLinkTextView` makes it easy to embed links with custom styles inside a `UITextView` and receive events for short and long taps. It looks and behaves similar to table cells used in popular Twitter apps such as Twitterrific or Tweetbot.
 
 ![Animated GIF landscape]()
 
