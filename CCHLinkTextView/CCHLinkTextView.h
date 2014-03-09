@@ -13,7 +13,7 @@
 @interface CCHLinkTextView : UITextView
 
 @property (nonatomic, weak) id<CCHLinkTextViewDelegate> linkDelegate;
-@property (nonatomic, copy) NSDictionary *linkTextTouchDownAttributes;
+//@property (nonatomic, copy) NSDictionary *linkTextTouchDownAttributes;
 
 /** The minimum period fingers must press on the view for the gesture to be recognized as a long press (default = 0.5s). */
 @property (nonatomic, assign) CFTimeInterval minimumPressDuration;
@@ -21,6 +21,13 @@
 @property (nonatomic, assign) CGFloat allowableMovement;
 
 - (void)addLinkForRange:(NSRange)range;
+//- (void)removeLinkForRange:(NSRange)range;
+
+//- (void)setLinkTextAttributes:(NSDictionary *)attributes forRange:(NSRange)range;
+//- (void)removeLinkTextAttributesForRange:(NSRange)range;
+//- (void)setLinkTextTouchDownAttributes:(NSDictionary *)attributes forRange:(NSRange)range;
+//- (void)removeLinkTextTouchDownAttributesForRange:(NSRange)range;
+
 - (BOOL)enumerateLinkRangesIncludingCharacterIndex:(NSUInteger)characterIndex usingBlock:(void (^)(NSRange range))block;
 
 @end
