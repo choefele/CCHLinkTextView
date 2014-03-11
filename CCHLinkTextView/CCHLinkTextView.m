@@ -56,7 +56,6 @@
 {
     [self.linkRanges addObject:[NSValue valueWithRange:range]];
     
-//    NSDictionary *attributes = @{NSForegroundColorAttributeName : UIColor.greenColor};
     [self addAttributes:self.linkTextAttributes range:range];
 }
 
