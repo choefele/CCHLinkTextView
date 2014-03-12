@@ -1,3 +1,5 @@
 language: objective-c
+before_install:
+  - gem install xcpretty
 script: 
-  - xctool -project 'CCHLinkTextView Example/CCHLinkTextView Example.xcodeproj' -scheme 'CCHLinkTextView Example' -sdk iphonesimulator7.0 -configuration Debug test
+  - xcodebuild -project 'CCHLinkTextView Example/CCHLinkTextView Example.xcodeproj' -scheme 'CCHLinkTextView Example' -sdk iphonesimulator -configuration Debug test | xcpretty -c; exit ${PIPESTATUS[0]}
