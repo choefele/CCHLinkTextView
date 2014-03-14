@@ -39,7 +39,8 @@
 {
     [super setUp];
     
-    self.linkTextView = [[CCHLinkTextView alloc] init];
+    CGRect rect = CGRectMake(0, 0, 100, 100);
+    self.linkTextView = [[CCHLinkTextView alloc] initWithFrame:rect];
     self.linkTextView.text = @"012345678901234567890123456789";
 }
 
@@ -71,5 +72,35 @@
     XCTAssertEqual(blockCalled, 0u);
 }
 
+- (void)testEnumerateViewRectsForRangesOnce
+{
+    NSValue *rangeAsValue = [NSValue valueWithRange:NSMakeRange(0, 10)];
+    __block NSUInteger blockCalled = 0;
+    [self.linkTextView enumerateViewRectsForRanges:@[rangeAsValue] usingBlock:^(CGRect rect, NSRange range, BOOL *stop) {
+        blockCalled++;
+    }];
+    XCTAssertEqual(blockCalled, 1);
+}
+
+- (void)testEnumerateViewRectsForRangesTwice
+{
+    NSValue *rangeAsValue = [NSValue valueWithRange:NSMakeRange(0, 20)];
+    __block NSUInteger blockCalled = 0;
+    [self.linkTextView enumerateViewRectsForRanges:@[rangeAsValue] usingBlock:^(CGRect rect, NSRange range, BOOL *stop) {
+        blockCalled++;
+    }];
+    XCTAssertEqual(blockCalled, 2);
+}
+
+- (void)testEnumerateViewRectsForRangesTwiceStopped
+{
+    NSValue *rangeAsValue = [NSValue valueWithRange:NSMakeRange(0, 20)];
+    __block NSUInteger blockCalled = 0;
+    [self.linkTextView enumerateViewRectsForRanges:@[rangeAsValue] usingBlock:^(CGRect rect, NSRange range, BOOL *stop) {
+        blockCalled++;
+        *stop = YES;
+    }];
+    XCTAssertEqual(blockCalled, 1);
+}
 
 @end

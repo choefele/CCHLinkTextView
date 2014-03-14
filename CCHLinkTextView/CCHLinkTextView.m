@@ -30,6 +30,8 @@
 #import "CCHLinkTextViewDelegate.h"
 #import "CCHLinkGestureRecognizer.h"
 
+#define DEBUG_COLOR [UIColor colorWithWhite:0 alpha:0.3]
+
 @interface CCHLinkTextView () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *linkRanges;
@@ -74,6 +76,63 @@
     [self.linkRanges addObject:[NSValue valueWithRange:range]];
     
     [self addAttributes:self.linkTextAttributes range:range];
+}
+
+- (void)drawRect:(CGRect)rect
+{
+    [super drawRect:rect];
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    UIGraphicsPushContext(context);
+
+    CGContextSetFillColorWithColor(context, DEBUG_COLOR.CGColor);
+    
+    for (NSValue *rangeAsValue in self.linkRanges) {
+        NSRange glyphRange = [self.layoutManager glyphRangeForCharacterRange:rangeAsValue.rangeValue actualCharacterRange:NULL];
+        [self.layoutManager enumerateEnclosingRectsForGlyphRange:glyphRange withinSelectedGlyphRange:NSMakeRange(NSNotFound, 0) inTextContainer:self.textContainer usingBlock:^(CGRect rect, BOOL *stop) {
+            rect.origin.x += self.textContainerInset.left;
+            rect.origin.y += self.textContainerInset.top;
+            
+            CGContextFillRect(context, rect);
+        }];
+    }
+    
+    UIGraphicsPopContext();
+}
+
+- (BOOL)enumerateLinkRangesContainingPoint:(CGPoint)point usingBlock:(void (^)(NSRange range))block
+{
+    if (!block) {
+        return NO;
+    }
+
+    __block BOOL found = NO;
+    [self enumerateViewRectsForRanges:self.linkRanges usingBlock:^(CGRect rect, NSRange range, BOOL *stop) {
+        if (CGRectContainsPoint(rect, point)) {
+            found = YES;
+            block(range);
+        }
+    }];
+    
+    return found;
+}
+
+- (void)enumerateViewRectsForRanges:(NSArray *)ranges usingBlock:(void (^)(CGRect rect, NSRange range, BOOL *stop))block
+{
+    if (!block) {
+        return;
+    }
+
+    for (NSValue *rangeAsValue in ranges) {
+        NSRange range = rangeAsValue.rangeValue;
+        NSRange glyphRange = [self.layoutManager glyphRangeForCharacterRange:range actualCharacterRange:NULL];
+        [self.layoutManager enumerateEnclosingRectsForGlyphRange:glyphRange withinSelectedGlyphRange:NSMakeRange(NSNotFound, 0) inTextContainer:self.textContainer usingBlock:^(CGRect rect, BOOL *stop) {
+            rect.origin.x += self.textContainerInset.left;
+            rect.origin.y += self.textContainerInset.top;
+            
+            block(rect, range, stop);
+        }];
+    }
 }
 
 - (BOOL)enumerateLinkRangesIncludingCharacterIndex:(NSUInteger)characterIndex usingBlock:(void (^)(NSRange range))block
