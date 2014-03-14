@@ -72,7 +72,7 @@
     XCTAssertEqual(blockCalled, 0u);
 }
 
-- (void)testEnumerateViewRectsForRangesOnce
+- (void)testEnumerateViewRectsForRanges
 {
     NSValue *rangeAsValue = [NSValue valueWithRange:NSMakeRange(0, 10)];
     __block NSUInteger blockCalled = 0;
@@ -99,6 +99,32 @@
     [self.linkTextView enumerateViewRectsForRanges:@[rangeAsValue] usingBlock:^(CGRect rect, NSRange range, BOOL *stop) {
         blockCalled++;
         *stop = YES;
+    }];
+    XCTAssertEqual(blockCalled, 1);
+}
+
+- (void)testEnumerateLinkRangesContainingPoint
+{
+    NSRange linkRange = NSMakeRange(0, 10);
+    [self.linkTextView addLinkForRange:linkRange];
+    
+    __block NSUInteger blockCalled = 0;
+    [self.linkTextView enumerateLinkRangesContainingPoint:CGPointMake(50, 20) usingBlock:^(NSRange range) {
+        blockCalled++;
+        XCTAssertTrue(NSEqualRanges(range, linkRange));
+    }];
+    XCTAssertEqual(blockCalled, 1);
+}
+
+- (void)testEnumerateLinkRangesContainingPointTwice
+{
+    NSRange linkRange = NSMakeRange(0, 20);
+    [self.linkTextView addLinkForRange:linkRange];
+    
+    __block NSUInteger blockCalled = 0;
+    [self.linkTextView enumerateLinkRangesContainingPoint:CGPointMake(50, 20) usingBlock:^(NSRange range) {
+        blockCalled++;
+        XCTAssertTrue(NSEqualRanges(range, linkRange));
     }];
     XCTAssertEqual(blockCalled, 1);
 }

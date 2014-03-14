@@ -35,6 +35,7 @@
     
     [linkTextView addLinkForRange:NSMakeRange(0, 10)];
     [linkTextView addLinkForRange:NSMakeRange(100, 5)];
+    [linkTextView addLinkForRange:NSMakeRange(120, 100)];
     linkTextView.linkDelegate = self;
 }
 

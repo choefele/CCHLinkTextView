@@ -86,16 +86,9 @@
     UIGraphicsPushContext(context);
 
     CGContextSetFillColorWithColor(context, DEBUG_COLOR.CGColor);
-    
-    for (NSValue *rangeAsValue in self.linkRanges) {
-        NSRange glyphRange = [self.layoutManager glyphRangeForCharacterRange:rangeAsValue.rangeValue actualCharacterRange:NULL];
-        [self.layoutManager enumerateEnclosingRectsForGlyphRange:glyphRange withinSelectedGlyphRange:NSMakeRange(NSNotFound, 0) inTextContainer:self.textContainer usingBlock:^(CGRect rect, BOOL *stop) {
-            rect.origin.x += self.textContainerInset.left;
-            rect.origin.y += self.textContainerInset.top;
-            
-            CGContextFillRect(context, rect);
-        }];
-    }
+    [self enumerateViewRectsForRanges:self.linkRanges usingBlock:^(CGRect rect, NSRange range, BOOL *stop) {
+        CGContextFillRect(context, rect);
+    }];
     
     UIGraphicsPopContext();
 }
@@ -110,6 +103,7 @@
     [self enumerateViewRectsForRanges:self.linkRanges usingBlock:^(CGRect rect, NSRange range, BOOL *stop) {
         if (CGRectContainsPoint(rect, point)) {
             found = YES;
+            *stop = YES;
             block(range);
         }
     }];
