@@ -129,4 +129,16 @@
     XCTAssertEqual(blockCalled, 1);
 }
 
+- (void)testEnumerateLinkRangesContainingPointOverlapping
+{
+    [self.linkTextView addLinkForRange:NSMakeRange(0, 20)];
+    [self.linkTextView addLinkForRange:NSMakeRange(5, 20)];
+    
+    __block NSUInteger blockCalled = 0;
+    [self.linkTextView enumerateLinkRangesContainingPoint:CGPointMake(50, 20) usingBlock:^(NSRange range) {
+        blockCalled++;
+    }];
+    XCTAssertEqual(blockCalled, 2);
+}
+
 @end
