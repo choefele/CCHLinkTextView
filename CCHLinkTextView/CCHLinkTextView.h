@@ -39,8 +39,8 @@
 
 - (void)addLinkForRange:(NSRange)range;
 //- (void)removeLinkForRange:(NSRange)range;
-- (BOOL)enumerateLinkRangesIncludingCharacterIndex:(NSUInteger)characterIndex usingBlock:(void (^)(NSRange range))block;
+
 - (void)enumerateViewRectsForRanges:(NSArray *)ranges usingBlock:(void (^)(CGRect rect, NSRange range, BOOL *stop))block;
-- (BOOL)enumerateLinkRangesContainingPoint:(CGPoint)point usingBlock:(void (^)(NSRange range))block;
+- (BOOL)enumerateLinkRangesContainingLocation:(CGPoint)location usingBlock:(void (^)(NSRange range))block;
 
 @end

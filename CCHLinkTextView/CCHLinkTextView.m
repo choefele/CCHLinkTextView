@@ -35,7 +35,7 @@
 @interface CCHLinkTextView () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) NSMutableArray *linkRanges;
-@property (nonatomic, assign) NSUInteger touchDownCharacterIndex;
+@property (nonatomic, assign) CGPoint touchDownLocation;
 @property (nonatomic, strong) CCHLinkGestureRecognizer *linkGestureRecognizer;
 
 @end
@@ -59,16 +59,11 @@
 - (void)setUp
 {
     self.linkRanges = [NSMutableArray array];
-    self.touchDownCharacterIndex = -1;
+    self.touchDownLocation = CGPointZero;
     
     self.linkGestureRecognizer = [[CCHLinkGestureRecognizer alloc] initWithTarget:self action:@selector(linkAction:)];
     self.linkGestureRecognizer.delegate = self;
     [self addGestureRecognizer:self.linkGestureRecognizer];
-}
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
-{
-    return YES;
 }
 
 - (void)addLinkForRange:(NSRange)range
@@ -93,7 +88,7 @@
     UIGraphicsPopContext();
 }
 
-- (BOOL)enumerateLinkRangesContainingPoint:(CGPoint)point usingBlock:(void (^)(NSRange range))block
+- (BOOL)enumerateLinkRangesContainingLocation:(CGPoint)location usingBlock:(void (^)(NSRange range))block
 {
     if (!block) {
         return NO;
@@ -101,7 +96,7 @@
 
     __block BOOL found = NO;
     [self enumerateViewRectsForRanges:self.linkRanges usingBlock:^(CGRect rect, NSRange range, BOOL *stop) {
-        if (CGRectContainsPoint(rect, point)) {
+        if (CGRectContainsPoint(rect, location)) {
             found = YES;
             *stop = YES;
             block(range);
@@ -127,35 +122,6 @@
             block(rect, range, stop);
         }];
     }
-}
-
-- (BOOL)enumerateLinkRangesIncludingCharacterIndex:(NSUInteger)characterIndex usingBlock:(void (^)(NSRange range))block
-{
-    if (!block) {
-        return NO;
-    }
-    
-    BOOL linkTapped = NO;
-    
-    for (NSValue *value in self.linkRanges) {
-        NSRange range = value.rangeValue;
-        if (NSLocationInRange(characterIndex, range)) {
-            linkTapped = YES;
-            block(range);
-        }
-    }
-    
-    return linkTapped;
-}
-
-- (NSUInteger)characterIndexForGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
-{
-    CGPoint location = [gestureRecognizer locationInView:self];
-    location.x -= self.textContainerInset.left;
-    location.y -= self.textContainerInset.top;
-    
-    NSUInteger characterIndex = [self.layoutManager characterIndexForPoint:location inTextContainer:self.textContainer fractionOfDistanceBetweenInsertionPoints:NULL];
-    return characterIndex;
 }
 
 - (void)addAttributes:(NSDictionary *)attributes range:(NSRange)range
@@ -190,53 +156,60 @@
 - (void)linkAction:(CCHLinkGestureRecognizer *)recognizer
 {
     if (recognizer.state == UIGestureRecognizerStateBegan) {
-        NSAssert(self.touchDownCharacterIndex == -1, @"Invalid character index");
-        self.touchDownCharacterIndex = [self characterIndexForGestureRecognizer:recognizer];
-        [self didTouchDownAtCharacterIndex:self.touchDownCharacterIndex];
+        NSAssert(CGPointEqualToPoint(self.touchDownLocation, CGPointZero), @"Invalid touch down location");
+        
+        CGPoint location = [recognizer locationInView:self];
+        self.touchDownLocation = location;
+        [self didTouchDownAtLocation:location];
     } else if (recognizer.state == UIGestureRecognizerStateEnded) {
-        NSAssert(self.touchDownCharacterIndex != -1, @"Invalid character index");
-        NSUInteger characterIndex = self.touchDownCharacterIndex;
+        NSAssert(!CGPointEqualToPoint(self.touchDownLocation, CGPointZero), @"Invalid touch down location");
         
-        if (recognizer.result == CCHLinkGestureRecognizerResultTap) {
-            BOOL linkFound = [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
-                [self didTapLinkAtCharacterIndex:characterIndex range:range];
-            }];
-            
-            if (!linkFound) {
-                [self linkTextViewDidTap];
-            }
-        } else if (recognizer.result == CCHLinkGestureRecognizerResultLongPress) {
-            BOOL linkFound = [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
-                [self didLongPressLinkAtCharacterIndex:characterIndex range:range];
-            }];
-            
-            if (!linkFound) {
-                [self linkTextViewDidLongPress];
-            }
-        }
+        CGPoint location = self.touchDownLocation;
+//        if (recognizer.result == CCHLinkGestureRecognizerResultTap) {
+//            BOOL linkFound = [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
+//                [self didTapLinkAtCharacterIndex:characterIndex range:range];
+//            }];
+//            
+//            if (!linkFound) {
+//                [self linkTextViewDidTap];
+//            }
+//        } else if (recognizer.result == CCHLinkGestureRecognizerResultLongPress) {
+//            BOOL linkFound = [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
+//                [self didLongPressLinkAtCharacterIndex:characterIndex range:range];
+//            }];
+//            
+//            if (!linkFound) {
+//                [self linkTextViewDidLongPress];
+//            }
+//        }
         
-        [self didCancelTouchDownAtCharacterIndex:characterIndex];
-        self.touchDownCharacterIndex = -1;
+        [self didCancelTouchDownAtLocation:location];
+        self.touchDownLocation = CGPointZero;
     }
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
 }
 
 #pragma mark Gesture handling
 
-- (void)didTouchDownAtCharacterIndex:(NSUInteger)characterIndex
+- (void)didTouchDownAtLocation:(CGPoint)location
 {
-    NSLog(@"touch down %tu", characterIndex);
+    NSLog(@"touch down");
     
-    [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
+    [self enumerateLinkRangesContainingLocation:location usingBlock:^(NSRange range) {
         NSDictionary *attributes = @{NSBackgroundColorAttributeName : UIColor.greenColor};
         [self addAttributes:attributes range:range];
     }];
 }
 
-- (void)didCancelTouchDownAtCharacterIndex:(NSUInteger)characterIndex
+- (void)didCancelTouchDownAtLocation:(CGPoint)location
 {
-    NSLog(@"touch down canceled %tu", characterIndex);
+    NSLog(@"touch down canceled");
     
-    [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
+    [self enumerateLinkRangesContainingLocation:location usingBlock:^(NSRange range) {
         NSDictionary *attributes = @{NSBackgroundColorAttributeName : UIColor.clearColor};
         [self addAttributes:attributes range:range];
     }];

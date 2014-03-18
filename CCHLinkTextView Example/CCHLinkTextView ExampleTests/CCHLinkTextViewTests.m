@@ -44,34 +44,6 @@
     self.linkTextView.text = @"012345678901234567890123456789";
 }
 
-- (void)testLinkRangeFound
-{
-    NSRange range = NSMakeRange(3, 4);
-    [self.linkTextView addLinkForRange:range];
-    
-    __block NSUInteger blockCalled = 0;
-    BOOL linkFound = [self.linkTextView enumerateLinkRangesIncludingCharacterIndex:4 usingBlock:^(NSRange range) {
-        blockCalled++;
-    }];
-    
-    XCTAssertTrue(linkFound);
-    XCTAssertEqual(blockCalled, 1u);
-}
-
-- (void)testLinkRangeNotFound
-{
-    NSRange range = NSMakeRange(3, 4);
-    [self.linkTextView addLinkForRange:range];
-    
-    __block NSUInteger blockCalled = 0;
-    BOOL linkFound = [self.linkTextView enumerateLinkRangesIncludingCharacterIndex:1 usingBlock:^(NSRange range) {
-        blockCalled++;
-    }];
-    
-    XCTAssertFalse(linkFound);
-    XCTAssertEqual(blockCalled, 0u);
-}
-
 - (void)testEnumerateViewRectsForRanges
 {
     NSValue *rangeAsValue = [NSValue valueWithRange:NSMakeRange(0, 10)];
@@ -109,7 +81,7 @@
     [self.linkTextView addLinkForRange:linkRange];
     
     __block NSUInteger blockCalled = 0;
-    [self.linkTextView enumerateLinkRangesContainingPoint:CGPointMake(50, 20) usingBlock:^(NSRange range) {
+    [self.linkTextView enumerateLinkRangesContainingLocation:CGPointMake(50, 20) usingBlock:^(NSRange range) {
         blockCalled++;
         XCTAssertTrue(NSEqualRanges(range, linkRange));
     }];
@@ -122,7 +94,7 @@
     [self.linkTextView addLinkForRange:linkRange];
     
     __block NSUInteger blockCalled = 0;
-    [self.linkTextView enumerateLinkRangesContainingPoint:CGPointMake(50, 20) usingBlock:^(NSRange range) {
+    [self.linkTextView enumerateLinkRangesContainingLocation:CGPointMake(50, 20) usingBlock:^(NSRange range) {
         blockCalled++;
         XCTAssertTrue(NSEqualRanges(range, linkRange));
     }];
@@ -135,7 +107,7 @@
     [self.linkTextView addLinkForRange:NSMakeRange(5, 20)];
     
     __block NSUInteger blockCalled = 0;
-    [self.linkTextView enumerateLinkRangesContainingPoint:CGPointMake(50, 20) usingBlock:^(NSRange range) {
+    [self.linkTextView enumerateLinkRangesContainingLocation:CGPointMake(50, 20) usingBlock:^(NSRange range) {
         blockCalled++;
     }];
     XCTAssertEqual(blockCalled, 2);
