@@ -44,20 +44,9 @@
     NSLog(@"Link tapped");
 }
 
-- (void)linkTextViewDidTap:(CCHLinkTextView *)linkTextView
-{
-    NSLog(@"Tap");
-    [self performSegueWithIdentifier:@"tableViewToDetail" sender:self];
-}
-
 - (void)linkTextView:(CCHLinkTextView *)linkTextView didLongPressLinkAtCharacterIndex:(NSUInteger)characterIndex
 {
     NSLog(@"Link long pressed");
-}
-
-- (void)linkTextViewDidLongPress:(CCHLinkTextView *)linkTextView
-{
-    NSLog(@"Long press");
 }
 
 #pragma mark - NSLinkAttributeName solution

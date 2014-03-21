@@ -29,8 +29,6 @@
 
 @optional
 - (void)linkTextView:(CCHLinkTextView *)linkTextView didTapLinkAtCharacterIndex:(NSUInteger)characterIndex;
-- (void)linkTextViewDidTap:(CCHLinkTextView *)linkTextView;
 - (void)linkTextView:(CCHLinkTextView *)linkTextView didLongPressLinkAtCharacterIndex:(NSUInteger)characterIndex;
-- (void)linkTextViewDidLongPress:(CCHLinkTextView *)linkTextView;
 
 @end

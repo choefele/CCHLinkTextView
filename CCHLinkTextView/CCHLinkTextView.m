@@ -90,16 +90,14 @@
 
 - (BOOL)enumerateLinkRangesContainingLocation:(CGPoint)location usingBlock:(void (^)(NSRange range))block
 {
-    if (!block) {
-        return NO;
-    }
-
     __block BOOL found = NO;
     [self enumerateViewRectsForRanges:self.linkRanges usingBlock:^(CGRect rect, NSRange range, BOOL *stop) {
         if (CGRectContainsPoint(rect, location)) {
             found = YES;
             *stop = YES;
-            block(range);
+            if (block) {
+                block(range);
+            }
         }
     }];
     
@@ -151,6 +149,12 @@
     return self.linkGestureRecognizer.allowableMovement;
 }
 
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
+{
+    BOOL linkFound = [self enumerateLinkRangesContainingLocation:point usingBlock:NULL];
+    return linkFound;
+}
+
 #pragma mark Gesture recognition
 
 - (void)linkAction:(CCHLinkGestureRecognizer *)recognizer
@@ -165,23 +169,11 @@
         NSAssert(!CGPointEqualToPoint(self.touchDownLocation, CGPointZero), @"Invalid touch down location");
         
         CGPoint location = self.touchDownLocation;
-//        if (recognizer.result == CCHLinkGestureRecognizerResultTap) {
-//            BOOL linkFound = [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
-//                [self didTapLinkAtCharacterIndex:characterIndex range:range];
-//            }];
-//            
-//            if (!linkFound) {
-//                [self linkTextViewDidTap];
-//            }
-//        } else if (recognizer.result == CCHLinkGestureRecognizerResultLongPress) {
-//            BOOL linkFound = [self enumerateLinkRangesIncludingCharacterIndex:characterIndex usingBlock:^(NSRange range) {
-//                [self didLongPressLinkAtCharacterIndex:characterIndex range:range];
-//            }];
-//            
-//            if (!linkFound) {
-//                [self linkTextViewDidLongPress];
-//            }
-//        }
+        if (recognizer.result == CCHLinkGestureRecognizerResultTap) {
+            [self didTapAtLocation:location];
+        } else if (recognizer.result == CCHLinkGestureRecognizerResultLongPress) {
+            [self didLongPressAtLocation:location];
+        }
         
         [self didCancelTouchDownAtLocation:location];
         self.touchDownLocation = CGPointZero;
@@ -215,36 +207,26 @@
     }];
 }
 
-- (void)didLongPressLinkAtCharacterIndex:(NSUInteger)characterIndex range:(NSRange)range
+- (void)didTapAtLocation:(CGPoint)location
 {
-    NSLog(@"long press %tu", characterIndex);
+    NSLog(@"tap");
+
+    [self enumerateLinkRangesContainingLocation:location usingBlock:^(NSRange range) {
+        if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didTapLinkAtCharacterIndex:)]) {
+            [self.linkDelegate linkTextView:self didTapLinkAtCharacterIndex:0];
+        }
+    }];
+}
+
+- (void)didLongPressAtLocation:(CGPoint)location
+{
+    NSLog(@"long press");
     
-    if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didLongPressLinkAtCharacterIndex:)]) {
-        [self.linkDelegate linkTextView:self didLongPressLinkAtCharacterIndex:characterIndex];
-    }
-}
-
-- (void)linkTextViewDidLongPress
-{
-    if ([self.linkDelegate respondsToSelector:@selector(linkTextViewDidLongPress:)]) {
-        [self.linkDelegate linkTextViewDidLongPress:self];
-    }
-}
-
-- (void)didTapLinkAtCharacterIndex:(NSUInteger)characterIndex range:(NSRange)range
-{
-    NSLog(@"tap %tu", characterIndex);
-
-    if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didTapLinkAtCharacterIndex:)]) {
-        [self.linkDelegate linkTextView:self didTapLinkAtCharacterIndex:characterIndex];
-    }
-}
-
-- (void)linkTextViewDidTap
-{
-    if ([self.linkDelegate respondsToSelector:@selector(linkTextViewDidTap:)]) {
-        [self.linkDelegate linkTextViewDidTap:self];
-    }
+    [self enumerateLinkRangesContainingLocation:location usingBlock:^(NSRange range) {
+        if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didLongPressLinkAtCharacterIndex:)]) {
+            [self.linkDelegate linkTextView:self didLongPressLinkAtCharacterIndex:0];
+        }
+    }];
 }
 
 @end
