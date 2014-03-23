@@ -25,6 +25,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class CCHLinkTextView;
+
 @protocol CCHLinkTextViewDelegate <NSObject>
 
 @optional
