@@ -59,6 +59,7 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
 - (void)setUp
 {
     self.touchDownLocation = CGPointZero;
+    self.linkTextTouchAttributes = @{NSBackgroundColorAttributeName : UIColor.lightGrayColor};
     
     self.linkGestureRecognizer = [[CCHLinkGestureRecognizer alloc] initWithTarget:self action:@selector(linkAction:)];
     self.linkGestureRecognizer.delegate = self;
@@ -77,10 +78,10 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
     [super setAttributedText:mutableAttributedText];
 }
 
-- (void)drawRect:(CGRect)rect
-{
-    [super drawRect:rect];
-    
+//- (void)drawRect:(CGRect)rect
+//{
+//    [super drawRect:rect];
+//    
 //    CGContextRef context = UIGraphicsGetCurrentContext();
 //    UIGraphicsPushContext(context);
 //
@@ -90,7 +91,7 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
 //    }];
 //    
 //    UIGraphicsPopContext();
-}
+//}
 
 - (BOOL)enumerateLinkRangesContainingLocation:(CGPoint)location usingBlock:(void (^)(NSRange range))block
 {
@@ -130,13 +131,6 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
             block(rect, range, stop);
         }];
     }
-}
-
-- (void)addAttributes:(NSDictionary *)attributes range:(NSRange)range
-{
-    NSMutableAttributedString *attributedText = [self.attributedText mutableCopy];
-    [attributedText addAttributes:attributes range:range];
-    self.attributedText = attributedText;
 }
 
 - (void)setMinimumPressDuration:(CFTimeInterval)minimumPressDuration
@@ -200,16 +194,21 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
 - (void)didTouchDownAtLocation:(CGPoint)location
 {
     [self enumerateLinkRangesContainingLocation:location usingBlock:^(NSRange range) {
-        NSDictionary *attributes = @{NSBackgroundColorAttributeName : UIColor.greenColor};
-        [self addAttributes:attributes range:range];
+        NSMutableAttributedString *attributedText = [self.attributedText mutableCopy];
+        [attributedText addAttributes:self.linkTextTouchAttributes range:range];
+        self.attributedText = attributedText;
     }];
 }
 
 - (void)didCancelTouchDownAtLocation:(CGPoint)location
 {
     [self enumerateLinkRangesContainingLocation:location usingBlock:^(NSRange range) {
-        NSDictionary *attributes = @{NSBackgroundColorAttributeName : UIColor.clearColor};
-        [self addAttributes:attributes range:range];
+        NSMutableAttributedString *attributedText = [self.attributedText mutableCopy];
+        for (NSString *attribute in self.linkTextTouchAttributes) {
+            [attributedText removeAttribute:attribute range:range];
+        }
+        [attributedText addAttributes:self.linkTextAttributes range:range];
+        self.attributedText = attributedText;
     }];
 }
 
