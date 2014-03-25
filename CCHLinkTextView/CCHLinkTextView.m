@@ -30,11 +30,11 @@
 #import "CCHLinkTextViewDelegate.h"
 #import "CCHLinkGestureRecognizer.h"
 
+NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
 #define DEBUG_COLOR [UIColor colorWithWhite:0 alpha:0.3]
 
 @interface CCHLinkTextView () <UIGestureRecognizerDelegate>
 
-@property (nonatomic, strong) NSMutableArray *linkRanges;
 @property (nonatomic, assign) CGPoint touchDownLocation;
 @property (nonatomic, strong) CCHLinkGestureRecognizer *linkGestureRecognizer;
 
@@ -58,7 +58,6 @@
 
 - (void)setUp
 {
-    self.linkRanges = [NSMutableArray array];
     self.touchDownLocation = CGPointZero;
     
     self.linkGestureRecognizer = [[CCHLinkGestureRecognizer alloc] initWithTarget:self action:@selector(linkAction:)];
@@ -66,38 +65,49 @@
     [self addGestureRecognizer:self.linkGestureRecognizer];
 }
 
-- (void)addLinkForRange:(NSRange)range
+- (void)setAttributedText:(NSAttributedString *)attributedText
 {
-    [self.linkRanges addObject:[NSValue valueWithRange:range]];
+    NSMutableAttributedString *mutableAttributedText = [attributedText mutableCopy];
+    [mutableAttributedText enumerateAttribute:CCHLinkAttributeName inRange:NSMakeRange(0, attributedText.length) options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
+        if (value) {
+            [mutableAttributedText addAttributes:self.linkTextAttributes range:range];
+        }
+    }];
     
-    [self addAttributes:self.linkTextAttributes range:range];
+    [super setAttributedText:mutableAttributedText];
 }
 
 - (void)drawRect:(CGRect)rect
 {
     [super drawRect:rect];
     
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    UIGraphicsPushContext(context);
-
-    CGContextSetFillColorWithColor(context, DEBUG_COLOR.CGColor);
-    [self enumerateViewRectsForRanges:self.linkRanges usingBlock:^(CGRect rect, NSRange range, BOOL *stop) {
-        CGContextFillRect(context, rect);
-    }];
-    
-    UIGraphicsPopContext();
+//    CGContextRef context = UIGraphicsGetCurrentContext();
+//    UIGraphicsPushContext(context);
+//
+//    CGContextSetFillColorWithColor(context, DEBUG_COLOR.CGColor);
+//    [self enumerateViewRectsForRanges:self.linkRanges usingBlock:^(CGRect rect, NSRange range, BOOL *stop) {
+//        CGContextFillRect(context, rect);
+//    }];
+//    
+//    UIGraphicsPopContext();
 }
 
 - (BOOL)enumerateLinkRangesContainingLocation:(CGPoint)location usingBlock:(void (^)(NSRange range))block
 {
     __block BOOL found = NO;
-    [self enumerateViewRectsForRanges:self.linkRanges usingBlock:^(CGRect rect, NSRange range, BOOL *stop) {
-        if (CGRectContainsPoint(rect, location)) {
-            found = YES;
-            *stop = YES;
-            if (block) {
-                block(range);
-            }
+    
+    NSAttributedString *attributedString = self.attributedText;
+    [attributedString enumerateAttribute:CCHLinkAttributeName inRange:NSMakeRange(0, attributedString.length) options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
+        if (value) {
+            [self enumerateViewRectsForRanges:@[[NSValue valueWithRange:range]] usingBlock:^(CGRect rect, NSRange range, BOOL *stop) {
+                if (CGRectContainsPoint(rect, location)) {
+                    found = YES;
+                    *stop = YES;
+                    if (block) {
+                        block(range);
+                    }
+                }
+            }];
         }
     }];
     
@@ -189,8 +199,6 @@
 
 - (void)didTouchDownAtLocation:(CGPoint)location
 {
-    NSLog(@"touch down");
-    
     [self enumerateLinkRangesContainingLocation:location usingBlock:^(NSRange range) {
         NSDictionary *attributes = @{NSBackgroundColorAttributeName : UIColor.greenColor};
         [self addAttributes:attributes range:range];
@@ -199,8 +207,6 @@
 
 - (void)didCancelTouchDownAtLocation:(CGPoint)location
 {
-    NSLog(@"touch down canceled");
-    
     [self enumerateLinkRangesContainingLocation:location usingBlock:^(NSRange range) {
         NSDictionary *attributes = @{NSBackgroundColorAttributeName : UIColor.clearColor};
         [self addAttributes:attributes range:range];
@@ -209,22 +215,20 @@
 
 - (void)didTapAtLocation:(CGPoint)location
 {
-    NSLog(@"tap");
-
     [self enumerateLinkRangesContainingLocation:location usingBlock:^(NSRange range) {
-        if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didTapLinkAtCharacterIndex:)]) {
-            [self.linkDelegate linkTextView:self didTapLinkAtCharacterIndex:0];
+        if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didTapLinkWithValue:)]) {
+            id value = [self.attributedText attribute:CCHLinkAttributeName atIndex:range.location effectiveRange:NULL];
+            [self.linkDelegate linkTextView:self didTapLinkWithValue:value];
         }
     }];
 }
 
 - (void)didLongPressAtLocation:(CGPoint)location
 {
-    NSLog(@"long press");
-    
     [self enumerateLinkRangesContainingLocation:location usingBlock:^(NSRange range) {
-        if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didLongPressLinkAtCharacterIndex:)]) {
-            [self.linkDelegate linkTextView:self didLongPressLinkAtCharacterIndex:0];
+        if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didLongPressLinkWithValue:)]) {
+            id value = [self.attributedText attribute:CCHLinkAttributeName atIndex:range.location effectiveRange:NULL];
+            [self.linkDelegate linkTextView:self didLongPressLinkWithValue:value];
         }
     }];
 }

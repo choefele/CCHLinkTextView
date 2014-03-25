@@ -33,20 +33,25 @@
     linkTextView.editable = NO;
     linkTextView.selectable = NO;
     
-    [linkTextView addLinkForRange:NSMakeRange(0, 10)];
-    [linkTextView addLinkForRange:NSMakeRange(100, 5)];
-    [linkTextView addLinkForRange:NSMakeRange(120, 100)];
+    NSMutableAttributedString *attributedText = [linkTextView.attributedText mutableCopy];
+    if (attributedText) {
+        [attributedText addAttribute:CCHLinkAttributeName value:@"1" range:NSMakeRange(0, 20)];
+        [attributedText addAttribute:CCHLinkAttributeName value:@"2" range:NSMakeRange(5, 20)];
+        [attributedText addAttribute:CCHLinkAttributeName value:@"3" range:NSMakeRange(120, 100)];
+        linkTextView.attributedText = attributedText;
+    }
+    
     linkTextView.linkDelegate = self;
 }
 
-- (void)linkTextView:(CCHLinkTextView *)linkTextView didTapLinkAtCharacterIndex:(NSUInteger)characterIndex
+- (void)linkTextView:(CCHLinkTextView *)linkTextView didTapLinkWithValue:(id)value
 {
-    NSLog(@"Link tapped");
+    NSLog(@"Link tapped %@", value);
 }
 
-- (void)linkTextView:(CCHLinkTextView *)linkTextView didLongPressLinkAtCharacterIndex:(NSUInteger)characterIndex
+- (void)linkTextView:(CCHLinkTextView *)linkTextView didLongPressLinkWithValue:(id)value
 {
-    NSLog(@"Link long pressed");
+    NSLog(@"Link long pressed %@", value);
 }
 
 #pragma mark - NSLinkAttributeName solution
@@ -58,16 +63,25 @@
 
     NSMutableAttributedString *attributedText = [standardTextView.attributedText mutableCopy];
     if (attributedText) {
-        [attributedText addAttribute:NSLinkAttributeName value:@"http://google.de" range:NSMakeRange(0, 10)];
-        [attributedText addAttribute:NSLinkAttributeName value:@"Link" range:NSMakeRange(100, 5)];
-        standardTextView.attributedText = [[NSAttributedString alloc] initWithAttributedString:attributedText];
+        [attributedText addAttribute:NSLinkAttributeName value:@"1" range:NSMakeRange(0, 20)];
+        [attributedText addAttribute:NSLinkAttributeName value:@"2" range:NSMakeRange(5, 20)];
+        [attributedText addAttribute:NSLinkAttributeName value:@"3" range:NSMakeRange(120, 100)];
+        standardTextView.attributedText = attributedText;
     }
+    
+//    attributedText = [standardTextView.attributedText mutableCopy];
+//    if (attributedText) {
+//        [attributedText addAttribute:NSForegroundColorAttributeName value:UIColor.redColor range:NSMakeRange(100, 50)];
+//        [attributedText addAttribute:NSUnderlineStyleAttributeName value:@(1) range:NSMakeRange(100, 50)];
+//        standardTextView.attributedText = attributedText;
+//    }
+    
     standardTextView.delegate = self;
 }
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
 {
-    NSLog(@"Tap NSLinkAttributeName");
+    NSLog(@"Tap NSLinkAttributeName %@", URL);
     return NO;
 }
 

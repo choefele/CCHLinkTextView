@@ -30,7 +30,7 @@
 @protocol CCHLinkTextViewDelegate <NSObject>
 
 @optional
-- (void)linkTextView:(CCHLinkTextView *)linkTextView didTapLinkAtCharacterIndex:(NSUInteger)characterIndex;
-- (void)linkTextView:(CCHLinkTextView *)linkTextView didLongPressLinkAtCharacterIndex:(NSUInteger)characterIndex;
+- (void)linkTextView:(CCHLinkTextView *)linkTextView didTapLinkWithValue:(id)value;
+- (void)linkTextView:(CCHLinkTextView *)linkTextView didLongPressLinkWithValue:(id)value;
 
 @end

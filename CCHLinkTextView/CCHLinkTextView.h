@@ -27,6 +27,9 @@
 
 @protocol CCHLinkTextViewDelegate;
 
+/** Attribute name for links. The value can by any object.*/
+extern NSString *const CCHLinkAttributeName;
+
 @interface CCHLinkTextView : UITextView
 
 @property (nonatomic, weak) id<CCHLinkTextViewDelegate> linkDelegate;
@@ -36,9 +39,6 @@
 @property (nonatomic, assign) CFTimeInterval minimumPressDuration;
 /** The maximum movement of the fingers on the link before the gesture is ignored (default = 10 points). */
 @property (nonatomic, assign) CGFloat allowableMovement;
-
-- (void)addLinkForRange:(NSRange)range;
-//- (void)removeLinkForRange:(NSRange)range;
 
 - (void)enumerateViewRectsForRanges:(NSArray *)ranges usingBlock:(void (^)(CGRect rect, NSRange range, BOOL *stop))block;
 - (BOOL)enumerateLinkRangesContainingLocation:(CGPoint)location usingBlock:(void (^)(NSRange range))block;

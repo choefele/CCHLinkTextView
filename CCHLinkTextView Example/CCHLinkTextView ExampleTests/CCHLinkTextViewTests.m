@@ -78,7 +78,9 @@
 - (void)testEnumerateLinkRangesContainingPoint
 {
     NSRange linkRange = NSMakeRange(0, 10);
-    [self.linkTextView addLinkForRange:linkRange];
+    NSMutableAttributedString *attributedText = [self.linkTextView.attributedText mutableCopy];
+    [attributedText addAttribute:CCHLinkAttributeName value:@"http://google.de" range:linkRange];
+    self.linkTextView.attributedText = attributedText;
     
     __block NSUInteger blockCalled = 0;
     [self.linkTextView enumerateLinkRangesContainingLocation:CGPointMake(50, 20) usingBlock:^(NSRange range) {
@@ -91,8 +93,10 @@
 - (void)testEnumerateLinkRangesContainingPointTwice
 {
     NSRange linkRange = NSMakeRange(0, 20);
-    [self.linkTextView addLinkForRange:linkRange];
-    
+    NSMutableAttributedString *attributedText = [self.linkTextView.attributedText mutableCopy];
+    [attributedText addAttribute:CCHLinkAttributeName value:@"http://google.de" range:linkRange];
+    self.linkTextView.attributedText = attributedText;
+
     __block NSUInteger blockCalled = 0;
     [self.linkTextView enumerateLinkRangesContainingLocation:CGPointMake(50, 20) usingBlock:^(NSRange range) {
         blockCalled++;
@@ -103,9 +107,11 @@
 
 - (void)testEnumerateLinkRangesContainingPointOverlapping
 {
-    [self.linkTextView addLinkForRange:NSMakeRange(0, 20)];
-    [self.linkTextView addLinkForRange:NSMakeRange(5, 20)];
-    
+    NSMutableAttributedString *attributedText = [self.linkTextView.attributedText mutableCopy];
+    [attributedText addAttribute:CCHLinkAttributeName value:@"0" range:NSMakeRange(0, 20)];
+    [attributedText addAttribute:CCHLinkAttributeName value:@"1" range:NSMakeRange(5, 20)];
+    self.linkTextView.attributedText = attributedText;
+
     __block NSUInteger blockCalled = 0;
     [self.linkTextView enumerateLinkRangesContainingLocation:CGPointMake(50, 20) usingBlock:^(NSRange range) {
         blockCalled++;
