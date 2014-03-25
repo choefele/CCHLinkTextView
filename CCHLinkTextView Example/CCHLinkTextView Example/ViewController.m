@@ -26,7 +26,12 @@
     [self setUpStandardTextView:self.standardTextView];
 }
 
-#pragma mark - CCHLinkTextView solution
+- (void)showMessage:(NSString *)message
+{
+    self.navigationItem.title = message;
+}
+
+#pragma mark - CCHLinkAttributeName solution
 
 - (void)setUpLinkTextView:(CCHLinkTextView *)linkTextView
 {
@@ -46,12 +51,12 @@
 
 - (void)linkTextView:(CCHLinkTextView *)linkTextView didTapLinkWithValue:(id)value
 {
-    NSLog(@"Link tapped %@", value);
+    [self showMessage:[NSString stringWithFormat:@"CCHLinkAttributeName tapped %@", value]];
 }
 
 - (void)linkTextView:(CCHLinkTextView *)linkTextView didLongPressLinkWithValue:(id)value
 {
-    NSLog(@"Link long pressed %@", value);
+    [self showMessage:[NSString stringWithFormat:@"CCHLinkAttributeName long pressed %@", value]];
 }
 
 #pragma mark - NSLinkAttributeName solution
@@ -69,19 +74,12 @@
         standardTextView.attributedText = attributedText;
     }
     
-//    attributedText = [standardTextView.attributedText mutableCopy];
-//    if (attributedText) {
-//        [attributedText addAttribute:NSForegroundColorAttributeName value:UIColor.redColor range:NSMakeRange(100, 50)];
-//        [attributedText addAttribute:NSUnderlineStyleAttributeName value:@(1) range:NSMakeRange(100, 50)];
-//        standardTextView.attributedText = attributedText;
-//    }
-    
     standardTextView.delegate = self;
 }
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
 {
-    NSLog(@"Tap NSLinkAttributeName %@", URL);
+    [self showMessage:[NSString stringWithFormat:@"NSLinkAttributeName tapped %@", URL]];
     return NO;
 }
 
