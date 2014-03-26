@@ -3,4 +3,4 @@ before_install:
   - gem install xcpretty
 install: echo
 script: 
-  - set -o pipefail && xcodebuild -project 'CCHLinkTextView Example/CCHLinkTextView Example.xcodeproj' -scheme 'CCHLinkTextView Example' -sdk iphonesimulator -configuration Debug test | xcpretty -c
+  - xcodebuild -project 'CCHLinkTextView Example/CCHLinkTextView Example.xcodeproj' -scheme 'CCHLinkTextView Example' -sdk iphonesimulator -configuration Debug test | xcpretty -c && exit ${PIPESTATUS[0]}
