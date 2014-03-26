@@ -51,7 +51,7 @@
     [self.linkTextView enumerateViewRectsForRanges:@[rangeAsValue] usingBlock:^(CGRect rect, NSRange range, BOOL *stop) {
         blockCalled++;
     }];
-    XCTAssertEqual(blockCalled, 1);
+    XCTAssertEqual(blockCalled, 1u);
 }
 
 - (void)testEnumerateViewRectsForRangesTwice
@@ -61,7 +61,7 @@
     [self.linkTextView enumerateViewRectsForRanges:@[rangeAsValue] usingBlock:^(CGRect rect, NSRange range, BOOL *stop) {
         blockCalled++;
     }];
-    XCTAssertEqual(blockCalled, 2);
+    XCTAssertEqual(blockCalled, 2u);
 }
 
 - (void)testEnumerateViewRectsForRangesTwiceStopped
@@ -72,7 +72,7 @@
         blockCalled++;
         *stop = YES;
     }];
-    XCTAssertEqual(blockCalled, 1);
+    XCTAssertEqual(blockCalled, 1u);
 }
 
 - (void)testEnumerateLinkRangesContainingPoint
@@ -87,7 +87,7 @@
         blockCalled++;
         XCTAssertTrue(NSEqualRanges(range, linkRange));
     }];
-    XCTAssertEqual(blockCalled, 1);
+    XCTAssertEqual(blockCalled, 1u);
 }
 
 - (void)testEnumerateLinkRangesContainingPointTwice
@@ -102,7 +102,7 @@
         blockCalled++;
         XCTAssertTrue(NSEqualRanges(range, linkRange));
     }];
-    XCTAssertEqual(blockCalled, 1);
+    XCTAssertEqual(blockCalled, 1u);
 }
 
 - (void)testEnumerateLinkRangesContainingPointOverlapping
@@ -116,7 +116,7 @@
     [self.linkTextView enumerateLinkRangesContainingLocation:CGPointMake(50, 20) usingBlock:^(NSRange range) {
         blockCalled++;
     }];
-    XCTAssertEqual(blockCalled, 2);
+    XCTAssertEqual(blockCalled, 2u);
 }
 
 @end
