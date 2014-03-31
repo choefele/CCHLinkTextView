@@ -25,6 +25,7 @@
 
 #import <UIKit/UIKit.h>
 
+@class CCHLinkGestureRecognizer;
 @protocol CCHLinkTextViewDelegate;
 
 /** Attribute name for links. The value can by any object.*/
@@ -39,6 +40,9 @@ extern NSString *const CCHLinkAttributeName;
 @property (nonatomic, assign) CFTimeInterval minimumPressDuration;
 /** The maximum movement of the fingers on the link before the gesture is ignored (default = 10 points). */
 @property (nonatomic, assign) CGFloat allowableMovement;
+
+/** The gesture recognizer used to detect links in this text view. */
+@property (nonatomic, strong, readonly) CCHLinkGestureRecognizer *linkGestureRecognizer;
 
 - (void)enumerateViewRectsForRanges:(NSArray *)ranges usingBlock:(void (^)(CGRect rect, NSRange range, BOOL *stop))block;
 - (BOOL)enumerateLinkRangesContainingLocation:(CGPoint)location usingBlock:(void (^)(NSRange range))block;

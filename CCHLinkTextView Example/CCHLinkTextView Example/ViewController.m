@@ -7,6 +7,8 @@
 
 #import "CCHLinkTextView.h"
 #import "CCHLinkTextViewDelegate.h"
+#import "CCHLinkGestureRecognizer.h"
+
 #import "TextView.h"
 
 @interface ViewController () <CCHLinkTextViewDelegate, UITextViewDelegate>
@@ -24,6 +26,21 @@
     
     [self setUpLinkTextView:self.linkTextView];
     [self setUpStandardTextView:self.standardTextView];
+    
+    UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    [longPressGestureRecognizer requireGestureRecognizerToFail:self.linkTextView.linkGestureRecognizer];
+    [self.tableView addGestureRecognizer:longPressGestureRecognizer];
+}
+
+- (void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    CGPoint point = [gestureRecognizer locationInView:self.tableView];
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+    if (indexPath) {
+        NSString *message = [NSString stringWithFormat:@"UITableView long pressed %zd", indexPath.row];
+        [self showMessage:message];
+    }
 }
 
 - (void)showMessage:(NSString *)message
