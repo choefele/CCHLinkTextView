@@ -2,5 +2,7 @@ language: objective-c
 before_install:
   - gem install xcpretty
 install: echo
-script: 
-  - xcodebuild -project 'CCHLinkTextView Example/CCHLinkTextView Example.xcodeproj' -scheme 'CCHLinkTextView Example' -sdk iphonesimulator -configuration Debug test | xcpretty -c && exit ${PIPESTATUS[0]}
+script:
+  - export LC_CTYPE=en_US.UTF-8
+  - set -o pipefail
+  - xcodebuild -project 'CCHLinkTextView Example/CCHLinkTextView Example.xcodeproj' -scheme 'CCHLinkTextView Example' -sdk iphonesimulator -configuration Debug test | xcpretty -c
