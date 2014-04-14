@@ -31,9 +31,15 @@
 /** Attribute name for links. The value can by any object.*/
 extern NSString *const CCHLinkAttributeName;
 
+/** `UITextView` subclass with tappable links. */
 @interface CCHLinkTextView : UITextView
 
+/** Delegate to receive tap and long press events. */
 @property (nonatomic, weak) id<CCHLinkTextViewDelegate> linkDelegate;
+
+/** `NSAttributedString` attributes applied to links. */
+@property(nonatomic, copy) NSDictionary *linkTextAttributes NS_AVAILABLE_IOS(7_0);
+/** `NSAttributedString` attributes applied to links when touched. */
 @property (nonatomic, copy) NSDictionary *linkTextTouchAttributes;
 
 /** The minimum period fingers must press on the link for the gesture to be recognized as a long press (default = 0.5s). */
@@ -44,7 +50,18 @@ extern NSString *const CCHLinkAttributeName;
 /** The gesture recognizer used to detect links in this text view. */
 @property (nonatomic, strong, readonly) CCHLinkGestureRecognizer *linkGestureRecognizer;
 
+/** 
+ For the given ranges, enumerates all view rectangles that cover each range.
+ @param ranges array of ranges.
+ @param block block that's called for each view rect.
+ */
 - (void)enumerateViewRectsForRanges:(NSArray *)ranges usingBlock:(void (^)(CGRect rect, NSRange range, BOOL *stop))block;
+
+/** 
+ Enumerates all ranges with a link for the given point.
+ @param location point in this view's coordinates.
+ @param block block that's called for every link range that was found.
+ */
 - (BOOL)enumerateLinkRangesContainingLocation:(CGPoint)location usingBlock:(void (^)(NSRange range))block;
 
 @end

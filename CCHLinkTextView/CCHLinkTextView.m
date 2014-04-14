@@ -93,6 +93,24 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
 //    UIGraphicsPopContext();
 //}
 
+- (void)enumerateViewRectsForRanges:(NSArray *)ranges usingBlock:(void (^)(CGRect rect, NSRange range, BOOL *stop))block
+{
+    if (!block) {
+        return;
+    }
+
+    for (NSValue *rangeAsValue in ranges) {
+        NSRange range = rangeAsValue.rangeValue;
+        NSRange glyphRange = [self.layoutManager glyphRangeForCharacterRange:range actualCharacterRange:NULL];
+        [self.layoutManager enumerateEnclosingRectsForGlyphRange:glyphRange withinSelectedGlyphRange:NSMakeRange(NSNotFound, 0) inTextContainer:self.textContainer usingBlock:^(CGRect rect, BOOL *stop) {
+            rect.origin.x += self.textContainerInset.left;
+            rect.origin.y += self.textContainerInset.top;
+            
+            block(rect, range, stop);
+        }];
+    }
+}
+
 - (BOOL)enumerateLinkRangesContainingLocation:(CGPoint)location usingBlock:(void (^)(NSRange range))block
 {
     __block BOOL found = NO;
@@ -113,24 +131,6 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
     }];
     
     return found;
-}
-
-- (void)enumerateViewRectsForRanges:(NSArray *)ranges usingBlock:(void (^)(CGRect rect, NSRange range, BOOL *stop))block
-{
-    if (!block) {
-        return;
-    }
-
-    for (NSValue *rangeAsValue in ranges) {
-        NSRange range = rangeAsValue.rangeValue;
-        NSRange glyphRange = [self.layoutManager glyphRangeForCharacterRange:range actualCharacterRange:NULL];
-        [self.layoutManager enumerateEnclosingRectsForGlyphRange:glyphRange withinSelectedGlyphRange:NSMakeRange(NSNotFound, 0) inTextContainer:self.textContainer usingBlock:^(CGRect rect, BOOL *stop) {
-            rect.origin.x += self.textContainerInset.left;
-            rect.origin.y += self.textContainerInset.top;
-            
-            block(rect, range, stop);
-        }];
-    }
 }
 
 - (void)setMinimumPressDuration:(CFTimeInterval)minimumPressDuration
