@@ -66,6 +66,41 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
     [self addGestureRecognizer:self.linkGestureRecognizer];
 }
 
+- (id)debugQuickLookObject
+{
+    if (self.bounds.size.width < 0.0f || self.bounds.size.height < 0.0f) {
+        return nil;
+    }
+    
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, self.window.screen.scale);
+
+    // Draw rectangles for all links
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    UIGraphicsPushContext(context);
+    CGContextSetFillColorWithColor(context, DEBUG_COLOR.CGColor);
+    NSAttributedString *attributedString = self.attributedText;
+    [attributedString enumerateAttribute:CCHLinkAttributeName inRange:NSMakeRange(0, attributedString.length) options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
+        if (value) {
+            [self enumerateViewRectsForRanges:@[[NSValue valueWithRange:range]] usingBlock:^(CGRect rect, NSRange range, BOOL *stop) {
+                CGContextFillRect(context, rect);
+            }];
+        }
+    }];
+
+    UIGraphicsPopContext();
+    
+    // Draw text
+    CGRect rect = self.bounds;
+    rect.origin.x += self.textContainerInset.left + self.textContainer.lineFragmentPadding;
+    rect.origin.y += self.textContainerInset.top;
+    [attributedString drawInRect:rect];
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
 - (void)setAttributedText:(NSAttributedString *)attributedText
 {
     NSMutableAttributedString *mutableAttributedText = [attributedText mutableCopy];
@@ -77,21 +112,6 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
     
     [super setAttributedText:mutableAttributedText];
 }
-
-//- (void)drawRect:(CGRect)rect
-//{
-//    [super drawRect:rect];
-//    
-//    CGContextRef context = UIGraphicsGetCurrentContext();
-//    UIGraphicsPushContext(context);
-//
-//    CGContextSetFillColorWithColor(context, DEBUG_COLOR.CGColor);
-//    [self enumerateViewRectsForRanges:self.linkRanges usingBlock:^(CGRect rect, NSRange range, BOOL *stop) {
-//        CGContextFillRect(context, rect);
-//    }];
-//    
-//    UIGraphicsPopContext();
-//}
 
 - (void)enumerateViewRectsForRanges:(NSArray *)ranges usingBlock:(void (^)(CGRect rect, NSRange range, BOOL *stop))block
 {
