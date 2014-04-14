@@ -64,6 +64,9 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
     self.linkGestureRecognizer = [[CCHLinkGestureRecognizer alloc] initWithTarget:self action:@selector(linkAction:)];
     self.linkGestureRecognizer.delegate = self;
     [self addGestureRecognizer:self.linkGestureRecognizer];
+    
+    self.extendedTapAreaX = 10;
+    self.extendedTapAreaY = 10;
 }
 
 - (id)debugQuickLookObject
@@ -82,6 +85,7 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
     [attributedString enumerateAttribute:CCHLinkAttributeName inRange:NSMakeRange(0, attributedString.length) options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
         if (value) {
             [self enumerateViewRectsForRanges:@[[NSValue valueWithRange:range]] usingBlock:^(CGRect rect, NSRange range, BOOL *stop) {
+                rect = CGRectInset(rect, -self.extendedTapAreaX, -self.extendedTapAreaY);
                 CGContextFillRect(context, rect);
             }];
         }
@@ -139,6 +143,8 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
     [attributedString enumerateAttribute:CCHLinkAttributeName inRange:NSMakeRange(0, attributedString.length) options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
         if (value) {
             [self enumerateViewRectsForRanges:@[[NSValue valueWithRange:range]] usingBlock:^(CGRect rect, NSRange range, BOOL *stop) {
+                rect = CGRectInset(rect, -self.extendedTapAreaX, -self.extendedTapAreaY);
+
                 if (CGRectContainsPoint(rect, location)) {
                     found = YES;
                     *stop = YES;

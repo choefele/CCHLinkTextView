@@ -90,6 +90,53 @@
     XCTAssertEqual(blockCalled, 1u);
 }
 
+- (void)testEnumerateLinkRangesNotContainingPoint
+{
+    NSRange linkRange = NSMakeRange(0, 10);
+    NSMutableAttributedString *attributedText = [self.linkTextView.attributedText mutableCopy];
+    [attributedText addAttribute:CCHLinkAttributeName value:@"http://google.de" range:linkRange];
+    self.linkTextView.attributedText = attributedText;
+    
+    __block NSUInteger blockCalled = 0;
+    [self.linkTextView enumerateLinkRangesContainingLocation:CGPointMake(100, 20) usingBlock:^(NSRange range) {
+        blockCalled++;
+        XCTAssertTrue(NSEqualRanges(range, linkRange));
+    }];
+    XCTAssertEqual(blockCalled, 0u);
+}
+
+- (void)testEnumerateLinkRangesContainingPointExtendedTapAreaX
+{
+    NSRange linkRange = NSMakeRange(0, 10);
+    NSMutableAttributedString *attributedText = [self.linkTextView.attributedText mutableCopy];
+    [attributedText addAttribute:CCHLinkAttributeName value:@"http://google.de" range:linkRange];
+    self.linkTextView.attributedText = attributedText;
+    self.linkTextView.extendedTapAreaX = 50;
+    
+    __block NSUInteger blockCalled = 0;
+    [self.linkTextView enumerateLinkRangesContainingLocation:CGPointMake(100, 20) usingBlock:^(NSRange range) {
+        blockCalled++;
+        XCTAssertTrue(NSEqualRanges(range, linkRange));
+    }];
+    XCTAssertEqual(blockCalled, 1u);
+}
+
+- (void)testEnumerateLinkRangesContainingPointExtendedTapAreaY
+{
+    NSRange linkRange = NSMakeRange(0, 10);
+    NSMutableAttributedString *attributedText = [self.linkTextView.attributedText mutableCopy];
+    [attributedText addAttribute:CCHLinkAttributeName value:@"http://google.de" range:linkRange];
+    self.linkTextView.attributedText = attributedText;
+    self.linkTextView.extendedTapAreaY = 80;
+    
+    __block NSUInteger blockCalled = 0;
+    [self.linkTextView enumerateLinkRangesContainingLocation:CGPointMake(50, 100) usingBlock:^(NSRange range) {
+        blockCalled++;
+        XCTAssertTrue(NSEqualRanges(range, linkRange));
+    }];
+    XCTAssertEqual(blockCalled, 1u);
+}
+
 - (void)testEnumerateLinkRangesContainingPointTwice
 {
     NSRange linkRange = NSMakeRange(0, 20);
