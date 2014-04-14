@@ -9,12 +9,11 @@
 #import "CCHLinkTextViewDelegate.h"
 #import "CCHLinkGestureRecognizer.h"
 
-#import "TextView.h"
+#import "TableViewCell.h"
 
 @interface ViewController () <CCHLinkTextViewDelegate, UITextViewDelegate>
 
-@property (weak, nonatomic) IBOutlet CCHLinkTextView *linkTextView;
-@property (weak, nonatomic) IBOutlet TextView *standardTextView;
+@property (nonatomic, strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
 
 @end
 
@@ -24,28 +23,53 @@
 {
     [super viewDidLoad];
     
-    [self setUpLinkTextView:self.linkTextView];
-    [self setUpStandardTextView:self.standardTextView];
-    
-    UILongPressGestureRecognizer *longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-    [longPressGestureRecognizer requireGestureRecognizerToFail:self.linkTextView.linkGestureRecognizer];
-    [self.tableView addGestureRecognizer:longPressGestureRecognizer];
-}
-
-- (void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
-{
-    CGPoint point = [gestureRecognizer locationInView:self.tableView];
-    
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
-    if (indexPath) {
-        NSString *message = [NSString stringWithFormat:@"UITableView long pressed %zd", indexPath.row];
-        [self showMessage:message];
-    }
+    [self setUpLongPressGesture];
 }
 
 - (void)showMessage:(NSString *)message
 {
     self.navigationItem.title = message;
+}
+
+#pragma mark - Table view handling
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 10;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    TableViewCell *tableViewCell;
+    
+    NSInteger numberOfRows = [self.tableView numberOfRowsInSection:0];
+    if (indexPath.row < (numberOfRows - 1)) {
+        tableViewCell = [self.tableView dequeueReusableCellWithIdentifier:@"linkTextViewCell"];
+        [self setUpLinkTextView:(CCHLinkTextView *)tableViewCell.textView];
+    } else {
+        tableViewCell = [self.tableView dequeueReusableCellWithIdentifier:@"standardTextViewCell"];
+        [self setUpStandardTextView:tableViewCell.textView];
+    }
+    
+    return tableViewCell;
+}
+
+#pragma mark - Long presses on table view cells
+
+- (void)setUpLongPressGesture
+{
+    self.longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    [self.tableView addGestureRecognizer:self.longPressGestureRecognizer];
+}
+
+- (void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    CGPoint point = [gestureRecognizer locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+    if (indexPath) {
+        NSString *message = [NSString stringWithFormat:@"Cell %zd long pressed", indexPath.row];
+        [self showMessage:message];
+    }
 }
 
 #pragma mark - CCHLinkAttributeName solution
@@ -57,37 +81,41 @@
     
     NSMutableAttributedString *attributedText = [linkTextView.attributedText mutableCopy];
     if (attributedText) {
-        [attributedText addAttribute:CCHLinkAttributeName value:@"1" range:NSMakeRange(0, 20)];
-        [attributedText addAttribute:CCHLinkAttributeName value:@"2" range:NSMakeRange(5, 20)];
-        [attributedText addAttribute:CCHLinkAttributeName value:@"3" range:NSMakeRange(120, 100)];
+        [attributedText addAttribute:CCHLinkAttributeName value:@"0" range:NSMakeRange(0, 20)];
+        [attributedText addAttribute:CCHLinkAttributeName value:@"1" range:NSMakeRange(5, 20)];
+        [attributedText addAttribute:CCHLinkAttributeName value:@"2" range:NSMakeRange(150, 40)];
         linkTextView.attributedText = attributedText;
     }
     
+    [self.longPressGestureRecognizer requireGestureRecognizerToFail:linkTextView.linkGestureRecognizer];
     linkTextView.linkDelegate = self;
 }
 
 - (void)linkTextView:(CCHLinkTextView *)linkTextView didTapLinkWithValue:(id)value
 {
-    [self showMessage:[NSString stringWithFormat:@"CCHLinkAttributeName tapped %@", value]];
+    CGPoint point = [self.tableView convertPoint:linkTextView.frame.origin fromView:linkTextView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+    [self showMessage:[NSString stringWithFormat:@"Cell %zd link %@ tapped", indexPath.row, value]];
 }
 
 - (void)linkTextView:(CCHLinkTextView *)linkTextView didLongPressLinkWithValue:(id)value
 {
-    [self showMessage:[NSString stringWithFormat:@"CCHLinkAttributeName long pressed %@", value]];
+    CGPoint point = [self.tableView convertPoint:linkTextView.frame.origin fromView:linkTextView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+    [self showMessage:[NSString stringWithFormat:@"Cell %zd link %@ long pressed", indexPath.row, value]];
 }
 
 #pragma mark - NSLinkAttributeName solution
 
-- (void)setUpStandardTextView:(TextView *)standardTextView
+- (void)setUpStandardTextView:(UITextView *)standardTextView
 {
     standardTextView.editable = NO;
-    standardTextView.viewController = self;
 
     NSMutableAttributedString *attributedText = [standardTextView.attributedText mutableCopy];
     if (attributedText) {
-        [attributedText addAttribute:NSLinkAttributeName value:@"1" range:NSMakeRange(0, 20)];
-        [attributedText addAttribute:NSLinkAttributeName value:@"2" range:NSMakeRange(5, 20)];
-        [attributedText addAttribute:NSLinkAttributeName value:@"3" range:NSMakeRange(120, 100)];
+        [attributedText addAttribute:NSLinkAttributeName value:@"0" range:NSMakeRange(0, 20)];
+        [attributedText addAttribute:NSLinkAttributeName value:@"1" range:NSMakeRange(5, 16)];
+        [attributedText addAttribute:NSLinkAttributeName value:@"2" range:NSMakeRange(150, 40)];
         standardTextView.attributedText = attributedText;
     }
     
@@ -96,7 +124,10 @@
 
 - (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange
 {
-    [self showMessage:[NSString stringWithFormat:@"NSLinkAttributeName tapped %@", URL]];
+    CGPoint point = [self.tableView convertPoint:textView.frame.origin fromView:textView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:point];
+    [self showMessage:[NSString stringWithFormat:@"Cell %zd link %@ tapped", indexPath.row, URL]];
+
     return NO;
 }
 

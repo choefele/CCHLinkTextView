@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		623AC49518C11BAD000962A0 /* CCHLinkTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 623AC49418C11BAD000962A0 /* CCHLinkTextView.m */; };
 		626F837918C75FBC004FEABB /* CCHLinkTextViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 626F837818C75FBC004FEABB /* CCHLinkTextViewTests.m */; };
-		627D34AD18D0C18B00A1CB9E /* TextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 627D34AC18D0C18B00A1CB9E /* TextView.m */; };
 		629754F318CB69F90050DCFE /* CCHLinkGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 629754F218CB69F90050DCFE /* CCHLinkGestureRecognizer.m */; };
+		62A3423618FC555B00003EC3 /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62A3423518FC555B00003EC3 /* TableViewCell.m */; };
 		62F55CC118C1180200A7E1CC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F55CC018C1180200A7E1CC /* Foundation.framework */; };
 		62F55CC318C1180200A7E1CC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F55CC218C1180200A7E1CC /* CoreGraphics.framework */; };
 		62F55CC518C1180200A7E1CC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F55CC418C1180200A7E1CC /* UIKit.framework */; };
@@ -41,10 +41,10 @@
 		623AC49418C11BAD000962A0 /* CCHLinkTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCHLinkTextView.m; sourceTree = "<group>"; };
 		623AC49618C11EAA000962A0 /* CCHLinkTextViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCHLinkTextViewDelegate.h; sourceTree = "<group>"; };
 		626F837818C75FBC004FEABB /* CCHLinkTextViewTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCHLinkTextViewTests.m; sourceTree = "<group>"; };
-		627D34AB18D0C18B00A1CB9E /* TextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextView.h; sourceTree = "<group>"; };
-		627D34AC18D0C18B00A1CB9E /* TextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextView.m; sourceTree = "<group>"; };
 		629754F118CB69F90050DCFE /* CCHLinkGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCHLinkGestureRecognizer.h; sourceTree = "<group>"; };
 		629754F218CB69F90050DCFE /* CCHLinkGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCHLinkGestureRecognizer.m; sourceTree = "<group>"; };
+		62A3423418FC555B00003EC3 /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
+		62A3423518FC555B00003EC3 /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
 		62F55CBD18C1180200A7E1CC /* CCHLinkTextView Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CCHLinkTextView Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		62F55CC018C1180200A7E1CC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		62F55CC218C1180200A7E1CC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -141,8 +141,8 @@
 				62F55CD218C1180200A7E1CC /* Main.storyboard */,
 				62F55CD518C1180200A7E1CC /* ViewController.h */,
 				62F55CD618C1180200A7E1CC /* ViewController.m */,
-				627D34AB18D0C18B00A1CB9E /* TextView.h */,
-				627D34AC18D0C18B00A1CB9E /* TextView.m */,
+				62A3423418FC555B00003EC3 /* TableViewCell.h */,
+				62A3423518FC555B00003EC3 /* TableViewCell.m */,
 				62F55CD818C1180200A7E1CC /* Images.xcassets */,
 				62F55CC718C1180200A7E1CC /* Supporting Files */,
 			);
@@ -276,9 +276,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				623AC49518C11BAD000962A0 /* CCHLinkTextView.m in Sources */,
+				62A3423618FC555B00003EC3 /* TableViewCell.m in Sources */,
 				62F55CD718C1180200A7E1CC /* ViewController.m in Sources */,
 				629754F318CB69F90050DCFE /* CCHLinkGestureRecognizer.m in Sources */,
-				627D34AD18D0C18B00A1CB9E /* TextView.m in Sources */,
 				62F55CD118C1180200A7E1CC /* AppDelegate.m in Sources */,
 				62F55CCD18C1180200A7E1CC /* main.m in Sources */,
 			);
