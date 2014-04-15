@@ -1,7 +1,6 @@
 language: objective-c
 before_install:
-  - gem install xcpretty
-install: echo
+  - gem install xcpretty -N
 script:
   - export LC_CTYPE=en_US.UTF-8
   - set -o pipefail
