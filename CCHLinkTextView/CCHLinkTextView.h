@@ -47,10 +47,8 @@ extern NSString *const CCHLinkAttributeName;
 /** The maximum movement of the fingers on the link before the gesture is ignored (default = 10 points). */
 @property (nonatomic, assign) CGFloat allowableMovement;
 
-/** Additional tap area left and right of the link text (default: 10 points). */
-@property (nonatomic, assign) CGFloat extendedTapAreaX;
-/** Additional tap area above and below of the link text (default: 10 points). */
-@property (nonatomic, assign) CGFloat extendedTapAreaY;
+/** Expands or shrinks the tap area of the link text (default: {-5, -5, -5, -5}). */
+@property (nonatomic, assign) UIEdgeInsets tapAreaInsets;
 
 /** The gesture recognizer used to detect links in this text view. */
 @property (nonatomic, strong, readonly) CCHLinkGestureRecognizer *linkGestureRecognizer;

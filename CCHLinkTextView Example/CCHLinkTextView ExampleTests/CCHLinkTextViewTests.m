@@ -111,7 +111,7 @@
     NSMutableAttributedString *attributedText = [self.linkTextView.attributedText mutableCopy];
     [attributedText addAttribute:CCHLinkAttributeName value:@"http://google.de" range:linkRange];
     self.linkTextView.attributedText = attributedText;
-    self.linkTextView.extendedTapAreaX = 50;
+    self.linkTextView.tapAreaInsets = UIEdgeInsetsMake(0, 0, 0, -50);
     
     __block NSUInteger blockCalled = 0;
     [self.linkTextView enumerateLinkRangesContainingLocation:CGPointMake(100, 20) usingBlock:^(NSRange range) {
@@ -127,7 +127,7 @@
     NSMutableAttributedString *attributedText = [self.linkTextView.attributedText mutableCopy];
     [attributedText addAttribute:CCHLinkAttributeName value:@"http://google.de" range:linkRange];
     self.linkTextView.attributedText = attributedText;
-    self.linkTextView.extendedTapAreaY = 80;
+    self.linkTextView.tapAreaInsets = UIEdgeInsetsMake(0, 0, -80, 0);
     
     __block NSUInteger blockCalled = 0;
     [self.linkTextView enumerateLinkRangesContainingLocation:CGPointMake(50, 100) usingBlock:^(NSRange range) {

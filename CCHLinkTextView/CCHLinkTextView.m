@@ -65,8 +65,7 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
     self.linkGestureRecognizer.delegate = self;
     [self addGestureRecognizer:self.linkGestureRecognizer];
     
-    self.extendedTapAreaX = 10;
-    self.extendedTapAreaY = 10;
+    self.tapAreaInsets = UIEdgeInsetsMake(-5, -5, -5, -5);
 }
 
 - (id)debugQuickLookObject
@@ -85,7 +84,6 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
     [attributedString enumerateAttribute:CCHLinkAttributeName inRange:NSMakeRange(0, attributedString.length) options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
         if (value) {
             [self enumerateViewRectsForRanges:@[[NSValue valueWithRange:range]] usingBlock:^(CGRect rect, NSRange range, BOOL *stop) {
-                rect = CGRectInset(rect, -self.extendedTapAreaX, -self.extendedTapAreaY);
                 CGContextFillRect(context, rect);
             }];
         }
@@ -129,6 +127,7 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
         [self.layoutManager enumerateEnclosingRectsForGlyphRange:glyphRange withinSelectedGlyphRange:NSMakeRange(NSNotFound, 0) inTextContainer:self.textContainer usingBlock:^(CGRect rect, BOOL *stop) {
             rect.origin.x += self.textContainerInset.left;
             rect.origin.y += self.textContainerInset.top;
+            rect = UIEdgeInsetsInsetRect(rect, self.tapAreaInsets);
             
             block(rect, range, stop);
         }];
@@ -143,8 +142,6 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
     [attributedString enumerateAttribute:CCHLinkAttributeName inRange:NSMakeRange(0, attributedString.length) options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
         if (value) {
             [self enumerateViewRectsForRanges:@[[NSValue valueWithRange:range]] usingBlock:^(CGRect rect, NSRange range, BOOL *stop) {
-                rect = CGRectInset(rect, -self.extendedTapAreaX, -self.extendedTapAreaY);
-
                 if (CGRectContainsPoint(rect, location)) {
                     found = YES;
                     *stop = YES;
