@@ -77,12 +77,10 @@
 - (void)setUpLinkTextView:(CCHLinkTextView *)linkTextView
 {
     NSMutableAttributedString *attributedText = [linkTextView.attributedText mutableCopy];
-    if (attributedText) {
-        [attributedText addAttribute:CCHLinkAttributeName value:@"0" range:NSMakeRange(0, 20)];
-        [attributedText addAttribute:CCHLinkAttributeName value:@"1" range:NSMakeRange(5, 20)];
-        [attributedText addAttribute:CCHLinkAttributeName value:@"2" range:NSMakeRange(150, 40)];
-        linkTextView.attributedText = attributedText;
-    }
+    [attributedText addAttribute:CCHLinkAttributeName value:@"0" range:NSMakeRange(0, 20)];
+    [attributedText addAttribute:CCHLinkAttributeName value:@"1" range:NSMakeRange(5, 20)];
+    [attributedText addAttribute:CCHLinkAttributeName value:@"2" range:NSMakeRange(150, 40)];
+    linkTextView.attributedText = attributedText;
     
     [self.longPressGestureRecognizer requireGestureRecognizerToFail:linkTextView.linkGestureRecognizer];
     linkTextView.linkDelegate = self;
@@ -109,12 +107,10 @@
     standardTextView.editable = NO;
 
     NSMutableAttributedString *attributedText = [standardTextView.attributedText mutableCopy];
-    if (attributedText) {
-        [attributedText addAttribute:NSLinkAttributeName value:@"0" range:NSMakeRange(0, 20)];
-        [attributedText addAttribute:NSLinkAttributeName value:@"1" range:NSMakeRange(5, 16)];
-        [attributedText addAttribute:NSLinkAttributeName value:@"2" range:NSMakeRange(150, 40)];
-        standardTextView.attributedText = attributedText;
-    }
+    [attributedText addAttribute:NSLinkAttributeName value:@"0" range:NSMakeRange(0, 20)];
+    [attributedText addAttribute:NSLinkAttributeName value:@"1" range:NSMakeRange(5, 16)];
+    [attributedText addAttribute:NSLinkAttributeName value:@"2" range:NSMakeRange(150, 40)];
+    standardTextView.attributedText = attributedText;
     
     standardTextView.delegate = self;
 }
