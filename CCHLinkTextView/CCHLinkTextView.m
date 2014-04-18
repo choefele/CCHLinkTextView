@@ -66,6 +66,8 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
     [self addGestureRecognizer:self.linkGestureRecognizer];
     
     self.tapAreaInsets = UIEdgeInsetsMake(-5, -5, -5, -5);
+    self.editable = NO;
+    self.selectable = NO;
 }
 
 - (id)debugQuickLookObject

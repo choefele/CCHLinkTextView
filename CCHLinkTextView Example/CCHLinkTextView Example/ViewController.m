@@ -76,9 +76,6 @@
 
 - (void)setUpLinkTextView:(CCHLinkTextView *)linkTextView
 {
-    linkTextView.editable = NO;
-    linkTextView.selectable = NO;
-    
     NSMutableAttributedString *attributedText = [linkTextView.attributedText mutableCopy];
     if (attributedText) {
         [attributedText addAttribute:CCHLinkAttributeName value:@"0" range:NSMakeRange(0, 20)];
