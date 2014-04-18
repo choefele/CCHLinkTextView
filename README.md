@@ -5,7 +5,7 @@ CCHLinkTextView
 
 `CCHLinkTextView` makes it easy to embed links inside a `UITextView` and receive events for short and long taps. It looks and behaves similar to table cells used in popular Twitter apps such as Twitterrific or Tweetbot. `CCHLinkTextView` is available under the MIT license.
 
-Need to talk to a human? [Follow @claushoefele on Twitter](https://twitter.com/claushoefele).
+Need to talk to a human? [I'm @claushoefele on Twitter](https://twitter.com/claushoefele).
 
 ## Alternatives
 
@@ -20,6 +20,11 @@ Compared to `OHAttributedLabel` and `TTTAttributeLabel`, `CCHLinkTextView` is wr
 In contrast to `STTweetLabel`, `CCHLinkTextView` is a subclass of `UITextView` because `UILabel` has limited TextKit support and adding this functionality can be quite hacky. `CCHLinkTextView` supports all of `UITextView`'s features and can also be used from within storyboards. Whereas `STTweetLabel` places its links on certain hotwords, you can mark any text range as a link with `CCHLinkTextView`. 
 
 ## Usage
+
+- [Installation](#installation)
+- [Creating `CCHLinkTextView`s](#creating-cchlinktextviews)
+- [Advanced settings](#advanced-settings)
+- [Embedding `CCHLinkTextView`s into table view cells](#embedding-cchlinktextviews-into-table-view-cells)
 
 ### Installation
 
@@ -44,13 +49,38 @@ NSMutableAttributedString *attributedText = [linkTextView.attributedText mutable
 linkTextView.attributedText = attributedText;
 ```
 
-If you have code using `NSLinkAttributeName`, you can simply replace this attribute with `CCHLinkAttributeName`.
+If you have code using `NSLinkAttributeName`, you can simply replace it with `CCHLinkAttributeName`.
 
-The `value` can be anything you want and will be provided when the link fires (see below).
+The `value` can be anything you want and will be provided when the link fires. To receive link events, implement `CCHLinkTextViewDelegate` and set the `delegate` property. `CCHLinkTextViewDelegate` provides two callbacks:
 
-### Receiving link gestures
+```Obj-C
+- (void)linkTextView:(CCHLinkTextView *)linkTextView didTapLinkWithValue:(id)value;
+- (void)linkTextView:(CCHLinkTextView *)linkTextView didLongPressLinkWithValue:(id)value;
+```
+
+The first method is called for taps, the second for long presses.
+
+To style the links, use `linkTextAttributes` and `linkTextTouchAttributes`. These dictionaries contain `NSAttributedString` attributes applied to links as they appear normally and when touched. By default, `linkTextAttributes` sets the tint color as foreground color and `linkTextTouchAttributes` a light gray background. 
+
+### Advanced settings
+
+There are a few settings to allow you to adjust `CCHLinkTextView`'s behavior:
+
+- `minimumPressDuration`: The minimum period fingers must press on the link for the gesture to be recognized as a long press (default = 0.5s)
+- `allowableMovement`: The maximum movement of the fingers on the link before the gesture is ignored (default = 10 points)
+- `tapAreaInsets`: Expands or shrinks the tap area of the link text (default: {-5, -5, -5, -5})
+
+`tapAreaInsets` can be debugged using Xcode's Quick Look feature, which will show the tappable area of a `CCHLinkTextView`.
 
 ### Embedding `CCHLinkTextView`s into table view cells
+
+`CCHLinkTextView` works great inside `UITableViewCell`s because gestures outside links are forwarded to the container view. This means that standard delegate methods such as `tableView:didSelectRowAtIndexPath:` are called as normal.
+
+If you want to capture long presses on a `UITableViewCell`, you can register a `UILongPressGestureRecognizer` with the `UITableView`. Note that you have to require `CCHLinkTextView`'s gesture recognizer to fail before the `UILongPressGestureRecognizer` fires. Otherwise, a long press on a link will trigger both the `CCHLinkTextViewDelegate` and the `UILongPressGestureRecognizer` callback. To implement this, simply call
+
+    [self.longPressGestureRecognizer requireGestureRecognizerToFail:linkTextView.linkGestureRecognizer];
+    
+for every `CCHLinkTextView` (see example code in this project).
 
 ## License (MIT)
 
