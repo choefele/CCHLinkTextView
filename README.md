@@ -50,13 +50,28 @@ NSMutableAttributedString *attributedText = [linkTextView.attributedText mutable
 linkTextView.attributedText = attributedText;
 ```
 
-If you have code using `NSLinkAttributeName`, you can simply replace this attribute with `CCHLinkAttributeName`.
+If you have code using `NSLinkAttributeName`, you can simply replace it with `CCHLinkAttributeName`.
 
-The `value` can be anything you want and will be provided when the link fires (see below).
+The `value` can be anything you want and will be provided when the link fires. To receive link events, implement `CCHLinkTextViewDelegate` and set the `delegate` property. `CCHLinkTextViewDelegate` provides two callbacks:
 
-### Receiving link gestures
+```Obj-C
+- (void)linkTextView:(CCHLinkTextView *)linkTextView didTapLinkWithValue:(id)value;
+- (void)linkTextView:(CCHLinkTextView *)linkTextView didLongPressLinkWithValue:(id)value;
+```
+
+The first method is called for taps, the second for long presses.
+
+To style the links, use `linkTextAttributes` and `linkTextTouchAttributes`. These dictionaries contain `NSAttributedString` attributes applied to links as they appear normally and when touched. By default, `linkTextAttributes` sets the tint color as foreground color and `linkTextTouchAttributes` a light gray background. 
 
 ### Settings
+
+There are a few settings to allow you to adjust `CCHLinkTextView`'s behavior:
+
+- `minimumPressDuration`: The minimum period fingers must press on the link for the gesture to be recognized as a long press (default = 0.5s)
+- `allowableMovement`: The maximum movement of the fingers on the link before the gesture is ignored (default = 10 points)
+- `tapAreaInsets`: Expands or shrinks the tap area of the link text (default: {-5, -5, -5, -5})
+
+`tapAreaInsets` can be debugged using Xcode's Quick Look feature, which will show the tappable area of a `CCHLinkTextView`.
 
 ### Embedding `CCHLinkTextView`s into table view cells
 
