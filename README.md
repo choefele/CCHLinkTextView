@@ -23,8 +23,8 @@ In contrast to `STTweetLabel`, `CCHLinkTextView` is a subclass of `UITextView` b
 
 - [Installation](#installation)
 - [Creating `CCHLinkTextView`s](#creating-cchlinktextviews)
-- [Settings](#settings)
-- [Embedding `CCHLinkTextView`s into table view cells](#)
+- [Advanced settings](#advanced-settings)
+- [Embedding `CCHLinkTextView`s into table view cells](#embedding-cchlinktextviews-into-table-view-cells)
 
 ### Installation
 
@@ -62,7 +62,7 @@ The first method is called for taps, the second for long presses.
 
 To style the links, use `linkTextAttributes` and `linkTextTouchAttributes`. These dictionaries contain `NSAttributedString` attributes applied to links as they appear normally and when touched. By default, `linkTextAttributes` sets the tint color as foreground color and `linkTextTouchAttributes` a light gray background. 
 
-### Settings
+### Advanced settings
 
 There are a few settings to allow you to adjust `CCHLinkTextView`'s behavior:
 
