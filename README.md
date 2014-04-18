@@ -21,6 +21,12 @@ In contrast to `STTweetLabel`, `CCHLinkTextView` is a subclass of `UITextView` b
 
 ## Usage
 
+- [Installation](#installation)
+- [Creating `CCHLinkTextView`s](#)
+- [Setting up links](#)
+- [Receiving link gestures](#)
+- [Embedding `CCHLinkTextView`s into table view cells](#)
+
 ### Installation
 
 Use [CocoaPods](http://cocoapods.org) to integrate `CCHLinkTextView` into your project. Minimum deployment target is iOS 7.0 because this project uses Text Kit functionality.
@@ -50,7 +56,17 @@ The `value` can be anything you want and will be provided when the link fires (s
 
 ### Receiving link gestures
 
+### Settings
+
 ### Embedding `CCHLinkTextView`s into table view cells
+
+`CCHLinkTextView` works great inside `UITableViewCell`s because gestures outside links are forwarded to the container view. This means that standard delegate methods such as `tableView:didSelectRowAtIndexPath:` are called as normal.
+
+If you want to capture long presses on a `UITableViewCell`, you can register a `UILongPressGestureRecognizer` with the `UITableView`. Note that you have to require `CCHLinkTextView`'s gesture recognizer to fail before the `UILongPressGestureRecognizer` fires. Otherwise, a long press on a link will trigger both the `CCHLinkTextViewDelegate` and the `UILongPressGestureRecognizer` callback. To implement this, simply call
+
+    [self.longPressGestureRecognizer requireGestureRecognizerToFail:linkTextView.linkGestureRecognizer];
+    
+for every `CCHLinkTextView` (see example code in this project).
 
 ## License (MIT)
 
