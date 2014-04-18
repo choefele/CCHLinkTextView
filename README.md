@@ -22,9 +22,8 @@ In contrast to `STTweetLabel`, `CCHLinkTextView` is a subclass of `UITextView` b
 ## Usage
 
 - [Installation](#installation)
-- [Creating `CCHLinkTextView`s](#)
-- [Setting up links](#)
-- [Receiving link gestures](#)
+- [Creating `CCHLinkTextView`s](#creating-cchlinktextviews)
+- [Settings](#settings)
 - [Embedding `CCHLinkTextView`s into table view cells](#)
 
 ### Installation
