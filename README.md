@@ -29,9 +29,26 @@ Use [CocoaPods](http://cocoapods.org) to integrate `CCHLinkTextView` into your p
 platform :ios, '7.0'
 pod "CCHLinkTextView"
 ```
+
 ### Creating `CCHLinkTextView`s
 
+A `CCHLinkTextView` can be created manually via `initWithFrame:` or inside a storyboard. By default, it is non-editable and non-selectable as this would interfere with the link gestures. Otherwise, a `CCHLinkTextView` behaves like a `UITextView`.
+
 ### Setting up links
+
+Text can be marked as a link by adding the attribute `CCHLinkAttributeName` to the range of the link:
+
+```Obj-C
+NSMutableAttributedString *attributedText = [linkTextView.attributedText mutableCopy];
+[attributedText addAttribute:CCHLinkAttributeName value:@"0" range:NSMakeRange(0, 20)];
+linkTextView.attributedText = attributedText;
+```
+
+If you have code using `NSLinkAttributeName`, you can simply replace this attribute with `CCHLinkAttributeName`.
+
+The `value` can be anything you want and will be provided when the link fires (see below).
+
+### Receiving link gestures
 
 ### Embedding `CCHLinkTextView`s into table view cells
 
