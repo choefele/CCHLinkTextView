@@ -5,7 +5,7 @@ CCHLinkTextView
 
 `CCHLinkTextView` makes it easy to embed links inside a `UITextView` and receive events for short and long taps. It looks and behaves similar to table cells used in popular Twitter apps such as Twitterrific or Tweetbot. `CCHLinkTextView` is available under the MIT license.
 
-Need to talk to a human? [Follow @claushoefele on Twitter](https://twitter.com/claushoefele).
+Need to talk to a human? [I'm @claushoefele on Twitter](https://twitter.com/claushoefele).
 
 ## Alternatives
 
