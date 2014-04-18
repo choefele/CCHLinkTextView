@@ -11,7 +11,7 @@ Need to talk to a human? [Follow @claushoefele on Twitter](https://twitter.com/c
 
 When using iOS 7's built-in link detection via `NSLinkAttributeName`, you will find that `textView:shouldInteractWithURL:inRange:` is only called when the user presses the link for a certain amount of time. This delay is frustrating for users because they expect an app to react instantly on taps.
 
-![Animated GIF landscape]()
+![CCHLinkTextView demo](CCHLinkTextView.gif)
 
 In contrast to `UITextView`, `CCHLinkTextView` works great in `UITableView`s – even with `userInteractionEnabled` set to `YES` – because touches outside links are passed through to the `UITableView`. In addition, `CCHLinkTextView` provides events for short and long taps.
 
