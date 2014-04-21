@@ -51,9 +51,13 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
     return self;
 }
 
-- (void)awakeFromNib
+- (id)initWithCoder:(NSCoder *)coder
 {
-    [self setUp];
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self setUp];
+    }
+    return self;
 }
 
 - (void)setUp
