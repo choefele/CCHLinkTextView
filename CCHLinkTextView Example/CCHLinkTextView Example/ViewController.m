@@ -84,6 +84,8 @@
     
     [self.longPressGestureRecognizer requireGestureRecognizerToFail:linkTextView.linkGestureRecognizer];
     linkTextView.linkDelegate = self;
+    linkTextView.linkTextAttributes = @{NSForegroundColorAttributeName : [UIColor blueColor]};
+    linkTextView.linkTextTouchAttributes = @{NSBackgroundColorAttributeName : [UIColor whiteColor], NSForegroundColorAttributeName : [UIColor orangeColor]};
 }
 
 - (void)linkTextView:(CCHLinkTextView *)linkTextView didTapLinkWithValue:(id)value

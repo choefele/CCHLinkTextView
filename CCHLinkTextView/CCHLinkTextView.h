@@ -38,7 +38,7 @@ extern NSString *const CCHLinkAttributeName;
 @property (nonatomic, weak) id<CCHLinkTextViewDelegate> linkDelegate;
 
 /** `NSAttributedString` attributes applied to links. */
-@property(nonatomic, copy) NSDictionary *linkTextAttributes NS_AVAILABLE_IOS(7_0);
+@property (nonatomic, copy) NSDictionary *linkTextAttributes NS_AVAILABLE_IOS(7_0);
 /** `NSAttributedString` attributes applied to links when touched. */
 @property (nonatomic, copy) NSDictionary *linkTextTouchAttributes;
 
