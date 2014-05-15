@@ -109,14 +109,33 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
     return image;
 }
 
+- (void)setLinkTextAttributes:(NSDictionary *)linkTextAttributes
+{
+    super.linkTextAttributes = linkTextAttributes;
+    [self setAttributedText:[self attributedText] skipLinkTextAttributes:NO];
+}
+
+- (void)setLinkTextTouchAttributes:(NSDictionary *)linkTextTouchAttributes
+{
+    _linkTextTouchAttributes = linkTextTouchAttributes;
+    [self setAttributedText:[self attributedText] skipLinkTextAttributes:NO];
+}
+
 - (void)setAttributedText:(NSAttributedString *)attributedText
 {
+    [self setAttributedText:attributedText skipLinkTextAttributes:NO];
+}
+
+- (void)setAttributedText:(NSAttributedString *)attributedText skipLinkTextAttributes:(BOOL)skipLinkTextAttributes
+{
     NSMutableAttributedString *mutableAttributedText = [attributedText mutableCopy];
-    [mutableAttributedText enumerateAttribute:CCHLinkAttributeName inRange:NSMakeRange(0, attributedText.length) options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
-        if (value) {
-            [mutableAttributedText addAttributes:self.linkTextAttributes range:range];
-        }
-    }];
+    if (!skipLinkTextAttributes) {
+        [mutableAttributedText enumerateAttribute:CCHLinkAttributeName inRange:NSMakeRange(0, attributedText.length) options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
+            if (value) {
+                [mutableAttributedText addAttributes:self.linkTextAttributes range:range];
+            }
+        }];
+    }
     
     [super setAttributedText:mutableAttributedText];
 }
@@ -224,8 +243,11 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
 {
     [self enumerateLinkRangesContainingLocation:location usingBlock:^(NSRange range) {
         NSMutableAttributedString *attributedText = [self.attributedText mutableCopy];
+        for (NSString *attribute in self.linkTextAttributes) {
+            [attributedText removeAttribute:attribute range:range];
+        }
         [attributedText addAttributes:self.linkTextTouchAttributes range:range];
-        self.attributedText = attributedText;
+        [self setAttributedText:attributedText skipLinkTextAttributes:YES];
     }];
 }
 
@@ -237,7 +259,7 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
             [attributedText removeAttribute:attribute range:range];
         }
         [attributedText addAttributes:self.linkTextAttributes range:range];
-        self.attributedText = attributedText;
+        [self setAttributedText:attributedText skipLinkTextAttributes:YES];
     }];
 }
 
