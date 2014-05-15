@@ -35,8 +35,8 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
 
 @interface CCHLinkTextView () <UIGestureRecognizerDelegate>
 
-@property (nonatomic, assign) CGPoint touchDownLocation;
-@property (nonatomic, strong) CCHLinkGestureRecognizer *linkGestureRecognizer;
+@property (nonatomic) CGPoint touchDownLocation;
+@property (nonatomic) CCHLinkGestureRecognizer *linkGestureRecognizer;
 
 @end
 

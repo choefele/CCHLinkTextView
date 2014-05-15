@@ -43,15 +43,15 @@ extern NSString *const CCHLinkAttributeName;
 @property (nonatomic, copy) NSDictionary *linkTextTouchAttributes;
 
 /** The minimum period fingers must press on the link for the gesture to be recognized as a long press (default = 0.5s). */
-@property (nonatomic, assign) CFTimeInterval minimumPressDuration;
+@property (nonatomic) CFTimeInterval minimumPressDuration;
 /** The maximum movement of the fingers on the link before the gesture is ignored (default = 10 points). */
-@property (nonatomic, assign) CGFloat allowableMovement;
+@property (nonatomic) CGFloat allowableMovement;
 
 /** Expands or shrinks the tap area of the link text (default: {-5, -5, -5, -5}). */
-@property (nonatomic, assign) UIEdgeInsets tapAreaInsets;
+@property (nonatomic) UIEdgeInsets tapAreaInsets;
 
 /** The gesture recognizer used to detect links in this text view. */
-@property (nonatomic, strong, readonly) CCHLinkGestureRecognizer *linkGestureRecognizer;
+@property (nonatomic, readonly) CCHLinkGestureRecognizer *linkGestureRecognizer;
 
 /** 
  For the given ranges, enumerates all view rectangles that cover each range.

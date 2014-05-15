@@ -43,11 +43,11 @@ typedef enum {
 @interface CCHLinkGestureRecognizer : UIGestureRecognizer
 
 /** The minimum period fingers must press on the view for the gesture to be recognized as a long press (default = 0.5s). */
-@property (nonatomic, assign) CFTimeInterval minimumPressDuration;
+@property (nonatomic) CFTimeInterval minimumPressDuration;
 /** The maximum movement of the fingers on the view before the gesture gets recognized as failed (default = 10 points). */
-@property (nonatomic, assign) CGFloat allowableMovement;
+@property (nonatomic) CGFloat allowableMovement;
 
 /** Result code of the gesture when the gesture has been recognized (state is UIGestureRecognizerStateRecognized). */
-@property (nonatomic, assign, readonly) CCHLinkGestureRecognizerResult result;
+@property (nonatomic, readonly) CCHLinkGestureRecognizerResult result;
 
 @end

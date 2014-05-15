@@ -29,9 +29,9 @@
 
 @interface CCHLinkGestureRecognizer ()
 
-@property (nonatomic, assign) CCHLinkGestureRecognizerResult result;
-@property (nonatomic, assign) CGPoint initialPoint;
-@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic) CCHLinkGestureRecognizerResult result;
+@property (nonatomic) CGPoint initialPoint;
+@property (nonatomic) NSTimer *timer;
 
 @end
 

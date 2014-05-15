@@ -13,7 +13,7 @@
 
 @interface ViewController () <CCHLinkTextViewDelegate, UITextViewDelegate>
 
-@property (nonatomic, strong) UILongPressGestureRecognizer *longPressGestureRecognizer;
+@property (nonatomic) UILongPressGestureRecognizer *longPressGestureRecognizer;
 
 @end
 
