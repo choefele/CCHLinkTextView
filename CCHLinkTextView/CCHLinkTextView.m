@@ -42,7 +42,7 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
 
 @implementation CCHLinkTextView
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -51,7 +51,7 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)coder
+- (instancetype)initWithCoder:(NSCoder *)coder
 {
     self = [super initWithCoder:coder];
     if (self) {
