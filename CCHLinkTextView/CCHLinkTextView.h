@@ -53,6 +53,9 @@ extern NSString *const CCHLinkAttributeName;
 /** The gesture recognizer used to detect links in this text view. */
 @property (nonatomic, readonly) CCHLinkGestureRecognizer *linkGestureRecognizer;
 
+/** Set to true when you want to allow the user to edit the text. When set to NO (default) the text view will not respond to touch events outside the applied attributed text */
+@property (nonatomic, assign) BOOL isEditing;
+
 /** 
  For the given ranges, enumerates all view rectangles that cover each range.
  @param ranges array of ranges.
