@@ -42,8 +42,6 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
 
 @implementation CCHLinkTextView
 
-@synthesize isEditing = _isEditing;
-
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -198,7 +196,7 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
-    if (self.isEditing){
+    if (self.editable){
         return YES;
     }
     

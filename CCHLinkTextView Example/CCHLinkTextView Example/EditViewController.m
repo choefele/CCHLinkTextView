@@ -62,14 +62,14 @@
 
 - (IBAction)editModeButtonTapped:(id)sender {
     
-    if (self.editTextView.isEditing){
+    if (self.editTextView.editable){
         [self.editTextView resignFirstResponder];
-        self.editTextView.isEditing = NO;
+        self.editTextView.editable = NO;
         [self.editButton setTitle:@"Edit" forState:UIControlStateNormal];
     } else {
-        [self.editTextView becomeFirstResponder];
-        self.editTextView.isEditing = YES;
+        self.editTextView.editable = YES;
         [self.editButton setTitle:@"Done" forState:UIControlStateNormal];
+        [self.editTextView becomeFirstResponder];
     }
     
 }
@@ -79,9 +79,6 @@
 
 - (void)setUpLinkTextView:(CCHLinkTextView *)linkTextView
 {
-    self.editTextView.editable = YES;
-    self.editTextView.selectable = YES;
-    self.editTextView.userInteractionEnabled = YES;
     
     // Here we re-create the attributed text everytime we need to refresh the attributes in case the text changes.
     // There is likely a much more efficient way to do this, but for small demonstration purposes this certainly works.
