@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="MOw-KZ-Y3V">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="MOw-KZ-Y3V">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -83,10 +83,10 @@
             </objects>
             <point key="canvasLocation" x="676" y="2"/>
         </scene>
-        <!--View Controller-->
+        <!--Edit View Controller - Free Text Edit-->
         <scene sceneID="7u6-lV-Pwd">
             <objects>
-                <viewController id="z45-0b-hpB" sceneMemberID="viewController">
+                <viewController id="z45-0b-hpB" customClass="EditViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="owX-Rn-HZW"/>
                         <viewControllerLayoutGuide type="bottom" id="YCz-4o-6kg"/>
@@ -94,9 +94,46 @@
                     <view key="view" contentMode="scaleToFill" id="Yk1-Os-d14">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="white" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" keyboardDismissMode="interactive" editable="NO" text="Edit the text freely to see links added/removed as you type." selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oVh-nm-G4H">
+                                <rect key="frame" x="14" y="71" width="144" height="68"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w2r-dR-xKf">
+                                <rect key="frame" x="186" y="79" width="114" height="52"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Edit">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="editModeButtonTapped:" destination="z45-0b-hpB" eventType="touchUpInside" id="qxw-Vm-C4c"/>
+                                </connections>
+                            </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mBd-8X-Ed7">
+                                <rect key="frame" x="-6" y="124" width="332" height="444"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" indicatorStyle="white" keyboardDismissMode="interactive" editable="NO" text="target text...." translatesAutoresizingMaskIntoConstraints="NO" id="e1Q-6U-7oC" customClass="CCHLinkTextView">
+                                        <rect key="frame" x="20" y="20" width="292" height="404"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                        <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                    </textView>
+                                </subviews>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="81N-5S-s0u"/>
+                    <navigationItem key="navigationItem" title="Free Text Edit" id="81N-5S-s0u"/>
+                    <connections>
+                        <outlet property="editButton" destination="w2r-dR-xKf" id="YdX-6C-szg"/>
+                        <outlet property="editTextView" destination="e1Q-6U-7oC" id="ceD-wX-ErC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ude-NI-WMT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -127,6 +164,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="KZT-gY-pp4"/>
+        <segue reference="MM2-j7-dSd"/>
     </inferredMetricsTieBreakers>
 </document>

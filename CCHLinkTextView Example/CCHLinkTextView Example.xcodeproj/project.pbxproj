@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		477722E61994EA7300319FE3 /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 477722E51994EA7300319FE3 /* EditViewController.m */; };
 		623AC49518C11BAD000962A0 /* CCHLinkTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 623AC49418C11BAD000962A0 /* CCHLinkTextView.m */; };
 		626F837918C75FBC004FEABB /* CCHLinkTextViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 626F837818C75FBC004FEABB /* CCHLinkTextViewTests.m */; };
 		629754F318CB69F90050DCFE /* CCHLinkGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 629754F218CB69F90050DCFE /* CCHLinkGestureRecognizer.m */; };
@@ -37,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		477722E41994EA7300319FE3 /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
+		477722E51994EA7300319FE3 /* EditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditViewController.m; sourceTree = "<group>"; };
 		623AC49318C11BAD000962A0 /* CCHLinkTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCHLinkTextView.h; sourceTree = "<group>"; };
 		623AC49418C11BAD000962A0 /* CCHLinkTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCHLinkTextView.m; sourceTree = "<group>"; };
 		623AC49618C11EAA000962A0 /* CCHLinkTextViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCHLinkTextViewDelegate.h; sourceTree = "<group>"; };
@@ -139,6 +142,8 @@
 				62F55CCF18C1180200A7E1CC /* AppDelegate.h */,
 				62F55CD018C1180200A7E1CC /* AppDelegate.m */,
 				62F55CD218C1180200A7E1CC /* Main.storyboard */,
+				477722E41994EA7300319FE3 /* EditViewController.h */,
+				477722E51994EA7300319FE3 /* EditViewController.m */,
 				62F55CD518C1180200A7E1CC /* ViewController.h */,
 				62F55CD618C1180200A7E1CC /* ViewController.m */,
 				62A3423418FC555B00003EC3 /* TableViewCell.h */,
@@ -278,6 +283,7 @@
 				623AC49518C11BAD000962A0 /* CCHLinkTextView.m in Sources */,
 				62A3423618FC555B00003EC3 /* TableViewCell.m in Sources */,
 				62F55CD718C1180200A7E1CC /* ViewController.m in Sources */,
+				477722E61994EA7300319FE3 /* EditViewController.m in Sources */,
 				629754F318CB69F90050DCFE /* CCHLinkGestureRecognizer.m in Sources */,
 				62F55CD118C1180200A7E1CC /* AppDelegate.m in Sources */,
 				62F55CCD18C1180200A7E1CC /* main.m in Sources */,

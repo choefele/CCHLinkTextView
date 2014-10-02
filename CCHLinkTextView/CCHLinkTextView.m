@@ -196,6 +196,10 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
+    if (self.editable){
+        return YES;
+    }
+    
     BOOL linkFound = [self enumerateLinkRangesContainingLocation:point usingBlock:NULL];
     return linkFound;
 }
