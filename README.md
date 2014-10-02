@@ -53,7 +53,7 @@ linkTextView.attributedText = attributedText;
 
 If you have code using `NSLinkAttributeName`, you can simply replace it with `CCHLinkAttributeName`.
 
-The `value` can be anything you want and will be provided when the link fires. To receive link events, implement `CCHLinkTextViewDelegate` and set the `delegate` property. `CCHLinkTextViewDelegate` provides two callbacks:
+The `value` can be anything you want and will be provided when the link fires. To receive link events, implement `CCHLinkTextViewDelegate` and set the `linkDelegate` property. `CCHLinkTextViewDelegate` provides two callbacks:
 
 ```Obj-C
 - (void)linkTextView:(CCHLinkTextView *)linkTextView didTapLinkWithValue:(id)value;
