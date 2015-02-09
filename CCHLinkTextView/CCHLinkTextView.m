@@ -200,6 +200,36 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
     return linkFound;
 }
 
+- (void)drawRoundedCornerForRange:(NSRange)range
+{
+    CALayer * layer = [[CALayer alloc] init];
+    layer.frame = self.bounds;
+    layer.backgroundColor = [[UIColor clearColor] CGColor];
+    
+    UIGraphicsBeginImageContextWithOptions(layer.bounds.size, NO, 0.0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [[UIColor whiteColor] CGColor]);
+    CGContextFillRect(context, layer.bounds); // Unmask the whole text area
+    
+    NSRange glyphRange = [self.layoutManager glyphRangeForCharacterRange:range actualCharacterRange:NULL];
+    [self.layoutManager enumerateEnclosingRectsForGlyphRange:glyphRange withinSelectedGlyphRange:NSMakeRange(NSNotFound, 0) inTextContainer:self.textContainer usingBlock:^(CGRect rect, BOOL *stop) {
+        rect.origin.x += self.textContainerInset.left;
+        rect.origin.y += self.textContainerInset.top;
+        
+        CGContextClearRect(context, CGRectInset(rect, -1, -1)); // Mask the rectangle of the range
+        
+        CGContextAddPath(context, [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:self.linkCornerRadius].CGPath);
+        CGContextSetFillColorWithColor(context, [[UIColor whiteColor] CGColor]);  // Unmask the rounded area inside the rectangle
+        CGContextFillPath(context);
+    }];
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    [layer setContents:(id)[image CGImage]];
+    self.layer.mask = layer;
+}
+
 #pragma mark Gesture recognition
 
 - (void)linkAction:(CCHLinkGestureRecognizer *)recognizer
@@ -241,6 +271,10 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
         }
         [attributedText addAttributes:self.linkTextTouchAttributes range:range];
         [super setAttributedText:attributedText];
+
+        if (self.linkCornerRadius > 0) {
+          [self drawRoundedCornerForRange:range];
+        }
     }];
 }
 
@@ -253,6 +287,8 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
         }
         [attributedText addAttributes:self.linkTextAttributes range:range];
         [super setAttributedText:attributedText];
+
+        self.layer.mask = nil;
     }];
 }
 
