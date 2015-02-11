@@ -53,7 +53,8 @@ extern NSString *const CCHLinkAttributeName;
 /** The gesture recognizer used to detect links in this text view. */
 @property (nonatomic, readonly) CCHLinkGestureRecognizer *linkGestureRecognizer;
 
-/** The corner radius of the rounded rectangle that is shown when link touched. (default = 0 point) */
+/** The corner radius of the rounded rectangle that is shown when the link is touched. Set to 0
+ to disable rounder corners (default = 0 points). */
 @property (nonatomic) CGFloat linkCornerRadius;
 
 /** 

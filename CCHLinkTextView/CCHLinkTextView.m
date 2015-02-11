@@ -202,7 +202,7 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
 
 - (void)drawRoundedCornerForRange:(NSRange)range
 {
-    CALayer * layer = [[CALayer alloc] init];
+    CALayer *layer = [[CALayer alloc] init];
     layer.frame = self.bounds;
     layer.backgroundColor = [[UIColor clearColor] CGColor];
     
