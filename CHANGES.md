@@ -1,6 +1,10 @@
 Changes
 =======
 
+## 1.1.0
+
+- New property to highlight touched links with rounded corners. Thanks to wandermyz for the pull request
+
 ## 1.0.1
 
 - Fixed a bug where `linkTextTouchAttributes` would be ignored if `linkTextAttributes` clashed. Thanks to lukedixon for the pull request
