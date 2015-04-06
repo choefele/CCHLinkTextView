@@ -158,8 +158,16 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
     
     NSAttributedString *attributedString = self.attributedText;
     [attributedString enumerateAttribute:CCHLinkAttributeName inRange:NSMakeRange(0, attributedString.length) options:0 usingBlock:^(id value, NSRange range, BOOL *stop) {
+        if (found) {
+            *stop = YES;
+            return;
+        }
         if (value) {
             [self enumerateViewRectsForRanges:@[[NSValue valueWithRange:range]] usingBlock:^(CGRect rect, NSRange range, BOOL *stop) {
+                if (found) {
+                    *stop = YES;
+                    return;
+                }
                 if (CGRectContainsPoint(rect, location)) {
                     found = YES;
                     *stop = YES;
