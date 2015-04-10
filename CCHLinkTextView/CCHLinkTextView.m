@@ -164,10 +164,6 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
         }
         if (value) {
             [self enumerateViewRectsForRanges:@[[NSValue valueWithRange:range]] usingBlock:^(CGRect rect, NSRange range, BOOL *stop) {
-                if (found) {
-                    *stop = YES;
-                    return;
-                }
                 if (CGRectContainsPoint(rect, location)) {
                     found = YES;
                     *stop = YES;
