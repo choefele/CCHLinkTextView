@@ -166,4 +166,18 @@
     XCTAssertEqual(blockCalled, 1u);
 }
 
+- (void)testEnumerateLinkRangesContainingPointOverlappingTwoLinks
+{
+    NSMutableAttributedString *attributedText = [self.linkTextView.attributedText mutableCopy];
+    [attributedText addAttribute:CCHLinkAttributeName value:@"0" range:NSMakeRange(0, 20)];
+    [attributedText addAttribute:CCHLinkAttributeName value:@"1" range:NSMakeRange(5, 20)];
+    self.linkTextView.attributedText = attributedText;
+    
+    __block NSUInteger blockCalled = 0;
+    [self.linkTextView enumerateLinkRangesContainingLocation:CGPointMake(37, 12) usingBlock:^(NSRange range) {
+        blockCalled++;
+    }];
+    XCTAssertEqual(blockCalled, 1u);
+}
+
 @end
