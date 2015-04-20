@@ -35,7 +35,7 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
 
 @interface CCHLinkTextView () <UIGestureRecognizerDelegate>
 
-@property (nonatomic) CGPoint touchDownLocation;
+@property (nonatomic, copy) NSArray *rangeValuesForTouchDown;
 @property (nonatomic) CCHLinkGestureRecognizer *linkGestureRecognizer;
 
 @end
@@ -62,7 +62,6 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
 
 - (void)setUp
 {
-    self.touchDownLocation = CGPointZero;
     self.linkTextTouchAttributes = @{NSBackgroundColorAttributeName : UIColor.lightGrayColor};
     
     self.linkGestureRecognizer = [[CCHLinkGestureRecognizer alloc] initWithTarget:self action:@selector(linkAction:)];
@@ -243,23 +242,21 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
 - (void)linkAction:(CCHLinkGestureRecognizer *)recognizer
 {
     if (recognizer.state == UIGestureRecognizerStateBegan) {
-        NSAssert(CGPointEqualToPoint(self.touchDownLocation, CGPointZero), @"Invalid touch down location");
+        NSAssert(self.rangeValuesForTouchDown == nil, @"Invalid touch down ranges");
         
         CGPoint location = [recognizer locationInView:self];
-        self.touchDownLocation = location;
-        [self didTouchDownAtLocation:location];
+        self.rangeValuesForTouchDown = [self didTouchDownAtLocation:location];
     } else if (recognizer.state == UIGestureRecognizerStateEnded) {
-        NSAssert(!CGPointEqualToPoint(self.touchDownLocation, CGPointZero), @"Invalid touch down location");
+        NSAssert(self.rangeValuesForTouchDown != nil, @"Invalid touch down ranges");
         
-        CGPoint location = self.touchDownLocation;
         if (recognizer.result == CCHLinkGestureRecognizerResultTap) {
-            [self didTapAtLocation:location];
+            [self didTapAtRangeValues:self.rangeValuesForTouchDown];
         } else if (recognizer.result == CCHLinkGestureRecognizerResultLongPress) {
-            [self didLongPressAtLocation:location];
+            [self didLongPressAtRangeValues:self.rangeValuesForTouchDown];
         }
         
-        [self didCancelTouchDownAtLocation:location];
-        self.touchDownLocation = CGPointZero;
+        [self didCancelTouchDownAtRangeValues:self.rangeValuesForTouchDown];
+        self.rangeValuesForTouchDown = nil;
     }
 }
 
@@ -270,9 +267,12 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
 
 #pragma mark Gesture handling
 
-- (void)didTouchDownAtLocation:(CGPoint)location
+- (NSArray *)didTouchDownAtLocation:(CGPoint)location
 {
+    NSMutableArray *rangeValuesForTouchDown = [NSMutableArray array];
     [self enumerateLinkRangesContainingLocation:location usingBlock:^(NSRange range) {
+        [rangeValuesForTouchDown addObject:[NSValue valueWithRange:range]];
+        
         NSMutableAttributedString *attributedText = [self.attributedText mutableCopy];
         for (NSString *attribute in self.linkTextAttributes) {
             [attributedText removeAttribute:attribute range:range];
@@ -284,40 +284,59 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
           [self drawRoundedCornerForRange:range];
         }
     }];
+    
+    return rangeValuesForTouchDown;
 }
 
-- (void)didCancelTouchDownAtLocation:(CGPoint)location
+- (void)didCancelTouchDownAtRangeValues:(NSArray *)rangeValues
 {
-    [self enumerateLinkRangesContainingLocation:location usingBlock:^(NSRange range) {
-        NSMutableAttributedString *attributedText = [self.attributedText mutableCopy];
+    NSMutableAttributedString *attributedText = [self.attributedText mutableCopy];
+    for (NSValue *rangeValue in rangeValues) {
+        NSRange range = rangeValue.rangeValue;
+        
         for (NSString *attribute in self.linkTextTouchAttributes) {
             [attributedText removeAttribute:attribute range:range];
         }
         [attributedText addAttributes:self.linkTextAttributes range:range];
-        [super setAttributedText:attributedText];
-
-        self.layer.mask = nil;
-    }];
+    }
+    [super setAttributedText:attributedText];
+    self.layer.mask = nil;
 }
 
-- (void)didTapAtLocation:(CGPoint)location
+- (void)didTapAtRangeValues:(NSArray *)rangeValues
 {
-    [self enumerateLinkRangesContainingLocation:location usingBlock:^(NSRange range) {
-        if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didTapLinkWithValue:)]) {
+    if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didTapLinkWithValue:)]) {
+        for (NSValue *rangeValue in rangeValues) {
+            NSRange range = rangeValue.rangeValue;
             id value = [self.attributedText attribute:CCHLinkAttributeName atIndex:range.location effectiveRange:NULL];
             [self.linkDelegate linkTextView:self didTapLinkWithValue:value];
         }
-    }];
+    }
+//    
+//    [self enumerateLinkRangesContainingLocation:location usingBlock:^(NSRange range) {
+//        if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didTapLinkWithValue:)]) {
+//            id value = [self.attributedText attribute:CCHLinkAttributeName atIndex:range.location effectiveRange:NULL];
+//            [self.linkDelegate linkTextView:self didTapLinkWithValue:value];
+//        }
+//    }];
 }
 
-- (void)didLongPressAtLocation:(CGPoint)location
+- (void)didLongPressAtRangeValues:(NSArray *)rangeValues
 {
-    [self enumerateLinkRangesContainingLocation:location usingBlock:^(NSRange range) {
-        if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didLongPressLinkWithValue:)]) {
+    if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didLongPressLinkWithValue:)]) {
+        for (NSValue *rangeValue in rangeValues) {
+            NSRange range = rangeValue.rangeValue;
             id value = [self.attributedText attribute:CCHLinkAttributeName atIndex:range.location effectiveRange:NULL];
             [self.linkDelegate linkTextView:self didLongPressLinkWithValue:value];
         }
-    }];
+    }
+
+//    [self enumerateLinkRangesContainingLocation:location usingBlock:^(NSRange range) {
+//        if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didLongPressLinkWithValue:)]) {
+//            id value = [self.attributedText attribute:CCHLinkAttributeName atIndex:range.location effectiveRange:NULL];
+//            [self.linkDelegate linkTextView:self didLongPressLinkWithValue:value];
+//        }
+//    }];
 }
 
 @end
