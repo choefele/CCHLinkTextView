@@ -1,6 +1,10 @@
 Changes
 =======
 
+## 1.1.1
+
+- Fixed a bug where a link didn't handle touch up events correctly. Thanks to zeevvax for reporting the issue.
+
 ## 1.1.0
 
 - New property to highlight touched links with rounded corners. Thanks to wandermyz for the pull request
