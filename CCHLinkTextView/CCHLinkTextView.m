@@ -69,8 +69,27 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
     [self addGestureRecognizer:self.linkGestureRecognizer];
     
     self.tapAreaInsets = UIEdgeInsetsMake(-5, -5, -5, -5);
+    
     self.editable = NO;
-    self.selectable = NO;
+}
+
+- (void)setEditable:(BOOL)editable
+{
+    // Allows you to optionally turn on/off the functionality that provides tappable links
+    // but then revert to normal selection/editing text behavior when desired.
+    
+    super.editable = editable;
+    if ( editable ) {
+        self.selectable = YES;
+        [self removeGestureRecognizer:self.linkGestureRecognizer];
+    } else {
+        self.selectable = NO;
+        if ( ![self.gestureRecognizers containsObject:self.linkGestureRecognizer] ) {
+            self.linkGestureRecognizer = [[CCHLinkGestureRecognizer alloc] initWithTarget:self action:@selector(linkAction:)];
+            self.linkGestureRecognizer.delegate = self;
+            [self addGestureRecognizer:self.linkGestureRecognizer];
+        }
+    }
 }
 
 - (id)debugQuickLookObject
@@ -203,8 +222,12 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
-    BOOL linkFound = [self enumerateLinkRangesContainingLocation:point usingBlock:NULL];
-    return linkFound;
+    if ( self.editable ) {
+        return [super pointInside:point withEvent:event];
+    } else {
+        BOOL linkFound = [self enumerateLinkRangesContainingLocation:point usingBlock:NULL];
+        return linkFound;
+    }
 }
 
 - (void)drawRoundedCornerForRange:(NSRange)range
