@@ -64,10 +64,6 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
 {
     self.linkTextTouchAttributes = @{NSBackgroundColorAttributeName : UIColor.lightGrayColor};
     
-    self.linkGestureRecognizer = [[CCHLinkGestureRecognizer alloc] initWithTarget:self action:@selector(linkAction:)];
-    self.linkGestureRecognizer.delegate = self;
-    [self addGestureRecognizer:self.linkGestureRecognizer];
-    
     self.tapAreaInsets = UIEdgeInsetsMake(-5, -5, -5, -5);
     
     self.editable = NO;
