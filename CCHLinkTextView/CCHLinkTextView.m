@@ -73,14 +73,13 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
 {
     // Allows you to optionally turn on/off the functionality that provides tappable links
     // but then revert to normal selection/editing text behavior when desired.
-    
     super.editable = editable;
-    if ( editable ) {
+    if (editable) {
         self.selectable = YES;
         [self removeGestureRecognizer:self.linkGestureRecognizer];
     } else {
         self.selectable = NO;
-        if ( ![self.gestureRecognizers containsObject:self.linkGestureRecognizer] ) {
+        if (![self.gestureRecognizers containsObject:self.linkGestureRecognizer]) {
             self.linkGestureRecognizer = [[CCHLinkGestureRecognizer alloc] initWithTarget:self action:@selector(linkAction:)];
             self.linkGestureRecognizer.delegate = self;
             [self addGestureRecognizer:self.linkGestureRecognizer];
@@ -218,7 +217,7 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
-    if ( self.editable ) {
+    if (self.isEditable) {
         return [super pointInside:point withEvent:event];
     } else {
         BOOL linkFound = [self enumerateLinkRangesContainingLocation:point usingBlock:NULL];
