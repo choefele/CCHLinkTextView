@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'CCHLinkTextView'
-  s.version  = '1.1.1'
+  s.version  = '1.2.0'
   s.license  = 'MIT'
   s.summary  = 'UITextView subclass with tappable links.'
   s.homepage = 'https://github.com/choefele/CCHLinkTextView'
