@@ -67,6 +67,7 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
     self.tapAreaInsets = UIEdgeInsetsMake(-5, -5, -5, -5);
     
     self.editable = NO;
+    self.selectable = YES;
 }
 
 - (void)setEditable:(BOOL)editable
@@ -75,10 +76,8 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
     // but then revert to normal selection/editing text behavior when desired.
     super.editable = editable;
     if (editable) {
-        self.selectable = YES;
         [self removeGestureRecognizer:self.linkGestureRecognizer];
     } else {
-        self.selectable = NO;
         if (![self.gestureRecognizers containsObject:self.linkGestureRecognizer]) {
             self.linkGestureRecognizer = [[CCHLinkGestureRecognizer alloc] initWithTarget:self action:@selector(linkAction:)];
             self.linkGestureRecognizer.delegate = self;
@@ -215,16 +214,6 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
     return self.linkGestureRecognizer.allowableMovement;
 }
 
-- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
-{
-    if (self.isEditable) {
-        return [super pointInside:point withEvent:event];
-    } else {
-        BOOL linkFound = [self enumerateLinkRangesContainingLocation:point usingBlock:NULL];
-        return linkFound;
-    }
-}
-
 - (void)drawRoundedCornerForRange:(NSRange)range
 {
     CALayer *layer = [[CALayer alloc] init];
@@ -280,8 +269,23 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
-    return YES;
+    if (gestureRecognizer == self.linkGestureRecognizer || otherGestureRecognizer == self.linkGestureRecognizer) {
+        return YES;
+    }
+    return NO;
 }
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer != self.linkGestureRecognizer) {
+        return YES;
+    }
+    CGPoint location = [gestureRecognizer locationInView:self];
+    if ([self didTouchDownAtLocation:location].count > 0) {
+        return YES;
+    }
+    return NO;
+}
+
 
 #pragma mark Gesture handling
 
