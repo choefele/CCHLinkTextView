@@ -1,7 +1,8 @@
 CCHLinkTextView
 ===============
 
-[![Build Status](https://travis-ci.org/choefele/CCHLinkTextView.png)](https://travis-ci.org/choefele/CCHLinkTextView)&nbsp;![Version](https://cocoapod-badges.herokuapp.com/v/CCHLinkTextView/badge.png)&nbsp;![Platform](https://cocoapod-badges.herokuapp.com/p/CCHLinkTextView/badge.png)
+[![Build Status](https://travis-ci.org/choefele/CCHLinkTextView.png)](https://travis-ci.org/choefele/CCHLinkTextView)&nbsp;![Version](https://cocoapod-badges.herokuapp.com/v/CCHLinkTextView/badge.png)&nbsp;[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)&nbsp;![Platform](https://cocoapod-badges.herokuapp.com/p/CCHLinkTextView/badge.png)
+
 
 `CCHLinkTextView` makes it easy to embed links inside a `UITextView` and receive events for short and long taps. It looks and behaves similar to table cells used in popular Twitter apps such as Twitterrific or Tweetbot. `CCHLinkTextView` is available under the MIT license.
 
@@ -36,6 +37,8 @@ Use [CocoaPods](http://cocoapods.org) to integrate `CCHLinkTextView` into your p
 platform :ios, '7.0'
 pod "CCHLinkTextView"
 ```
+
+You can also use [Carthage](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application) to include `CCHLinkTextView` in your app as a dynamic framework.
 
 ### Creating `CCHLinkTextView`s
 

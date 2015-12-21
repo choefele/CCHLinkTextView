@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		623AC49518C11BAD000962A0 /* CCHLinkTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 623AC49418C11BAD000962A0 /* CCHLinkTextView.m */; };
 		626F837918C75FBC004FEABB /* CCHLinkTextViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 626F837818C75FBC004FEABB /* CCHLinkTextViewTests.m */; };
-		629754F318CB69F90050DCFE /* CCHLinkGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 629754F218CB69F90050DCFE /* CCHLinkGestureRecognizer.m */; };
 		62A3423618FC555B00003EC3 /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 62A3423518FC555B00003EC3 /* TableViewCell.m */; };
 		62F55CC118C1180200A7E1CC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F55CC018C1180200A7E1CC /* Foundation.framework */; };
 		62F55CC318C1180200A7E1CC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F55CC218C1180200A7E1CC /* CoreGraphics.framework */; };
@@ -24,6 +22,8 @@
 		62F55CE118C1180200A7E1CC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F55CC018C1180200A7E1CC /* Foundation.framework */; };
 		62F55CE218C1180200A7E1CC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F55CC418C1180200A7E1CC /* UIKit.framework */; };
 		62F55CEA18C1180200A7E1CC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 62F55CE818C1180200A7E1CC /* InfoPlist.strings */; };
+		A7EF31CB1C286CB000257BC7 /* CCHLinkGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7EF31C71C286CB000257BC7 /* CCHLinkGestureRecognizer.m */; };
+		A7EF31CC1C286CB000257BC7 /* CCHLinkTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7EF31C91C286CB000257BC7 /* CCHLinkTextView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,12 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		623AC49318C11BAD000962A0 /* CCHLinkTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCHLinkTextView.h; sourceTree = "<group>"; };
-		623AC49418C11BAD000962A0 /* CCHLinkTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCHLinkTextView.m; sourceTree = "<group>"; };
-		623AC49618C11EAA000962A0 /* CCHLinkTextViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCHLinkTextViewDelegate.h; sourceTree = "<group>"; };
 		626F837818C75FBC004FEABB /* CCHLinkTextViewTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCHLinkTextViewTests.m; sourceTree = "<group>"; };
-		629754F118CB69F90050DCFE /* CCHLinkGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCHLinkGestureRecognizer.h; sourceTree = "<group>"; };
-		629754F218CB69F90050DCFE /* CCHLinkGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCHLinkGestureRecognizer.m; sourceTree = "<group>"; };
 		62A3423418FC555B00003EC3 /* TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
 		62A3423518FC555B00003EC3 /* TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
 		62F55CBD18C1180200A7E1CC /* CCHLinkTextView Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CCHLinkTextView Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,6 +58,11 @@
 		62F55CDF18C1180200A7E1CC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		62F55CE718C1180200A7E1CC /* CCHLinkTextView ExampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CCHLinkTextView ExampleTests-Info.plist"; sourceTree = "<group>"; };
 		62F55CE918C1180200A7E1CC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A7EF31C61C286CB000257BC7 /* CCHLinkGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCHLinkGestureRecognizer.h; sourceTree = "<group>"; };
+		A7EF31C71C286CB000257BC7 /* CCHLinkGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCHLinkGestureRecognizer.m; sourceTree = "<group>"; };
+		A7EF31C81C286CB000257BC7 /* CCHLinkTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCHLinkTextView.h; sourceTree = "<group>"; };
+		A7EF31C91C286CB000257BC7 /* CCHLinkTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCHLinkTextView.m; sourceTree = "<group>"; };
+		A7EF31CA1C286CB000257BC7 /* CCHLinkTextViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCHLinkTextViewDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,23 +89,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		623AC49218C11B99000962A0 /* CCHLinkTextView */ = {
-			isa = PBXGroup;
-			children = (
-				623AC49318C11BAD000962A0 /* CCHLinkTextView.h */,
-				623AC49418C11BAD000962A0 /* CCHLinkTextView.m */,
-				623AC49618C11EAA000962A0 /* CCHLinkTextViewDelegate.h */,
-				629754F118CB69F90050DCFE /* CCHLinkGestureRecognizer.h */,
-				629754F218CB69F90050DCFE /* CCHLinkGestureRecognizer.m */,
-			);
-			name = CCHLinkTextView;
-			path = ../CCHLinkTextView;
-			sourceTree = "<group>";
-		};
 		62F55CB418C1180200A7E1CC = {
 			isa = PBXGroup;
 			children = (
-				623AC49218C11B99000962A0 /* CCHLinkTextView */,
 				62F55CC618C1180200A7E1CC /* CCHLinkTextView Example */,
 				62F55CE518C1180200A7E1CC /* CCHLinkTextView ExampleTests */,
 				62F55CBF18C1180200A7E1CC /* Frameworks */,
@@ -136,6 +122,7 @@
 		62F55CC618C1180200A7E1CC /* CCHLinkTextView Example */ = {
 			isa = PBXGroup;
 			children = (
+				A7EF31C51C286CB000257BC7 /* Source */,
 				62F55CCF18C1180200A7E1CC /* AppDelegate.h */,
 				62F55CD018C1180200A7E1CC /* AppDelegate.m */,
 				62F55CD218C1180200A7E1CC /* Main.storyboard */,
@@ -176,6 +163,19 @@
 				62F55CE818C1180200A7E1CC /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A7EF31C51C286CB000257BC7 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				A7EF31C61C286CB000257BC7 /* CCHLinkGestureRecognizer.h */,
+				A7EF31C71C286CB000257BC7 /* CCHLinkGestureRecognizer.m */,
+				A7EF31C81C286CB000257BC7 /* CCHLinkTextView.h */,
+				A7EF31C91C286CB000257BC7 /* CCHLinkTextView.m */,
+				A7EF31CA1C286CB000257BC7 /* CCHLinkTextViewDelegate.h */,
+			);
+			name = Source;
+			path = ../../Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -275,10 +275,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				623AC49518C11BAD000962A0 /* CCHLinkTextView.m in Sources */,
+				A7EF31CC1C286CB000257BC7 /* CCHLinkTextView.m in Sources */,
 				62A3423618FC555B00003EC3 /* TableViewCell.m in Sources */,
 				62F55CD718C1180200A7E1CC /* ViewController.m in Sources */,
-				629754F318CB69F90050DCFE /* CCHLinkGestureRecognizer.m in Sources */,
+				A7EF31CB1C286CB000257BC7 /* CCHLinkGestureRecognizer.m in Sources */,
 				62F55CD118C1180200A7E1CC /* AppDelegate.m in Sources */,
 				62F55CCD18C1180200A7E1CC /* main.m in Sources */,
 			);
