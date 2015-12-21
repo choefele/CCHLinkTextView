@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A7EF31BC1C286C6100257BC7 /* CCHLinkTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = A7EF31BB1C286C6100257BC7 /* CCHLinkTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A7EF31BC1C286C6100257BC7 /* CCHLinkTextViewModule.h in Headers */ = {isa = PBXBuildFile; fileRef = A7EF31BB1C286C6100257BC7 /* CCHLinkTextViewModule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7EF31D31C286CC500257BC7 /* CCHLinkGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = A7EF31CE1C286CC500257BC7 /* CCHLinkGestureRecognizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7EF31D41C286CC500257BC7 /* CCHLinkGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7EF31CF1C286CC500257BC7 /* CCHLinkGestureRecognizer.m */; };
 		A7EF31D51C286CC500257BC7 /* CCHLinkTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = A7EF31D01C286CC500257BC7 /* CCHLinkTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -16,8 +16,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A70E21451C2874B3004C8617 /* CCHLinkTextView.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = CCHLinkTextView.modulemap; sourceTree = "<group>"; };
 		A7EF31B81C286C6100257BC7 /* CCHLinkTextView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CCHLinkTextView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A7EF31BB1C286C6100257BC7 /* CCHLinkTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCHLinkTextView.h; sourceTree = "<group>"; };
+		A7EF31BB1C286C6100257BC7 /* CCHLinkTextViewModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CCHLinkTextViewModule.h; sourceTree = "<group>"; };
 		A7EF31BD1C286C6100257BC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7EF31CE1C286CC500257BC7 /* CCHLinkGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCHLinkGestureRecognizer.h; sourceTree = "<group>"; };
 		A7EF31CF1C286CC500257BC7 /* CCHLinkGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCHLinkGestureRecognizer.m; sourceTree = "<group>"; };
@@ -40,6 +41,7 @@
 		A7EF31AE1C286C6100257BC7 = {
 			isa = PBXGroup;
 			children = (
+				A70E21451C2874B3004C8617 /* CCHLinkTextView.modulemap */,
 				A7EF31BA1C286C6100257BC7 /* CCHLinkTextView */,
 				A7EF31B91C286C6100257BC7 /* Products */,
 			);
@@ -57,7 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				A7EF31CD1C286CC500257BC7 /* Source */,
-				A7EF31BB1C286C6100257BC7 /* CCHLinkTextView.h */,
+				A7EF31BB1C286C6100257BC7 /* CCHLinkTextViewModule.h */,
 				A7EF31BD1C286C6100257BC7 /* Info.plist */,
 			);
 			path = CCHLinkTextView;
@@ -84,7 +86,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7EF31D51C286CC500257BC7 /* CCHLinkTextView.h in Headers */,
-				A7EF31BC1C286C6100257BC7 /* CCHLinkTextView.h in Headers */,
+				A7EF31BC1C286C6100257BC7 /* CCHLinkTextViewModule.h in Headers */,
 				A7EF31D71C286CC500257BC7 /* CCHLinkTextViewDelegate.h in Headers */,
 				A7EF31D31C286CC500257BC7 /* CCHLinkGestureRecognizer.h in Headers */,
 			);
@@ -263,6 +265,7 @@
 				INFOPLIST_FILE = CCHLinkTextView/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "$(PROJECT_DIR)/CCHLinkTextViewModule.h";
 				PRODUCT_BUNDLE_IDENTIFIER = com.claushoefele.CCHLinkTextView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -279,6 +282,7 @@
 				INFOPLIST_FILE = CCHLinkTextView/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "$(PROJECT_DIR)/CCHLinkTextViewModule.h";
 				PRODUCT_BUNDLE_IDENTIFIER = com.claushoefele.CCHLinkTextView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
