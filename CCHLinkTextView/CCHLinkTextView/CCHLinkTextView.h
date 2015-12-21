@@ -15,5 +15,7 @@ FOUNDATION_EXPORT double CCHLinkTextViewVersionNumber;
 FOUNDATION_EXPORT const unsigned char CCHLinkTextViewVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <CCHLinkTextView/PublicHeader.h>
-
+#import "CCHLinkTextView.h"
+#import "CCHLinkGestureRecognizer.h"
+#import "CCHLinkTextViewDelegate.h"
 
