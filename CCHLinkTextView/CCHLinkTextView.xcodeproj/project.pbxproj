@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		A7EF31BC1C286C6100257BC7 /* CCHLinkTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = A7EF31BB1C286C6100257BC7 /* CCHLinkTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A7EF31D31C286CC500257BC7 /* CCHLinkGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = A7EF31CE1C286CC500257BC7 /* CCHLinkGestureRecognizer.h */; };
+		A7EF31D31C286CC500257BC7 /* CCHLinkGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = A7EF31CE1C286CC500257BC7 /* CCHLinkGestureRecognizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7EF31D41C286CC500257BC7 /* CCHLinkGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7EF31CF1C286CC500257BC7 /* CCHLinkGestureRecognizer.m */; };
-		A7EF31D51C286CC500257BC7 /* CCHLinkTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = A7EF31D01C286CC500257BC7 /* CCHLinkTextView.h */; };
+		A7EF31D51C286CC500257BC7 /* CCHLinkTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = A7EF31D01C286CC500257BC7 /* CCHLinkTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7EF31D61C286CC500257BC7 /* CCHLinkTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7EF31D11C286CC500257BC7 /* CCHLinkTextView.m */; };
-		A7EF31D71C286CC500257BC7 /* CCHLinkTextViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = A7EF31D21C286CC500257BC7 /* CCHLinkTextViewDelegate.h */; };
+		A7EF31D71C286CC500257BC7 /* CCHLinkTextViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = A7EF31D21C286CC500257BC7 /* CCHLinkTextViewDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -304,6 +304,7 @@
 				A7EF31C21C286C6100257BC7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
