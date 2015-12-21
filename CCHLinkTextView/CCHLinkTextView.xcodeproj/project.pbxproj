@@ -265,7 +265,7 @@
 				INFOPLIST_FILE = CCHLinkTextView/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "$(PROJECT_DIR)/CCHLinkTextViewModule.h";
+				MODULEMAP_FILE = "$(PROJECT_DIR)/CCHLinkTextView.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = com.claushoefele.CCHLinkTextView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -282,7 +282,7 @@
 				INFOPLIST_FILE = CCHLinkTextView/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "$(PROJECT_DIR)/CCHLinkTextViewModule.h";
+				MODULEMAP_FILE = "$(PROJECT_DIR)/CCHLinkTextView.modulemap";
 				PRODUCT_BUNDLE_IDENTIFIER = com.claushoefele.CCHLinkTextView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
