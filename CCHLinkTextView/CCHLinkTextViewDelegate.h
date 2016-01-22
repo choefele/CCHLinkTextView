@@ -38,4 +38,10 @@
 /** The user has long pressed a link. */
 - (void)linkTextView:(CCHLinkTextView *)linkTextView didLongPressLinkWithValue:(id)value;
 
+/** The user has tapped on the text. recognizeTextTap property must be set to YES */
+- (void)linkTextViewDidTapText:(CCHLinkTextView *)linkTextView;
+
+/** The user has long pressed the text. recognizeTextTap property must be set to YES */
+- (void)linkTextViewDidLongPressText:(CCHLinkTextView *)linkTextView;
+
 @end
