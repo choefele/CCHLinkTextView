@@ -217,7 +217,7 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
-    if (self.isEditable) {
+    if (self.isEditable || self.selectable || self.recognizeTextTap) {
         return [super pointInside:point withEvent:event];
     } else {
         BOOL linkFound = [self enumerateLinkRangesContainingLocation:point usingBlock:NULL];
@@ -323,38 +323,40 @@ NSString *const CCHLinkAttributeName = @"CCHLinkAttributeName";
 
 - (void)didTapAtRangeValues:(NSArray *)rangeValues
 {
-    if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didTapLinkWithValue:)]) {
-        for (NSValue *rangeValue in rangeValues) {
-            NSRange range = rangeValue.rangeValue;
-            id value = [self.attributedText attribute:CCHLinkAttributeName atIndex:range.location effectiveRange:NULL];
-            [self.linkDelegate linkTextView:self didTapLinkWithValue:value];
+    if ([rangeValues count] > 0) {
+        
+        if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didTapLinkWithValue:)]) {
+            for (NSValue *rangeValue in rangeValues) {
+                NSRange range = rangeValue.rangeValue;
+                id value = [self.attributedText attribute:CCHLinkAttributeName atIndex:range.location effectiveRange:NULL];
+                [self.linkDelegate linkTextView:self didTapLinkWithValue:value];
+            }
         }
+        
+    } else if (self.recognizeTextTap && [self.linkDelegate respondsToSelector:@selector(linkTextViewDidTapText:)]) {
+        
+        [self.linkDelegate linkTextViewDidTapText:self];
+        
     }
-//    
-//    [self enumerateLinkRangesContainingLocation:location usingBlock:^(NSRange range) {
-//        if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didTapLinkWithValue:)]) {
-//            id value = [self.attributedText attribute:CCHLinkAttributeName atIndex:range.location effectiveRange:NULL];
-//            [self.linkDelegate linkTextView:self didTapLinkWithValue:value];
-//        }
-//    }];
 }
 
 - (void)didLongPressAtRangeValues:(NSArray *)rangeValues
 {
-    if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didLongPressLinkWithValue:)]) {
-        for (NSValue *rangeValue in rangeValues) {
-            NSRange range = rangeValue.rangeValue;
-            id value = [self.attributedText attribute:CCHLinkAttributeName atIndex:range.location effectiveRange:NULL];
-            [self.linkDelegate linkTextView:self didLongPressLinkWithValue:value];
+    if ([rangeValues count] > 0) {
+        
+        if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didLongPressLinkWithValue:)]) {
+            for (NSValue *rangeValue in rangeValues) {
+                NSRange range = rangeValue.rangeValue;
+                id value = [self.attributedText attribute:CCHLinkAttributeName atIndex:range.location effectiveRange:NULL];
+                [self.linkDelegate linkTextView:self didLongPressLinkWithValue:value];
+            }
         }
+        
+    } else if (self.recognizeTextTap && [self.linkDelegate respondsToSelector:@selector(linkTextViewDidLongPressText:)]) {
+        
+        [self.linkDelegate linkTextViewDidLongPressText:self];
+        
     }
-
-//    [self enumerateLinkRangesContainingLocation:location usingBlock:^(NSRange range) {
-//        if ([self.linkDelegate respondsToSelector:@selector(linkTextView:didLongPressLinkWithValue:)]) {
-//            id value = [self.attributedText attribute:CCHLinkAttributeName atIndex:range.location effectiveRange:NULL];
-//            [self.linkDelegate linkTextView:self didLongPressLinkWithValue:value];
-//        }
-//    }];
 }
 
 @end

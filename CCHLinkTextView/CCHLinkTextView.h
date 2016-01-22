@@ -42,6 +42,10 @@ extern NSString *const CCHLinkAttributeName;
 
 /** The minimum period fingers must press on the link for the gesture to be recognized as a long press (default = 0.5s). */
 @property (nonatomic) CFTimeInterval minimumPressDuration;
+
+/** Recognizes the tapping on text and calls linkTextViewDidTapText */
+@property (nonatomic) BOOL recognizeTextTap;
+
 /** The maximum movement of the fingers on the link before the gesture is ignored (default = 10 points). */
 @property (nonatomic) CGFloat allowableMovement;
 
